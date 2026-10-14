@@ -1,0 +1,2 @@
+/* Backwards-compatible alias. The v0.2.0 portfolio loads /assets/site.css directly. */
+@import url('./site.css');
