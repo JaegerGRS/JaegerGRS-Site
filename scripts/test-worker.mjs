@@ -1,10 +1,10 @@
-// Exercises the Worker against dist/ using a stand-in for the ASSETS binding.
+// Exercises the Worker against public/ using a stand-in for the ASSETS binding.
 import { readFileSync, existsSync, statSync } from 'node:fs';
 import { dirname, join, resolve, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import worker from '../src/worker.mjs';
 
-const dist = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'dist');
+const dist = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'public');
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.png': 'image/png', '.xml': 'application/xml', '.txt': 'text/plain' };
 
 const env = {

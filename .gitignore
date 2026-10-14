@@ -1,6 +1,6 @@
-dist/
 node_modules/
 .wrangler/
+
 # Local source folders for the other projects; never publish or commit
 Grey Signal/
 JAE-main/

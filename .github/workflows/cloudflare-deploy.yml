@@ -14,13 +14,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node scripts/generate-pages.mjs
+      - run: node src/site/build.mjs
       - name: Generated pages must be committed
         run: git diff --exit-code
       - run: node scripts/check-site.mjs
-      - run: node scripts/build-site.mjs
       - run: node scripts/test-worker.mjs
-      - run: node --check src/worker.mjs && node --check assets/main.js
+      - run: node --check src/worker.mjs && node --check public/assets/main.js
   deploy:
     needs: validate
     if: ${{ github.event_name != 'pull_request' && vars.CLOUDFLARE_DEPLOY_ENABLED == 'true' }}
@@ -30,7 +29,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node scripts/build-site.mjs
       - uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
