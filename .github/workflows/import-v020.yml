@@ -1,0 +1,28 @@
+name: Import JaegerGRS v0.2.0 source
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/import-v020.yml'
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download verified portfolio release
+        run: |
+          curl --fail --location --silent --show-error --retry 3 https://jaegergrs.com/_source/jaegergrs-v0.2.0.zip -o /tmp/portfolio-release.zip
+          unzip -q /tmp/portfolio-release.zip -d /tmp/portfolio-release
+          test -s /tmp/portfolio-release/jaegergrs-v0.2.0/index.html
+          test -s /tmp/portfolio-release/jaegergrs-v0.2.0/projects/grey-signal/index.html
+      - name: Import source and commit
+        run: |
+          cp -a /tmp/portfolio-release/jaegergrs-v0.2.0/. .
+          rm -f changelog.html assets/main.js assets/styles.css
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --quiet || git commit -m 'feat: launch multi-page JaegerGRS portfolio v0.2.0'
+          git push origin HEAD:main
