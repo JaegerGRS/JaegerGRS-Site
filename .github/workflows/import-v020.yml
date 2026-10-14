@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Download verified portfolio release
         run: |
-          curl --fail --location --silent --show-error --retry 3 https://jaegergrs.com/_source/jaegergrs-v0.2.0.zip -o /tmp/portfolio-release.zip
+          curl --fail --location --silent --show-error --retry 3 https://jaegergrs-portfolio.imjaethetech.workers.dev/_source/jaegergrs-v0.2.0.zip -o /tmp/portfolio-release.zip
           unzip -q /tmp/portfolio-release.zip -d /tmp/portfolio-release
           test -s /tmp/portfolio-release/jaegergrs-v0.2.0/index.html
           test -s /tmp/portfolio-release/jaegergrs-v0.2.0/projects/grey-signal/index.html
