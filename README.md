@@ -1,30 +1,43 @@
-# JaegerGRS Portfolio
+# JaegerGRS.com
 
-Initial release of the personal technical portfolio intended for **https://jaegergrs.com**.
+Professional IT and software-project portfolio for Jaeger George Richard Stratton.
 
-## Run locally
+**Live website:** https://jaegergrs.com  
+**GitHub source:** https://github.com/JaegerGRS/JaegerGRS-Site  
+**Changelog:** https://jaegergrs.com/changelog.html
 
-Open `index.html` in a browser. No build tools required. Alternatively run `python -m http.server 8000` from this directory and visit http://localhost:8000.
+## Source and design
+This is a lightweight, responsive, dark-theme website. Edit `index.html`, `changelog.html`, and files in `assets/`. No framework, database, or build dependencies are needed to develop the pages locally.
 
-## Cloudflare Pages
+For a local preview, run `python -m http.server 8000` from the repository root, then open http://localhost:8000.
 
-1. Push this folder's contents to a GitHub repository (root contains `index.html`).
-2. In Cloudflare, create a Pages project and connect the repository.
-3. Framework preset: **None**. Build command: leave blank. Output directory: `/` or the repository root (use `.` if Cloudflare requires a value).
-4. Add `jaegergrs.com` in the Pages project's Custom domains and follow Cloudflare DNS prompts.
-5. Verify HTTPS and both apex/www redirects, then submit the sitemap to Google Search Console.
+## Cloudflare hosting
+The **production site is currently served by Cloudflare Worker `jaegergrs-portfolio`**, with custom hostnames `jaegergrs.com` and `www.jaegergrs.com`. The `www` hostname should permanently redirect to the apex domain on the next Worker deployment.
 
-## Change management
+The Cloudflare Pages project `jaegergrs-site` is reserved for a potential future migration. It is **not** the production host. Cloudflare native Git integration failed with error 8000011, so it is not used for production.
 
-- Update `CHANGELOG.md` and `changelog.html` with actual shipped changes.
-- Follow semantic versioning pragmatically: 0.1.1 for corrections, 0.2.0 for new features, 1.0.0 for a stable public launch.
-- Update the version in the site footer after each release.
-- Do not imply earlier releases existed unless supported by Git history.
+- Account ID: `3efd2b3c0816c2935ed54d8d26b1807f`
+- Zone ID: `b830a6895e679178f3621eda7b5f0929`
+- Worker preview: https://jaegergrs-portfolio.imjaethetech.workers.dev
 
-## Before launch
+## Continuous integration and deployment
+`.github/workflows/cloudflare-deploy.yml` runs source/build validation on pushes and pull requests.
 
-- Check that LinkedIn URL resolves to the intended profile; the guide identifies the handle but does not certify the full destination.
-- Add original PC-build photography and genuine project screenshots after review.
-- Consider using a dedicated email alias at the domain instead of the personal Gmail address.
-- Review which personal details and social accounts should be public.
-- Replace the graphic project placeholders only when approved assets are available.
+`scripts/build-worker.mjs` generates `dist/worker.mjs` from the seven public website files. Test it locally using:
+
+```bash
+node scripts/build-worker.mjs
+node --check dist/worker.mjs
+```
+
+Deployment is intentionally disabled until a scoped Cloudflare API token is stored as a **GitHub Actions secret**. Required secrets: `CLOUDFLARE_API_TOKEN` (Workers Scripts Edit) and `CLOUDFLARE_ACCOUNT_ID`. Set the Actions variable `CLOUDFLARE_DEPLOY_ENABLED` to `true` only once those secrets have been installed. Never commit tokens into the repository.
+
+## Publishing checklist
+1. Validate the Worker build and GitHub Actions result.
+2. Deploy to Cloudflare using the approved token.
+3. Verify https://jaegergrs.com, /changelog, /sitemap.xml, /robots.txt and assets.
+4. Check mobile layout, HTTPS and the www-to-apex redirect.
+5. Update both `CHANGELOG.md` and `changelog.html` for actual releases.
+
+## Content accuracy
+Keep independent PC-building experience separate from paid employment. Mark planned software distinctly from released features. Use genuine screenshots and only verified project claims.
