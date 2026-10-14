@@ -1,43 +1,49 @@
 # JaegerGRS.com
 
-Professional IT and software-project portfolio for Jaeger George Richard Stratton.
+Independent IT and development portfolio by Jaeger G.R. Stratton.
 
-**Live website:** https://jaegergrs.com  
-**GitHub source:** https://github.com/JaegerGRS/JaegerGRS-Site  
-**Changelog:** https://jaegergrs.com/changelog.html
+**Live URL:** https://jaegergrs.com/  
+**Hosting:** Cloudflare Worker `jaegergrs-portfolio` (custom domains `jaegergrs.com`, `www.jaegergrs.com`).  
+**Source:** Static HTML/CSS/JavaScript; no framework or runtime dependencies for visitors.
 
-## Source and design
-This is a lightweight, responsive, dark-theme website. Edit `index.html`, `changelog.html`, and files in `assets/`. No framework, database, or build dependencies are needed to develop the pages locally.
+## Information architecture
 
-For a local preview, run `python -m http.server 8000` from the repository root, then open http://localhost:8000.
+- `/` — overview
+- `/projects/` — searchable/filterable project index
+- `/projects/svart-security/` — privacy tooling case study
+- `/projects/jaethetech/` — personal developer platform case study
+- `/projects/grey-signal/` — frontend and monitoring case study
+- `/projects/hardware/` — PC building and diagnostics case study
+- `/expertise/` — skill overview, with `/hardware/` and `/development/` subpages
+- `/about/` — background, with `/journey/` timeline
+- `/changelog/` — genuine release history
+- `/contact/` — business contact
+- `/404.html` — accessible not-found page
 
-## Cloudflare hosting
-The **production site is currently served by Cloudflare Worker `jaegergrs-portfolio`**, with custom hostnames `jaegergrs.com` and `www.jaegergrs.com`. The `www` hostname should permanently redirect to the apex domain on the next Worker deployment.
-
-The Cloudflare Pages project `jaegergrs-site` is reserved for a potential future migration. It is **not** the production host. Cloudflare native Git integration failed with error 8000011, so it is not used for production.
-
-- Account ID: `3efd2b3c0816c2935ed54d8d26b1807f`
-- Zone ID: `b830a6895e679178f3621eda7b5f0929`
-- Worker preview: https://jaegergrs-portfolio.imjaethetech.workers.dev
-
-## Continuous integration and deployment
-`.github/workflows/cloudflare-deploy.yml` runs source/build validation on pushes and pull requests.
-
-`scripts/build-worker.mjs` generates `dist/worker.mjs` from the seven public website files. Test it locally using:
+## Run and test
 
 ```bash
+python -m http.server 8000
+# Folder-based URLs work in a static server that resolves index.html.
 node scripts/build-worker.mjs
 node --check dist/worker.mjs
+node scripts/test-worker.mjs
 ```
 
-Deployment is intentionally disabled until a scoped Cloudflare API token is stored as a **GitHub Actions secret**. Required secrets: `CLOUDFLARE_API_TOKEN` (Workers Scripts Edit) and `CLOUDFLARE_ACCOUNT_ID`. Set the Actions variable `CLOUDFLARE_DEPLOY_ENABLED` to `true` only once those secrets have been installed. Never commit tokens into the repository.
+## Deploy to Cloudflare
 
-## Publishing checklist
-1. Validate the Worker build and GitHub Actions result.
-2. Deploy to Cloudflare using the approved token.
-3. Verify https://jaegergrs.com, /changelog, /sitemap.xml, /robots.txt and assets.
-4. Check mobile layout, HTTPS and the www-to-apex redirect.
-5. Update both `CHANGELOG.md` and `changelog.html` for actual releases.
+Cloudflare Pages native Git integration returned `8000011` for this account; the live production site instead uses an independently deployed Worker. **Do not attach the domain to an empty Pages project.** The repository has a Wrangler workflow for shipping changes without native Pages Git integration.
 
-## Content accuracy
-Keep independent PC-building experience separate from paid employment. Mark planned software distinctly from released features. Use genuine screenshots and only verified project claims.
+1. Create a scoped Cloudflare API token with **Workers Scripts Edit** for the correct account. Never commit it.
+2. Add GitHub repository secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
+3. Set GitHub repository Actions variable `CLOUDFLARE_DEPLOY_ENABLED` to `true`.
+4. Push or merge to `main`; the Action builds, tests and deploys.
+5. Verify the two custom domains, HTTPS and the sitemap after each deployment.
+
+## Content notes
+
+The site distinguishes independent practical experience from formal employment, and separates published products from development concepts. The Grey Signal case study deliberately does not link directly to a public residential IP address. Verify external social media URLs before a final job-application campaign.
+
+## Accessibility and SEO
+
+The site includes per-page descriptions, canonical URLs, breadcrumbs, semantic headings, alt labels where relevant, reduced-motion styling, keyboard navigation, a 404 route, sitemap and robots directives.
