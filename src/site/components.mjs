@@ -31,6 +31,7 @@ export function page({ file, title, desc, section, theme = '', body, crumbs = []
 <meta name="author" content="Jaeger George Richard Stratton">
 <link rel="canonical" href="${SITE}/${urlPath}">
 <meta property="og:type" content="website"><meta property="og:title" content="${fullTitle}"><meta property="og:description" content="${desc}"><meta property="og:url" content="${SITE}/${urlPath}"><meta property="og:image" content="${SITE}/assets/img/grey-signal-welcome.jpg">
+<script src="${up}assets/boot.js"></script>
 <link rel="icon" href="${up}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Manrope:wght@500;700;800&display=swap">
@@ -51,10 +52,28 @@ ${crumbHtml}${body.replace(/\{up\}/g, up)}
 </div>
 <div class="footer-bottom"><small>© <span id="year">2026</span> Jaeger George Richard Stratton</small><small>v${VERSION}</small></div>
 </div></footer>
-<script src="${up}assets/main.js" defer></script>
+<script src="${up}assets/main.js" defer></script>${body.includes('data-contact-form') ? `<script src="${up}assets/contact.js" defer></script>` : ''}${body.includes('data-rig') ? `<script src="${up}assets/rig.js" defer></script>` : ''}
 </body></html>
 `;
 }
+
+// Live PC panel. Static text is the fallback; assets/rig.js fills it in when the PC app is online.
+export const rigPanel = () => `<div class="rig" data-rig>
+<div class="rig-head"><h3>Live from my PC</h3><p class="rig-status" data-rig-status><span class="dot" aria-hidden="true"></span><span data-rig-status-text>Checking…</span></p></div>
+<p class="rig-note" data-rig-note>My PC reports its specs and load here while it is switched on. When it is off you will see the last known specs.</p>
+<dl class="rig-specs">
+<div><dt>CPU</dt><dd data-rig-field="cpu">—</dd></div>
+<div><dt>Graphics</dt><dd data-rig-field="gpu">—</dd></div>
+<div><dt>Memory</dt><dd data-rig-field="ram">—</dd></div>
+<div><dt>OS</dt><dd data-rig-field="os">—</dd></div>
+</dl>
+<div class="rig-meters">
+<label>CPU load <output data-rig-out="cpuLoad">—</output><meter min="0" max="100" value="0" data-rig-meter="cpuLoad"></meter></label>
+<label>GPU load <output data-rig-out="gpuLoad">—</output><meter min="0" max="100" value="0" data-rig-meter="gpuLoad"></meter></label>
+<label>Memory used <output data-rig-out="ramPct">—</output><meter min="0" max="100" value="0" data-rig-meter="ramPct"></meter></label>
+<label>GPU temp <output data-rig-out="gpuTemp">—</output><meter min="0" max="100" low="70" high="82" optimum="45" value="0" data-rig-meter="gpuTemp"></meter></label>
+</div>
+</div>`;
 
 export const hero = (eyebrow, h1, lead, extra = '') =>
   `<section class="page-hero"><div class="container"><p class="eyebrow">${eyebrow}</p><h1>${h1}</h1><p class="lead">${lead}</p>${extra}</div></section>`;

@@ -5,3 +5,7 @@ node_modules/
 Grey Signal/
 JAE-main/
 JaeTheTech-main/
+
+.dev.vars
+.env
+rig-agent.json

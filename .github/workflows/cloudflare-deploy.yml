@@ -19,7 +19,7 @@ jobs:
         run: git diff --exit-code
       - run: node scripts/check-site.mjs
       - run: node scripts/test-worker.mjs
-      - run: node --check src/worker.mjs && node --check public/assets/main.js
+      - run: node --check src/worker.mjs && node --check public/assets/main.js && node --check public/assets/rig.js && node --check public/assets/contact.js && node --check agent/rig-agent.mjs
   deploy:
     needs: validate
     if: ${{ github.event_name != 'pull_request' && vars.CLOUDFLARE_DEPLOY_ENABLED == 'true' }}

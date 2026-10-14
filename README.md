@@ -57,6 +57,16 @@ Cloudflare Pages Git integration returned `8000011` for this account, so product
 
 Until step 3 is done, pushing to GitHub does not change the live site.
 
+### Live PC panel and contact form
+
+Both are Worker routes (`src/worker.mjs`) backed by Durable Objects.
+
+- **Live PC panel** (`GET/POST /api/rig`): the PC app in [agent/](agent/README.md) posts with a secret key. Set it once with `npx wrangler secret put RIG_TOKEN` (32+ characters; make one with `node agent/rig-agent.mjs --gen-token`).
+- **Contact form** (`POST /api/contact`): sends mail to `CONTACT_TO` (in `wrangler.toml`) via Cloudflare Email Service. Onboard `jaegergrs.com` for sending in the Cloudflare dashboard (Email Service) so `CONTACT_FROM` is allowed, or instead set `npx wrangler secret put RESEND_API_KEY`. Until one is set the form answers 503 and tells visitors to use email.
+- Optional: `npx wrangler secret put GUARD_SALT` (any random string) to salt the hashed visitor keys used for rate limiting.
+
+Local testing: put `RIG_TOKEN=...` in `.dev.vars` (git-ignored) and run `npx wrangler dev`.
+
 ## Security
 
-The Worker adds a strict CSP (no inline scripts or styles), HSTS, `X-Frame-Options: DENY` and redirects `www` to the apex.
+The Worker adds a strict CSP (no inline scripts or styles, `form-action 'self'`), HSTS, COOP, `X-Frame-Options: DENY`, redirects `www` to the apex and serves `/.well-known/security.txt`. API routes are `no-store` with a locked-down CSP. The contact form checks the request origin, caps body size, uses a honeypot, strips header-injection characters and rate-limits per visitor (3 per 10 minutes, 8 per day). The PC key is compared in constant time and only whitelisted hardware fields are ever published.

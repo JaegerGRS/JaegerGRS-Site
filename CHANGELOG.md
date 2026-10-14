@@ -3,6 +3,10 @@
 All dates reflect work that actually shipped or was prepared as a release. No fabricated earlier commits.
 
 ## v0.3.0 - 15 October 2026
+- Added a contact form (`/api/contact`) with origin checks, honeypot, size limits and per-visitor rate limiting; mail via Cloudflare Email Service or Resend.
+- Added the live PC panel (`/api/rig`) and `agent/rig-agent.mjs`, a PC app that connects with a secret key (DPAPI-encrypted on the PC, `RIG_TOKEN` secret on Cloudflare).
+- Mobile, tablet, desktop and TV fixes: content visible without JavaScript, Escape/outside-click menu close, touch target sizes, larger scaling and focus rings for TV remotes.
+- Extra security headers (COOP, `form-action`), security.txt and no-store API responses.
 - Rebuilt around a page generator (scripts/generate-pages.mjs) as the single source of truth.
 - Added standalone-site links to svartsecurity.org, jaethetech.com, Grey Signal and GitHub from the home, projects and project pages.
 - Added the JAE project page and real Grey Signal artwork.
