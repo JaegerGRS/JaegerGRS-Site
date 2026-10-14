@@ -8,7 +8,7 @@ const VERSION = '0.3.0';
 const DATE = '2026-10-15';
 const SITE = 'https://jaegergrs.com';
 
-// Standalone sites. Swap GREY when greysignal.dev is live.
+// Standalone sites. GREY is a self-hosted site at an open IP (no domain yet); swap it when one exists.
 const GREY = 'http://94.0.68.77';
 const SVART = 'https://svartsecurity.org';
 const JTT = 'https://jaethetech.com';
@@ -113,11 +113,11 @@ pages.push({
 ${sectionHead('Live sites', 'Four projects. Visit them yourself.', 'Each one stands on its own. Open the real site, or read the case study first.')}
 <div class="grid g4">
 <a class="card t-svart reveal" href="{up}projects/svart-security/"><div class="card-top"><span class="icon">S</span><span class="tag">Privacy</span></div><h3>Svart Security</h3><p>Encrypted, no-tracking privacy tools built by one developer.</p><span class="go">Case study →</span></a>
-<a class="card t-grey reveal" href="{up}projects/grey-signal/"><div class="card-top"><span class="icon">G</span><span class="tag">Gaming</span></div><h3>Grey Signal</h3><p>A tactical-shooter channel with its own site and live rig telemetry.</p><span class="go">Case study →</span></a>
+<a class="card t-grey reveal" href="{up}projects/grey-signal/"><div class="card-top"><span class="icon">G</span><span class="tag">Gaming</span></div><h3>Grey Signal</h3><p>A tactical-shooter channel with a self-hosted site and live rig telemetry.</p><span class="go">Case study →</span></a>
 <a class="card t-jae reveal" href="{up}projects/jaethetech/"><div class="card-top"><span class="icon">J</span><span class="tag">Tech</span></div><h3>JaeTheTech</h3><p>Code, machines and security, plus a local-first Personal AI.</p><span class="go">Case study →</span></a>
 <a class="card t-hw reveal" href="{up}projects/jae/"><div class="card-top"><span class="icon">AE</span><span class="tag">AI</span></div><h3>JAE</h3><p>Jaeger Adaptive Engine: a local-first AI desktop app built with Tauri.</p><span class="go">Case study →</span></a>
 </div>
-<div class="spaced">${links(ext(SVART, 'svartsecurity.org', 'Open Svart Security'), ext(GREY, 'Grey Signal site', 'Open the standalone site'), ext(JTT, 'jaethetech.com', 'Open JaeTheTech'), ext('https://github.com/JaegerGRS/JAE', 'JAE on GitHub', 'Source and releases'))}</div>
+<div class="spaced">${links(ext(SVART, 'svartsecurity.org', 'Open Svart Security'), ext(GREY, 'Grey Signal (self-hosted)', 'Open the live site'), ext(JTT, 'jaethetech.com', 'Open JaeTheTech'), ext('https://github.com/JaegerGRS/JAE', 'JAE on GitHub', 'Source and releases'))}</div>
 </div></section>
 
 <section class="section container"><div class="feature">
@@ -137,7 +137,7 @@ pages.push({
 <section class="section container">${sectionHead('Standalone sites', 'Open the real thing.', 'These open in a new tab on their own websites.')}
 <div class="grid g3">
 <div class="card t-svart reveal"><div class="card-top"><span class="num">01</span><span class="tag">Live</span></div><span class="icon mt-icon">S</span><h3>Svart Security</h3><p>Encrypted privacy tools: browser, AI, passwords, notes, chat, email and VPN. No tracking, no ads.</p><div class="chips"><span>AES-256-GCM</span><span>Privacy</span><span>10 tools planned</span></div><div class="stack"><a class="btn primary" href="${SVART}" target="_blank" rel="noopener noreferrer">svartsecurity.org <span aria-hidden="true">↗</span></a><a class="text-link" href="{up}projects/svart-security/">Read the case study →</a></div></div>
-<div class="card t-grey reveal"><div class="card-top"><span class="num">02</span><span class="tag">Live</span></div>${img('grey-signal-logo.png', 'Grey Signal logo', 160, 160, 'logo-badge mt-icon')}<h3>Grey Signal</h3><p>Tactical-shooter and FPS channel with videos, ops and a live PC rig page.</p><div class="chips"><span>HTML · CSS · JS</span><span>Live telemetry</span><span>YouTube · Twitch</span></div><div class="stack"><a class="btn primary" href="${GREY}" target="_blank" rel="noopener noreferrer">Grey Signal site <span aria-hidden="true">↗</span></a><a class="text-link" href="{up}projects/grey-signal/">Read the case study →</a></div></div>
+<div class="card t-grey reveal"><div class="card-top"><span class="num">02</span><span class="tag">Live</span></div>${img('grey-signal-logo.png', 'Grey Signal logo', 160, 160, 'logo-badge mt-icon')}<h3>Grey Signal</h3><p>Tactical-shooter and FPS channel with videos, ops and a live PC rig page.</p><div class="chips"><span>HTML · CSS · JS</span><span>Live telemetry</span><span>YouTube · Twitch</span></div><div class="stack"><a class="btn primary" href="${GREY}" target="_blank" rel="noopener noreferrer">Self-hosted site <span aria-hidden="true">↗</span></a><a class="text-link" href="{up}projects/grey-signal/">Read the case study →</a></div></div>
 <div class="card t-jae reveal"><div class="card-top"><span class="num">03</span><span class="tag">Live</span></div><span class="icon mt-icon">J</span><h3>JaeTheTech</h3><p>Write code, build machines, break security. Includes the Personal AI project.</p><div class="chips"><span>Node.js</span><span>Tauri</span><span>Ollama</span></div><div class="stack"><a class="btn primary" href="${JTT}" target="_blank" rel="noopener noreferrer">jaethetech.com <span aria-hidden="true">↗</span></a><a class="text-link" href="{up}projects/jaethetech/">Read the case study →</a></div></div>
 </div></section>
 <section class="section muted"><div class="container">${sectionHead('More work', 'Code and hardware.')}
@@ -187,13 +187,13 @@ pages.push({
   file: 'projects/grey-signal/index.html', section: 'projects', theme: 't-grey',
   title: 'Grey Signal', desc: 'Grey Signal: a tactical-shooter and FPS channel with its own multi-page website and live PC telemetry, built by Jaeger Stratton.',
   crumbs: [['Projects', 'projects/'], ['Grey Signal']],
-  body: `${hero('Project · Web & gaming · 2026', 'Grey <span class="c">Signal.</span>', 'A tactical-shooter and FPS channel, and the multi-page website I built for it: responsive layouts, a self-updating rig page and a system-information app in progress.', `<div class="actions"><a class="btn primary" href="${GREY}" target="_blank" rel="noopener noreferrer">Open the Grey Signal site <span aria-hidden="true">↗</span></a><a class="btn secondary" href="${GREY}/rig.html" target="_blank" rel="noopener noreferrer">Live rig telemetry</a><a class="btn secondary" href="${YT}" target="_blank" rel="noopener noreferrer">YouTube</a></div>`)}
+  body: `${hero('Project · Web & gaming · 2026', 'Grey <span class="c">Signal.</span>', 'A tactical-shooter and FPS channel with its own self-hosted website: a Windows control app, a Node site engine, live rig telemetry, and a Cloudflare version prepared for a future domain.', `<div class="actions"><a class="btn primary" href="${GREY}" target="_blank" rel="noopener noreferrer">Open the self-hosted site <span aria-hidden="true">↗</span></a><a class="btn secondary" href="${GREY}/rig.html" target="_blank" rel="noopener noreferrer">Live rig telemetry</a><a class="btn secondary" href="${YT}" target="_blank" rel="noopener noreferrer">YouTube</a></div>`)}
 <section class="section container"><figure class="media reveal">${img('grey-signal-banner.jpg', 'Grey Signal channel banner: tactical operator, helicopter and mountains with the GS logo', 1920, 520)}</figure></section>
-${facts(['Type', 'Website + channel'], ['Stack', 'HTML · CSS · JS'], ['Feature', 'Live telemetry'], ['Role', 'Design &amp; build'])}
+${facts(['Type', 'Self-hosted site + channel'], ['Stack', 'C# · Node · Cloudflare'], ['Feature', 'Live telemetry'], ['Role', 'Design &amp; build'])}
 <section class="section container pt0"><div class="two">
 <div><p class="kicker">The build</p><h2 class="title">What's in the site.</h2></div>
-<div><ul class="ticks"><li><span>Multi-page layout: home, transmissions, ops, rig, about and contact.</span></li><li><span>A rig page that refreshes itself with specs, load and temperatures.</span></li><li><span>Responsive design, metadata, social cards and accessibility basics.</span></li><li><span>A companion system-information application, still in progress.</span></li></ul>
-<div class="note">The rig page shares hardware details only: no personal information, files or network details. The site currently lives at a direct address over HTTP; a custom domain is planned.</div></div></div></section>
+<div><ul class="ticks"><li><span>Multi-page layout: home, transmissions, ops, rig, about and contact.</span></li><li><span>A rig page that refreshes itself with specs, load and temperatures.</span></li><li><span>Responsive design, metadata, social cards and accessibility basics.</span></li><li><span>A Windows app (C#) that runs and manages the site, with an .msi installer.</span></li><li><span>A Node.js site engine for a PC or VPS, plus a Cloudflare Worker version (D1, email, live stats) ready for a future domain.</span></li></ul>
+<div class="note">The rig page shares hardware details only: no personal information, files or network details. Grey Signal does not have a full public site yet: it is self-hosted on my own server at an open IP address over plain HTTP, so your browser may show a "not secure" notice. A proper domain is planned.</div></div></div></section>
 <section class="section muted"><div class="container"><div class="feature">
 <figure class="media reveal">${img('grey-signal-welcome.jpg', 'Welcome to Grey Signal: tactical shooters and FPS games', 1400, 788)}</figure>
 <div><p class="kicker">The channel</p><h2 class="title">Come for the game.</h2><p class="lead lead-sm">Tactical shooters, FPS games and operations. If it rewards teamwork and punishes overconfidence, it's probably on the list.</p><p class="fine">Content may include fictional violence, warfare, blood and strong language. Viewer discretion advised.</p><div class="actions"><a class="btn primary" href="${YT}?sub_confirmation=1" target="_blank" rel="noopener noreferrer">Subscribe on YouTube <span aria-hidden="true">↗</span></a><a class="btn secondary" href="${TWITCH}" target="_blank" rel="noopener noreferrer">Twitch</a></div></div>
@@ -211,7 +211,7 @@ pages.push({
   body: `${hero('Project · Personal tech site', 'Jae<span class="c">The</span>Tech.', 'My personal tech home: full-stack code written from scratch, PC builds, and security work through Svart Security. No React, no Tailwind, no Bootstrap.', `<div class="actions"><a class="btn primary" href="${JTT}" target="_blank" rel="noopener noreferrer">Visit jaethetech.com <span aria-hidden="true">↗</span></a><a class="btn secondary" href="https://github.com/JaeTheTech" target="_blank" rel="noopener noreferrer">GitHub</a></div>`)}
 <section class="section container"><div class="grid g3">
 <div class="card reveal"><span class="icon">{ }</span><h3>Write code</h3><p>Full-stack, zero frameworks. HTML, CSS, JS, Node and Rust, built from scratch where possible.</p></div>
-<div class="card reveal"><span class="icon">⌘</span><h3>Build machines</h3><p>Building PCs since I was a kid. Currently a Ryzen 9 5950X / RTX 3070 Ti workstation.</p></div>
+<div class="card reveal"><span class="icon">⌘</span><h3>Build machines</h3><p>Building PCs from scratch since 2015. Currently a Ryzen 9 5950X / 64 GB / RTX 3070 Ti workstation.</p></div>
 <div class="card reveal"><span class="icon">◈</span><h3>Break security</h3><p>Network hardening, privacy tools and poking holes in things that shouldn't have them, via Svart Security.</p></div>
 </div></section>
 <section class="section muted"><div class="container"><div class="two">
@@ -257,7 +257,7 @@ ${facts(['Started', '2015'], ['Focus', 'PC systems'], ['Experience', 'Hands-on']
 <div class="prose"><p>PC building is where my technical work began in 2015. I have hands-on experience selecting components, assembling machines, configuring Windows and investigating performance and stability problems.</p><p>Most of this experience comes from independently maintained systems and personal builds, documented as practical technical work.</p><div class="chips"><span>Desktop PCs</span><span>Component selection</span><span>Windows</span><span>Drivers</span><span>Diagnostics</span><span>Thermals</span></div></div></div></section>
 <section class="section muted"><div class="container"><div class="two"><div><p class="kicker">The work</p><h2 class="title">From idea to iteration.</h2></div>
 <div class="timeline"><div><b>01</b><h3>Plan the machine</h3><p>Choose compatible components for workload, thermals, expansion and price.</p></div><div><b>02</b><h3>Build and configure</h3><p>Assemble, set up the OS, and check drivers, cooling and stability.</p></div><div><b>03</b><h3>Troubleshoot methodically</h3><p>Isolate symptoms, verify assumptions and retest after each change.</p></div></div></div></div></section>
-<section class="section container">${sectionHead('The rig', 'Ryzen 9 5950X · RTX 3070 Ti.', 'The workstation I build, test, game and stream on.')}
+<section class="section container">${sectionHead('The rig', 'Ryzen 9 5950X · 64 GB · RTX 3070 Ti.', 'The workstation I build, test, game and stream on.')}
 <div class="note">Live specs and temperatures are published on the Grey Signal rig page. It shares hardware details only: no personal information, files or network details.</div>
 ${links(ext(GREY + '/rig.html', 'Live rig page', 'Specs and telemetry'), int('projects/grey-signal/', 'Grey Signal', 'The project behind it'), int('expertise/hardware/', 'Hardware expertise', 'How I work'))}</section>
 ${back}`,

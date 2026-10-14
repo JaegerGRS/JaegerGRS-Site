@@ -9,6 +9,7 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 - Brand-matched accents for Svart (indigo) and Grey Signal (orange).
 - Worker now uses Cloudflare static assets so images are served correctly; added link/CSP checks and Worker tests to CI.
 - Removed the one-off import workflows.
+- Grey Signal is now described as self-hosted at an open IP (no full site or domain yet).
 
 ## v0.2.0 — 14 October 2026
 - Redesigned the portfolio with a restrained dark editorial visual system.

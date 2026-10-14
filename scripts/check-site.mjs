@@ -4,7 +4,7 @@ import { dirname, join, resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const skip = new Set(['.git', 'node_modules', 'dist', 'scripts', 'src', '.github']);
+const skip = new Set(['.git', 'node_modules', 'dist', 'scripts', 'src', '.github', 'Grey Signal', 'JAE-main', 'JaeTheTech-main']);
 const walk = d => readdirSync(d, { withFileTypes: true }).flatMap(e =>
   skip.has(e.name) ? [] : e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)]);
 
