@@ -4,6 +4,11 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- Security review (see `docs/SECURITY-REVIEW.md`) and a Grey Signal HTTPS migration plan (see `docs/GREY-SIGNAL-HTTPS-MIGRATION.md`, plan only, no infrastructure changed). Gaps found and not yet fixed are listed there, including the unset `GUARD_SALT` secret, no Turnstile, and no replay nonce on Rig ingest.
+- Security: repaired a syntax error in `src/worker.mjs` (a literal `\n` had swallowed the handler into a comment), which would have broken CI and deployment.
+- Security: the public Rig snapshot is now an allowlist. Board model, GPU driver version, storage totals, uptime, clocks, fan speed and power draw are no longer published; only what the panel displays is.
+- Tests: the Worker now has tests that unexpected failures return a generic error with no internal detail.
+
 - Performance pass, measured on production with Chromium. Unthrottled: LCP 0.35-0.55 s, CLS 0, 72-79 KB per page transferred. Throttled to a slow mobile profile (390px, 4x CPU, about 1.6 Mbps, 150 ms latency): LCP 1.4-1.6 s on the main pages, CLS 0, slowest interaction (menu open and close) 24-40 ms. These are lab measurements, not field data from real visitors.
 - Found and fixed one failure: the Grey Signal channel page had a throttled-mobile LCP of 3.0 s because its lead image (192 KB, 1400px wide) was lazy-loaded and shown at about 340px. It now has a 700px srcset candidate (72 KB), `fetchpriority="high"` and is not lazy; LCP is now 1.4 s. The Grey Signal banner and site-home images also got smaller srcset candidates.
 - Checked and left as they were: fonts are self-hosted (60 KB, preloaded) with no third-party requests; one small CSS file and no render-blocking scripts; Brotli compression; static assets cached for an hour to a week; every other image is WebP, lazy-loaded with width and height set; the live panel polls every 3 s only while the tab is visible and backs off on errors, with no animation libraries.

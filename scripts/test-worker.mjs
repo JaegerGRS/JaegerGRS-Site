@@ -192,4 +192,12 @@ check((await corsGet('https://any.example', { RIG_EMBED_ORIGINS: '*' })).headers
 env = makeEnv({ RIG_EMBED_ORIGINS: '*' });
 check(!(await req('/api/rig', { method: 'POST', body: '{}', headers: { Origin: 'https://x.example' } })).headers.get('access-control-allow-origin'), 'POST never gets CORS headers');
 
+// An unexpected failure becomes a plain error response that leaks nothing.
+const origError = console.error; console.error = () => {};
+env = makeEnv({ ASSETS: { fetch: async () => { throw new Error('SECRET internal detail'); } } });
+const boom = await req('/'), boomApi = await req('/api/contact', { method: 'GET' }), boomApi2 = await (async () => { env = makeEnv({ RIG_HUB: { idFromName: () => 'x', get: () => ({ fetch: async () => { throw new Error('SECRET internal detail'); } }) } }); return req('/api/rig'); })();
+console.error = origError;
+check(boom.status === 500 && !(await boom.clone().text()).includes('SECRET'), 'unexpected page failure returns a plain 500 with no internals');
+check(boomApi2.status === 500 && (await boomApi2.json()).code === 'server_error' && boomApi2.headers.get('cache-control') === 'no-store', 'unexpected API failure returns JSON server_error, not cached');
+
 if (failed) process.exit(1);

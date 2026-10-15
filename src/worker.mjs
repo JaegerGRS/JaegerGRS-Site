@@ -69,7 +69,9 @@ async function handleClaim(request, env) {
   return hub(env).fetch(new Request(`https://hub/claim?rotate=${mode === 'rotate' ? 1 : 0}`, { method: 'POST' }));
 }
 
-// An unexpected failure (for example a Durable Object restarting) returns a plain JSON error rather than\n// Cloudflare's bare 1101 page. Only the error name is logged, never request contents.\nasync function handle(request, env, ctx) {
+// An unexpected failure (for example a Durable Object restarting) returns a plain JSON error rather than
+// Cloudflare's bare 1101 page. Only the error name is logged, never request contents.
+async function handle(request, env, ctx) {
     const url = new URL(request.url);
 
     if (url.hostname === 'www.jaegergrs.com') {
