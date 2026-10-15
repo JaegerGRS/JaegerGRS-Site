@@ -4,6 +4,9 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- Grey Signal reframed as engineering work: the main page now leads with the website, C# app, installer, Node engine, Cloudflare Worker and telemetry, with "working today" and "prepared, not live" kept separate. The channel page's subscribe button is now secondary.
+- Build page: corrected the source claim. "130+ files, about 62,000 lines" counted generated files; authored source is 91 files and about 8,500 lines. Added an architecture diagram, technology decisions, two real screenshots, labelled placeholders for the rest, and a documented (not yet applied) HTTPS migration plan.
+
 - **Hardware page:** labelled photo placeholders and repair case-study format (no invented jobs); workstation specs now listed separately from live data (main as listed / previous / planned) and no longer overwritten by telemetry. **Live panel:** loading, online, stale (with age), offline and error states, CPU and GPU temperature, metrics no longer announced to screen readers, short how-it-works note with a Rig API link.
 
 - **Homepage rewrite:** new hero (label, name, supporting headline, introduction, two actions, availability), dated facts instead of the years stat, featured projects with category, role, verified tech, status and case-study link, a real-evidence links section, short background and CTA. Peterborough removed from the description.
