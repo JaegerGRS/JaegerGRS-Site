@@ -82,6 +82,8 @@ export const hero = (eyebrow, h1, lead, extra = '') =>
 export const cta = (h, p) => `<section class="section tight"><div class="container"><div class="cta reveal"><p class="kicker">Get in touch</p><h2>${h}</h2><p>${p}</p><div class="actions"><a class="btn primary" href="{up}contact/">Contact me <span aria-hidden="true">↗</span></a><a class="btn secondary" href="{up}projects/">Browse projects</a></div></div></div></section>`;
 
 export const back = `<section class="section tight container"><a class="text-link" href="{up}projects/">← All projects</a></section>`;
+export const backTo = (href, label) => `<section class="section tight container"><a class="text-link" href="{up}${href}">← ${label}</a> <span class="fine"> · </span> <a class="text-link" href="{up}projects/">All projects</a></section>`;
+export const more = (title, ...items) => `<section class="section container">${sectionHead('Go deeper', title)}${links(...items)}</section>`;
 export const facts = (...pairs) => `<section class="section container"><dl class="facts reveal">${pairs.map(([t, d]) => `<div><dt>${t}</dt><dd>${d}</dd></div>`).join('')}</dl></section>`;
 export const img = (src, alt, w, h, cls = '') => `<img class="${cls}" src="{up}assets/img/${src}" alt="${alt}" width="${w}" height="${h}" loading="lazy" decoding="async">`;
 export const fourCards = (t, items) => `<section class="section container"><div class="grid g4">${items.map(([i, k, h, p], n) => `<div class="card reveal"><span class="icon">${i}</span><span class="num mt-icon">0${n + 1} / ${k}</span><h3 class="h3s">${h}</h3><p>${p}</p></div>`).join('')}</div></section>`;

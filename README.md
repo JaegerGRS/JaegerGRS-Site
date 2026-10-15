@@ -37,7 +37,7 @@ scripts/                 check-site.mjs, test-worker.mjs, selfhost.ps1, notes-se
 wrangler.toml            Worker, Durable Objects and static assets config
 ```
 
-Site map: `/`, `/projects/` (`svart-security/`, `grey-signal/`, `jaethetech/`, `jae/`, `rig-api/`, `hardware/`), `/expertise/` (`hardware/`, `development/`), `/about/` (`journey/`), `/contact/`, `/changelog/`.
+Site map: `/`, `/projects/` (`svart-security/` + `tools/`, `grey-signal/` + `build/`, `channel/`, `jaethetech/` + `personal-ai/`, `jae/` + `engineering/`, `rig-api/` + `install/`, `pricing/`, `what-you-get/`, `hardware/`), `/expertise/` (`hardware/`, `development/`), `/about/` (`journey/`), `/contact/`, `/changelog/`. A project's sub pages live in the same `src/site/pages/<project>.mjs` file as its main page.
 
 Each project page links out to the standalone site it describes. Grey Signal is self-hosted at an open IP over HTTP for now; change `GREY` in `src/site/config.mjs` when it has a domain.
 

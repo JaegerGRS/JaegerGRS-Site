@@ -11,7 +11,7 @@ Tick a box with `[x]` and update the percentages. **Owner**: **Me** = Copilot ca
 - [x] SEO: titles, canonical, sitemap, Open Graph, Twitter card, social image
 - [x] Black, grey and white theme
 - [x] Images compressed, cache headers added
-- [x] Checked all 16 pages at phone, tablet, desktop and TV widths: no sideways overflow, one h1 each, no broken images
+- [x] Checked all 24 pages for sideways overflow, one h1 and broken images (the 8 sub pages at phone and desktop widths)
 - [x] Fonts self-hosted, Google removed from the CSP
 - [ ] **You**: decide the home-page hardware text. It says Ryzen 9 5950X / RTX 3070 Ti / 64 GB, but this PC is an i7-9700 / GTX 980 Ti / 16 GB
 

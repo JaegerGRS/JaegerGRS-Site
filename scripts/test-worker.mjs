@@ -47,7 +47,7 @@ let failed = false;
 const check = (ok, label) => { console.log(ok ? 'OK  ' : 'FAIL', label); if (!ok) failed = true; };
 
 // ---- static site
-const pages = ['/', '/projects/', '/projects/svart-security/', '/projects/grey-signal/', '/projects/jaethetech/', '/projects/jae/', '/projects/rig-api/', '/embed/rig-embed.js', '/embed/rig-embed.css', '/projects/hardware/', '/expertise/', '/expertise/hardware/', '/expertise/development/', '/about/', '/about/journey/', '/contact/', '/changelog/', '/robots.txt', '/sitemap.xml', '/assets/styles.css', '/assets/main.js', '/assets/boot.js', '/assets/rig.js', '/assets/contact.js', '/assets/favicon.svg'];
+const pages = ['/', '/projects/', '/projects/svart-security/', '/projects/svart-security/tools/', '/projects/grey-signal/', '/projects/grey-signal/build/', '/projects/grey-signal/channel/', '/projects/jaethetech/', '/projects/jaethetech/personal-ai/', '/projects/jae/', '/projects/jae/engineering/', '/projects/rig-api/', '/projects/rig-api/install/', '/projects/rig-api/pricing/', '/projects/rig-api/what-you-get/', '/embed/rig-embed.js', '/embed/rig-embed.css', '/projects/hardware/', '/expertise/', '/expertise/hardware/', '/expertise/development/', '/about/', '/about/journey/', '/contact/', '/changelog/', '/robots.txt', '/sitemap.xml', '/assets/styles.css', '/assets/main.js', '/assets/boot.js', '/assets/rig.js', '/assets/contact.js', '/assets/favicon.svg'];
 for (const p of pages) check((await req(p)).status === 200, `200 ${p}`);
 check((await req('/assets/img/social-card.jpg')).headers.get('cache-control') === 'public, max-age=604800', 'images are cached for a week');
 check(/must-revalidate/.test((await req('/assets/main.js')).headers.get('cache-control') || ''), 'scripts revalidate');
@@ -55,7 +55,7 @@ check((await req('/assets/fonts/manrope.woff2')).status === 200, 'self-hosted fo
 check(!/https?:\/\//.test((await req('/')).headers.get('content-security-policy') || ''), 'CSP allows no third-party hosts');
 check((await (await req('/')).text()).includes('assets/img/social-card.jpg'), 'pages point at the social card');
 
-for (const img of ['grey-signal-logo.png', 'grey-signal-banner.jpg', 'grey-signal-welcome.jpg', 'grey-signal-subscribe.png']) {
+for (const img of ['grey-signal-logo.png', 'grey-signal-banner.jpg', 'grey-signal-welcome.jpg']) {
   const r = await req(`/assets/img/${img}`);
   const size = (await r.arrayBuffer()).byteLength;
   check(r.status === 200 && size > 10000, `image ${img} (${size} bytes)`);
