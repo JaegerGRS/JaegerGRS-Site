@@ -2,7 +2,13 @@
 
 Tick a box with `[x]` and update the percentages. **Owner**: **Me** = Copilot can do it now, **You** = needs your account, device or decision.
 
-**Overall: 24 of 26 done = 92%**
+> **Status, 15 October 2026:** this tracker is older than the 2026 portfolio brief. The current plan, acceptance table and open owner decisions are in `docs/IMPLEMENTATION-PLAN.md`. The site now has 25 routes plus the 404 page (this file's "24 pages" is out of date).
+>
+> **Lighthouse (production, lab, mobile defaults, Chromium via Playwright):** Accessibility 100 and SEO 100 on `/`, `/projects/`, `/projects/rig-api/` and `/contact/`. Performance 99 on `/`, `/about/` and `/contact/` in clean runs (LCP 1.9 s, CLS 0, TBT 0 ms). One noisy run scored 76 on the home page, so repeat runs before trusting a single number. Best practices 93: Cloudflare injects an inline script that our CSP blocks (a console error, not a site fault). Lab results are not field Core Web Vitals.
+>
+> `GUARD_SALT` is now set as a Worker secret, so contact rate-limit hashes are salted.
+
+**Overall: 24 of 26 done = 92% (as of the earlier tracker; see the note above)**
 
 ## 1. Site and design: 9 of 9 = 100%
 - [x] Multi-page site with a generator, one source file per page

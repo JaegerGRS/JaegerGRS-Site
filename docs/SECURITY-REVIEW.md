@@ -16,7 +16,7 @@ This is a self-review, not an independent audit or penetration test.
 | Brute force | Keys are 32+ characters, so guessing is impractical; ingest is rate-limited. Failed attempts are not separately throttled. | Accepted |
 | Rate limits | Ingest 1/s. Contact 3 per 10 minutes and 8 per day per salted IP hash. | In code and tests |
 | Contact abuse | Origin allowlist, 12 KB cap, honeypot, validation, rate limit. No CAPTCHA/Turnstile. The client timestamp is not validated server-side. | Gaps listed below |
-| Secrets | None committed (`.gitignore` covers `.dev.vars`, `.env`, agent config). Production bindings contain only plain variables; `GUARD_SALT` is not set. | Action needed |
+| Secrets | None committed (`.gitignore` covers `.dev.vars`, `.env`, agent config). Production bindings contain plain variables plus the `GUARD_SALT` secret (set 15 October 2026). `scripts/notes-server.mjs` was reviewed: it binds to 127.0.0.1, requires a generated password and writes to the git-ignored `notes/` folder. | Done |
 | CORS | Contact: same-origin allowlist. Rig read endpoint: no CORS unless `RIG_EMBED_ORIGINS` is set; GET only. | Tested in suite |
 | Cache | API is `no-store`; CSS/JS cached for an hour; static assets cached longer. | Verified |
 | Error handling | Unknown API route is 404 JSON, wrong method 405 JSON. Unexpected failures now return a generic 500 (plain, or JSON `server_error` for the API) with no internals, covered by tests. | Fixed in this review |
@@ -32,7 +32,7 @@ This is a self-review, not an independent audit or penetration test.
 
 ## Decisions needed from the owner
 
-- Set `GUARD_SALT` as a secret: `npx wrangler secret put GUARD_SALT`.
+- ~~Set `GUARD_SALT`~~ done 15 October 2026.
 - Decide whether to add Cloudflare Turnstile (needs a site key and secret; server-side verification would be added).
 - Decide whether to set `workers_dev = false`.
 - Confirm `RIG_SETUP` is closed in production.
