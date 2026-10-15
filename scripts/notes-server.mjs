@@ -1,7 +1,7 @@
 // Private "notes to Copilot" page for the self-host. Type a change request here; it is saved to
 // notes/requests.md, ready to paste into Copilot Chat in VS Code. Nothing here can run commands.
-// Run: node scripts/notes-server.mjs [--lan] [--port 8788]
-// Listens on this PC only unless --lan is given. Password is generated once into notes/.password.
+// Run: node scripts/notes-server.mjs [--port 8788]
+// Listens on this PC only (127.0.0.1). Password is generated once into notes/.password.
 import { createServer } from 'node:http';
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { randomBytes, timingSafeEqual } from 'node:crypto';
@@ -13,7 +13,6 @@ const dir = join(root, 'notes');
 const file = join(dir, 'requests.md');
 const pwFile = join(dir, '.password');
 const args = process.argv.slice(2);
-const lan = args.includes('--lan');
 const port = Number(args[args.indexOf('--port') + 1]) || 8788;
 const MAX = 20 * 1024;
 
@@ -74,7 +73,7 @@ createServer((req, res) => {
   }
 
   res.writeHead(404); res.end('Not found');
-}).listen(port, lan ? '0.0.0.0' : '127.0.0.1', () => {
-  console.log(`Notes page: http://localhost:${port}   (${lan ? 'also on your LAN' : 'this PC only'})`);
+}).listen(port, '127.0.0.1', () => {
+  console.log(`Notes page: http://localhost:${port}   (this PC only)`);
   console.log(`Username: anything   Password: ${password}`);
 });
