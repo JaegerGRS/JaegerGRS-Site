@@ -14,10 +14,11 @@ ${fourCards('', [['1', 'Pair', 'Key-based pairing', 'The site creates a private 
 <div><pre class="code"><code>&lt;script src="/embed/rig-embed.js" defer&gt;&lt;/script&gt;</code></pre>
 <ul class="ticks"><li><span>Want it in a certain spot? Add <code>&lt;div data-jgrs-rig&gt;&lt;/div&gt;</code> where it should go. Otherwise it floats in the corner.</span></li><li><span>Options on the tag: <code>data-title</code>, <code>data-theme="light"</code>, <code>data-api</code>.</span></li><li><span>On your PC: run the app, click <strong>Get key from site</strong>, done. No key to copy.</span></li></ul></div></div></section>
 <section class="section muted"><div class="container">${sectionHead('Price', 'Simple, one-off pricing.')}
-<div class="grid g2">
+<div class="grid g3">
 <div class="card reveal"><h3>Single site</h3><p class="lead lead-sm"><strong>£29</strong> one-off</p><p>The Worker API, JaegerRigAgent.exe, the one-line embed and the setup guide for one website. Updates for v0.x included.</p></div>
-<div class="card reveal"><h3>Done for you</h3><p class="lead lead-sm"><strong>£59</strong> one-off</p><p>Everything above, plus I deploy it to your Cloudflare account and pair your PC with you over a call or chat.</p></div>
-</div><p class="fine">Prices are my starting point and may change. Similar hosted monitoring tools charge about £6 to £20 a month for small plans; this is pay once and you keep it.</p></div></section>
+<div class="card reveal"><h3>Done for you</h3><p class="lead lead-sm"><strong>£49</strong> one-off</p><p>Everything above for one site, plus I deploy it to your Cloudflare account and pair your PC with you over chat.</p></div>
+<div class="card reveal"><h3>5-site licence</h3><p class="lead lead-sm"><strong>£79</strong> one-off</p><p>Use it on up to five of your own sites. Good for small agencies and people with several projects.</p></div>
+</div><p class="fine">Similar scripts on marketplaces sell for about £10 to £40, and hosted monitoring tools charge £6 to £20 a month. This is pay once and you keep it.</p></div></section>
 <section class="section container pt0"><div class="two">
 <div><p class="kicker">What you get</p><h2 class="title">The whole kit.</h2></div>
 <div><ul class="ticks"><li><span>The Worker API (GET snapshot, key-protected POST) and Durable Object, ready to deploy to your own Cloudflare account.</span></li><li><span>JaegerRigAgent.exe, the Windows tray app with Start with Windows and an encrypted key.</span></li><li><span>The front-end live panel: one script tag, no coding.</span></li><li><span>A setup guide and help getting it running.</span></li></ul>
