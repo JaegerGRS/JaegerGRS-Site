@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import worker, { RigHub, Guard } from '../src/worker.mjs';
 
 const dist = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'public');
-const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.png': 'image/png', '.xml': 'application/xml', '.txt': 'text/plain' };
+const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.xml': 'application/xml', '.txt': 'text/plain' };
 
 // Controllable clock so rate limits and agent throttling can be tested without waiting.
 let skew = 0;
@@ -55,10 +55,10 @@ check((await req('/assets/fonts/manrope.woff2')).status === 200, 'self-hosted fo
 check(!/https?:\/\//.test((await req('/')).headers.get('content-security-policy') || ''), 'CSP allows no third-party hosts');
 check((await (await req('/')).text()).includes('assets/img/social-card.jpg'), 'pages point at the social card');
 
-for (const img of ['grey-signal-logo.png', 'grey-signal-banner.jpg', 'grey-signal-welcome.jpg']) {
+for (const img of ['grey-signal-logo.webp', 'grey-signal-banner.webp', 'grey-signal-welcome.webp']) {
   const r = await req(`/assets/img/${img}`);
   const size = (await r.arrayBuffer()).byteLength;
-  check(r.status === 200 && size > 10000, `image ${img} (${size} bytes)`);
+  check(r.status === 200 && size > 1000, `image ${img} (${size} bytes)`);
 }
 
 // ---- headers and redirects

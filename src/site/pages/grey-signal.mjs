@@ -7,7 +7,7 @@ export default [
   title: 'Grey Signal', desc: 'Grey Signal: a tactical-shooter and FPS channel with its own multi-page website and live PC telemetry, built by Jaeger Stratton.',
   crumbs: [['Projects', 'projects/'], ['Grey Signal']],
   body: `${hero('Project · Web & gaming · 2026', 'Grey <span class="c">Signal.</span>', 'A tactical-shooter and FPS channel with its own self-hosted website: a Windows control app, a Node site engine, live rig telemetry, and a Cloudflare version prepared for a future domain.', `<div class="actions"><a class="btn primary" href="${GREY}" target="_blank" rel="noopener noreferrer">Open the self-hosted site <span aria-hidden="true">↗</span></a><a class="btn secondary" href="${GREY}/rig.html" target="_blank" rel="noopener noreferrer">Live rig telemetry</a><a class="btn secondary" href="${YT}" target="_blank" rel="noopener noreferrer">YouTube</a></div>`)}
-<section class="section container"><figure class="media reveal">${img('grey-signal-banner.jpg', 'Grey Signal channel banner: tactical operator, helicopter and mountains with the GS logo', 1920, 520)}</figure></section>
+<section class="section container"><figure class="media reveal">${img('grey-signal-banner.webp', 'Grey Signal channel banner: tactical operator, helicopter and mountains with the GS logo', 1920, 520)}</figure></section>
 ${facts(['Type', 'Self-hosted site + channel'], ['Stack', 'C# · Node · Cloudflare'], ['Feature', 'Live telemetry'], ['Role', 'Design &amp; build'])}
 <section class="section container pt0"><div class="note">Grey Signal does not have a full public site yet: it is self-hosted on my own server at an open IP address over plain HTTP, so your browser may show a "not secure" notice. A proper domain is planned.</div></section>
 ${more('More on Grey Signal.', int('projects/grey-signal/build/', 'How the site is built', 'C# app, Node engine, Cloudflare version'), int('projects/grey-signal/channel/', 'The channel', 'Tactical shooters and FPS games'))}
@@ -34,7 +34,7 @@ ${backTo('projects/grey-signal/', 'Grey Signal')}`,
   title: 'Grey Signal: the channel', desc: 'Grey Signal is a tactical-shooter and FPS channel on YouTube and Twitch: operations, teamwork and games that punish overconfidence.',
   crumbs: [['Projects', 'projects/'], ['Grey Signal', 'projects/grey-signal/'], ['Channel']],
   body: `${hero('Grey Signal · The channel', 'Come for <span class="c">the game.</span>', 'Tactical shooters, FPS games and operations. If it rewards teamwork and punishes overconfidence, it’s probably on the list.', `<div class="actions"><a class="btn primary" href="${YT}?sub_confirmation=1" target="_blank" rel="noopener noreferrer">Subscribe on YouTube <span aria-hidden="true">↗</span></a><a class="btn secondary" href="${TWITCH}" target="_blank" rel="noopener noreferrer">Twitch</a></div>`)}
-<section class="section container"><figure class="media reveal">${img('grey-signal-welcome.jpg', 'Welcome to Grey Signal: tactical shooters and FPS games', 1400, 788)}</figure>
+<section class="section container"><figure class="media reveal">${img('grey-signal-welcome.webp', 'Welcome to Grey Signal: tactical shooters and FPS games', 1400, 788)}</figure>
 <p class="fine">Content may include fictional violence, warfare, blood and strong language. Viewer discretion advised.</p></section>
 <section class="section container pt0">${links(ext(YT + '/videos', 'YouTube videos', '@Grey_Signal'), ext(YT + '/shorts', 'YouTube shorts', '@Grey_Signal'), ext(TWITCH, 'Twitch', 'grey_signal'))}</section>
 ${backTo('projects/grey-signal/', 'Grey Signal')}`,

@@ -12,7 +12,7 @@ const pub = join(root, 'public');
 const port = Number(process.env.PORT || 8790);
 const apiPort = Number(process.env.API_PORT || 8787);
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.mjs': 'text/javascript',
-  '.json': 'application/json', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.png': 'image/png', '.ico': 'image/x-icon',
+  '.json': 'application/json', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.ico': 'image/x-icon',
   '.txt': 'text/plain', '.xml': 'application/xml', '.webmanifest': 'application/manifest+json' };
 const client = '<script>new EventSource("/__live").onmessage=()=>location.reload()</script>';
 const listeners = new Set();

@@ -3,6 +3,7 @@
 All dates reflect work that actually shipped or was prepared as a release. No fabricated earlier commits.
 
 ## v0.3.0 - 15 October 2026
+- Speed: Grey Signal images are now WebP (banner 194 to 125 KB, welcome 266 to 192 KB, logo 41 to 6 KB; about 180 KB less per visit). Removed the unused public/_headers (the Worker sets all headers).
 - Code tidy-up: scanned for unused exports, imports, variables and CSS (none found), added .editorconfig, and documented the conventions and the new-page checklist in the README.
 - Each project now has its own colour theme across its pages: Svart violet, Grey Signal cyan, JaeTheTech blue, JAE rose, PC hardware ember and Rig API gold. The rest of the site stays grey, black and white.
 - Expanded the sub pages with set-up steps, FAQs, a pricing table, a security section and a hosting guide (new aq and steps components).
@@ -50,6 +51,7 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.1.0 — 14 October 2026
 - Initial dark portfolio foundation, first technical project overviews, metadata and changelog.
+
 
 
 
