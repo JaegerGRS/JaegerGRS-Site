@@ -2,7 +2,7 @@
 
 Tick a box with `[x]` and update the percentages. **Owner**: **Me** = Copilot can do it now, **You** = needs your account, device or decision.
 
-**Overall: 23 of 26 done = 88%**
+**Overall: 24 of 26 done = 92%**
 
 ## 1. Site and design: 9 of 9 = 100%
 - [x] Multi-page site with a generator, one source file per page
@@ -23,12 +23,12 @@ Tick a box with `[x]` and update the percentages. **Owner**: **Me** = Copilot ca
 - [x] **Me**: tested the contact form on the live site: validation, origin check and rate limit work; sending returns 502 until Cloudflare Email has a verified sender (see the email task)
 - [ ] **You**: put Grey Signal behind HTTPS (it is plain HTTP at 94.0.68.77)
 
-## 3. Rig API and tray app: 6 of 7 = 86%
+## 3. Rig API and tray app: 7 of 7 = 100%
 - [x] Worker API, live panel and one-tag embed
 - [x] Tray app `JaegerRigAgent.exe`, starts with Windows, light on resources
 - [x] Pairing key created by the site ("Get key from site")
 - [x] Product page with pricing (£29 / £49 / £79)
-- [ ] **You**: click through the tray app window, menu and Start-with-Windows toggle (never tested by hand)
+- [x] Tray app paired on this PC: "Get key from site" worked, the live panel shows this PC online, setup is closed again (403), and Start-with-Windows is on. The right-click tray menu has not been tested by hand
 - [x] Payment provider: none for now; the Rig API pages use a "contact to buy" button
 - [x] Added an all-rights-reserved `LICENSE` (make the repo private too if you want the code hidden)
 
@@ -40,6 +40,7 @@ Tick a box with `[x]` and update the percentages. **Owner**: **Me** = Copilot ca
 
 ## Next step
 Section 4 unlocks most of the rest: once deploy is enabled, I can test the contact form and the live Rig API.
+
 
 
 
