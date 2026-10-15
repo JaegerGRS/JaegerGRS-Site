@@ -4,6 +4,11 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- Performance pass, measured on production with Chromium. Unthrottled: LCP 0.35-0.55 s, CLS 0, 72-79 KB per page transferred. Throttled to a slow mobile profile (390px, 4x CPU, about 1.6 Mbps, 150 ms latency): LCP 1.4-1.6 s on the main pages, CLS 0, slowest interaction (menu open and close) 24-40 ms. These are lab measurements, not field data from real visitors.
+- Found and fixed one failure: the Grey Signal channel page had a throttled-mobile LCP of 3.0 s because its lead image (192 KB, 1400px wide) was lazy-loaded and shown at about 340px. It now has a 700px srcset candidate (72 KB), `fetchpriority="high"` and is not lazy; LCP is now 1.4 s. The Grey Signal banner and site-home images also got smaller srcset candidates.
+- Checked and left as they were: fonts are self-hosted (60 KB, preloaded) with no third-party requests; one small CSS file and no render-blocking scripts; Brotli compression; static assets cached for an hour to a week; every other image is WebP, lazy-loaded with width and height set; the live panel polls every 3 s only while the tab is visible and backs off on errors, with no animation libraries.
+- Not measured: real-user INP (needs field data), Lighthouse (no Chrome installed here) and non-Chromium browsers.
+
 - Responsive pass. Every page (25) was loaded at 320, 375, 390, 768, 1024, 1440, 2560 and 844x390 landscape in a browser and checked for page-level horizontal overflow (none found), content clipped without a scrollbar (none), distorted images (none) and header or menu problems (none). Screenshots of the code blocks, live panel and contact form at 320px were reviewed.
 - Fixed: breadcrumb links and the "All projects" / "back" links were 16-22px tall, under the 24px minimum in WCAG 2.2 (target size). They now have a 24px minimum, and 44px on touch screens.
 - Landscape phones: the header no longer stays fixed on screens under 480px tall, so it stops covering a sixth of the view.
