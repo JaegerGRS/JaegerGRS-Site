@@ -5,7 +5,7 @@ export default [
 {
   file: 'index.html', section: 'home',
   title: 'Jaeger Stratton | PC Builder, Developer & Technician',
-  desc: 'Jaeger George Richard Stratton: 13 years in IT, PC building since 2016, Windows support, and five independent projects: Grey Signal and JaeTheTech (content creation), Svart Security (privacy tools), JAE and YouTube AI Story (AI). Based in Peterborough, UK.',
+  desc: 'Jaeger George Richard Stratton: 13 years in IT, PC building since 2016, Windows support, and five independent projects: Grey Signal (gaming content) and JaeTheTech (tech content), Svart Security (privacy tools), JAE and YouTube AI Story (AI). Based in Peterborough, UK.',
   schema: `\n<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Jaeger George Richard Stratton","url":"${SITE}/","jobTitle":"Independent Developer","knowsAbout":["PC building","Hardware troubleshooting","Windows installation","Web development","Technical support"],"sameAs":["${FB}","${LI}","${XJ}","${SVART}","${JTT}"]}</script>`,
   body: `
 <section class="container hero">
@@ -29,8 +29,8 @@ ${sectionHead('What I do', 'Hands-on technical work.', 'The practical skills I b
 <section class="section muted"><div class="container">
 ${sectionHead('Selected work', 'Projects I build and run.', 'Each has its own site or repository. Open the real thing, or read how I built it.')}
 <div class="grid g5">
-<a class="card t-grey reveal" href="{up}projects/grey-signal/"><div class="card-top"><span class="icon">G</span><span class="tag">Content</span></div><h3>Grey Signal</h3><p>A tactical-shooter content creation account, plus the site, app and rig page I built for it.</p><span class="go">Case study →</span></a>
-<a class="card t-jae reveal" href="{up}projects/jaethetech/"><div class="card-top"><span class="icon">J</span><span class="tag">Tech content</span></div><h3>JaeTheTech</h3><p>A tech content creation account: code, machines and security.</p><span class="go">Case study →</span></a>
+<a class="card t-grey reveal" href="{up}projects/grey-signal/"><div class="card-top"><span class="icon">G</span><span class="tag">Gaming content</span></div><h3>Grey Signal</h3><p>A tactical-shooter gaming content channel, plus the site, app and rig page I built for it.</p><span class="go">Case study →</span></a>
+<a class="card t-jae reveal" href="{up}projects/jaethetech/"><div class="card-top"><span class="icon">J</span><span class="tag">Tech content</span></div><h3>JaeTheTech</h3><p>A tech content channel: code, machines and security.</p><span class="go">Case study →</span></a>
 <a class="card t-svart reveal" href="{up}projects/svart-security/"><div class="card-top"><span class="icon">S</span><span class="tag">Privacy</span></div><h3>Svart Security</h3><p>Encrypted, no-tracking privacy tools built by one developer.</p><span class="go">Case study →</span></a>
 <a class="card t-ae reveal" href="{up}projects/jae/"><div class="card-top"><span class="icon">AE</span><span class="tag">AI</span></div><h3>JAE</h3><p>A little AI I am building: a local-first desktop app made with Tauri.</p><span class="go">Case study →</span></a>
 <a class="card t-story reveal" href="{up}projects/story-ai/"><div class="card-top"><span class="icon">▶</span><span class="tag">AI</span></div><h3>YouTube AI Story</h3><p>An AI tool for short and long story-style content.</p><span class="go">Case study →</span></a>
