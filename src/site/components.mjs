@@ -76,8 +76,8 @@ export const rigPanel = () => `<div class="rig" data-rig>
 </div>
 </div>`;
 
-export const hero = (eyebrow, h1, lead, extra = '') =>
-  `<section class="page-hero"><div class="container"><p class="eyebrow">${eyebrow}</p><h1>${h1}</h1><p class="lead">${lead}</p>${extra}</div></section>`;
+export const hero = (eyebrow, h1, lead, extra = '', logo = '') =>
+  `<section class="page-hero"><div class="container">${logo}<p class="eyebrow">${eyebrow}</p><h1>${h1}</h1><p class="lead">${lead}</p>${extra}</div></section>`;
 
 export const cta = (h, p) => `<section class="section tight"><div class="container"><div class="cta reveal"><p class="kicker">Get in touch</p><h2>${h}</h2><p>${p}</p><div class="actions"><a class="btn primary" href="{up}contact/">Contact me <span aria-hidden="true">↗</span></a><a class="btn secondary" href="{up}projects/">Browse projects</a></div></div></div></section>`;
 
