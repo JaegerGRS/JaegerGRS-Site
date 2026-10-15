@@ -10,6 +10,7 @@ import svartSecurity from './pages/svart-security.mjs';
 import greySignal from './pages/grey-signal.mjs';
 import jaethetech from './pages/jaethetech.mjs';
 import jae from './pages/jae.mjs';
+import rigApi from './pages/rig-api.mjs';
 import hardware from './pages/hardware.mjs';
 import expertise from './pages/expertise.mjs';
 import about from './pages/about.mjs';
@@ -18,7 +19,7 @@ import changelog from './pages/changelog.mjs';
 import notFound from './pages/not-found.mjs';
 
 const PUBLIC = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', 'public');
-const pages = [home, projects, svartSecurity, greySignal, jaethetech, jae, hardware, expertise, about, contact, changelog, notFound].flat();
+const pages = [home, projects, svartSecurity, greySignal, jaethetech, jae, rigApi, hardware, expertise, about, contact, changelog, notFound].flat();
 
 for (const p of pages) {
   const out = join(PUBLIC, p.file);

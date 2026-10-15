@@ -6,6 +6,7 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 - Added a contact form (`/api/contact`) with origin checks, honeypot, size limits and per-visitor rate limiting; mail via Cloudflare Email Service or Resend.
 - Added the live PC panel (`/api/rig`) and `agent/rig-agent.mjs`, a PC app that connects with a secret key (DPAPI-encrypted on the PC, `RIG_TOKEN` secret on Cloudflare).
 - Mobile, tablet, desktop and TV fixes: content visible without JavaScript, Escape/outside-click menu close, touch target sizes, larger scaling and focus rings for TV remotes.
+- New Rig API product page (projects/rig-api): the API and tray app are for sale, clearly marked as made for small sites and servers only. Buying enquiries use a new "Buy the Rig API" contact topic.
 - The site can now create the pairing key itself: with the Cloudflare variable `RIG_SETUP=open`, the app's "Get key from site" button fetches it once. Closed by default.
 - Added `JaegerRigAgent.exe`, a 24 KB native Windows tray app (agent/app): key typed into the app and stored with DPAPI, starts quietly with Windows, below-normal priority, near-zero CPU. CI builds it as a downloadable artifact.
 - Contact rate limiting now persists in Durable Object storage, so limits survive the object being evicted.

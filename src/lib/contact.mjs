@@ -1,6 +1,6 @@
 import { str, json, readLimited } from './util.mjs';
 
-const TOPICS = new Set(['Job or role', 'Project or collaboration', 'PC building or repair help', 'Something else']);
+const TOPICS = new Set(['Job or role', 'Project or collaboration', 'PC building or repair help', 'Buy the Rig API', 'Something else']);
 const EMAIL_RE = /^[^\s@<>()[\]\\,;:"]{1,64}@[A-Za-z0-9](?:[A-Za-z0-9.-]{0,251}[A-Za-z0-9])?\.[A-Za-z]{2,}$/;
 const MAX_BODY = 12 * 1024;
 
