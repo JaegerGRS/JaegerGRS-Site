@@ -121,8 +121,8 @@ check((await post('/api/contact', good, { 'CF-Connecting-IP': '192.0.2.124' })).
 env = makeEnv();
 
 // ---- PC pairing key and live data
-const live = { cpuLoad: 42.5, gpuLoad: 70, gpuTemp: 61, ramPct: 55, ramUsedGb: 8.8 };
-const specs = { cpu: { name: 'Test CPU', cores: 8, threads: 16 }, gpus: [{ name: 'Test GPU', vramMb: 8192 }], ram: { totalGb: 32 }, hostname: 'SECRET-PC', user: 'jaeger' };
+const live = { cpuLoad: 42.5, gpuLoad: 70, gpuTemp: 61, ramPct: 55, ramUsedGb: 8.8, uptimeHours: 12, gpuFan: 40, gpuPower: 90 };
+const specs = { cpu: { name: 'Test CPU', cores: 8, threads: 16 }, gpus: [{ name: 'Test GPU', vramMb: 8192, driver: 'DRV-123' }], ram: { totalGb: 32 }, board: { maker: 'BoardCo', model: 'BOARD-9' }, storage: { totalGb: 999, drives: 3 }, hostname: 'SECRET-PC', user: 'jaeger' };
 
 check((await rigPost({ live }, null)).status === 401, 'rig POST without a key is 401');
 check((await rigPost({ live }, 'wrong'.repeat(8))).status === 401, 'rig POST with a wrong key is 401');
@@ -164,6 +164,8 @@ skew += 1500;
 s = await (await req('/api/rig')).json();
 check(s.online === true && s.live.cpuLoad === 42.5 && s.specs.cpu.name === 'Test CPU', 'snapshot shows live data and specs');
 check(!JSON.stringify(s).includes('SECRET-PC') && !JSON.stringify(s).includes('jaeger'), 'unknown fields (hostname, user) are stripped');
+check(!/DRV-123|BOARD-9|BoardCo|uptimeHours|gpuFan|gpuPower|storage/.test(JSON.stringify(s)), 'public snapshot omits board, driver, storage, uptime, fan and power');
+check(s.live.gpuTemp === 61 && s.specs.gpus[0].vramMb === 8192 && s.specs.ram.totalGb === 32, 'public snapshot keeps what the panel displays');
 
 skew += 2500;
 r = await rigPost({ live: { cpuLoad: 999, gpuTemp: -5, bogus: 1 } });

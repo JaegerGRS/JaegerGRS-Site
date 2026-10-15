@@ -17,6 +17,22 @@ export function sanitizeSpecs(r) {
   return out.cpu.name || out.gpus.length || out.ram.totalGb ? out : null;
 }
 
+// The public snapshot carries only what the website panel and embed display. Other values the
+// agent reports (board model, driver version, storage, uptime, clocks, power, fan speed) stay in
+// private storage and are never published, because hardware identifiers can be sensitive.
+export function publicSnapshotParts(specs, live) {
+  const pick = (o, keys) => (o ? Object.fromEntries(keys.filter((k) => o[k] !== undefined).map((k) => [k, o[k]])) : undefined);
+  return {
+    specs: specs && {
+      cpu: pick(specs.cpu, ['name', 'cores', 'threads']),
+      gpus: (specs.gpus || []).map((g) => pick(g, ['name', 'vramMb'])),
+      ram: pick(specs.ram, ['totalGb', 'type', 'speedMhz']),
+      os: pick(specs.os, ['name', 'build']),
+    },
+    live: live && pick(live, ['cpuLoad', 'cpuTemp', 'gpuLoad', 'gpuTemp', 'ramPct']),
+  };
+}
+
 const LIVE = {
   cpuLoad: [0, 100], cpuTemp: [0, 150], cpuClock: [0, 10000], cpuPower: [0, 1000],
   gpuLoad: [0, 100], gpuTemp: [0, 150], gpuClock: [0, 5000], gpuPower: [0, 1500], gpuFan: [0, 100],

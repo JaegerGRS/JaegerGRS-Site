@@ -1,6 +1,6 @@
 // Durable Object holding the latest PC snapshot. The PC app POSTs samples (through the Worker, which
 // checks the pairing key); the public site polls GET /snapshot. One global instance ("main") is used.
-import { sanitizeLive, sanitizeSpecs } from './lib/rig.mjs';
+import { sanitizeLive, sanitizeSpecs, publicSnapshotParts } from './lib/rig.mjs';
 
 const OFFLINE_AFTER_MS = 25000;
 
@@ -66,11 +66,12 @@ export class RigHub {
       this.watchers.push(now);
       if (this.watchers.length > 200) this.watchers.splice(0, this.watchers.length - 200);
       const ageMs = this.lastAt ? now - this.lastAt : null;
+      const pub = publicSnapshotParts(this.specs, this.live);
       return Response.json({
         online: ageMs !== null && ageMs < OFFLINE_AFTER_MS,
         ageSec: ageMs === null ? null : Math.round(ageMs / 1000),
-        specs: this.specs,
-        live: this.live,
+        specs: pub.specs,
+        live: pub.live,
       });
     }
 

@@ -69,8 +69,7 @@ async function handleClaim(request, env) {
   return hub(env).fetch(new Request(`https://hub/claim?rotate=${mode === 'rotate' ? 1 : 0}`, { method: 'POST' }));
 }
 
-export default {
-  async fetch(request, env, ctx) {
+// An unexpected failure (for example a Durable Object restarting) returns a plain JSON error rather than\n// Cloudflare's bare 1101 page. Only the error name is logged, never request contents.\nasync function handle(request, env, ctx) {
     const url = new URL(request.url);
 
     if (url.hostname === 'www.jaegergrs.com') {
@@ -106,5 +105,16 @@ export default {
     const res = await env.ASSETS.fetch(request);
     const html = (res.headers.get('Content-Type') || '').includes('text/html');
     return secure(res, { html });
+}
+
+export default {
+  async fetch(request, env, ctx) {
+    try {
+      return await handle(request, env, ctx);
+    } catch (e) {
+      console.error('worker error', e && e.name);
+      const api = new URL(request.url).pathname.startsWith('/api/');
+      return secure(api ? json({ ok: false, code: 'server_error' }, 500) : new Response('Something went wrong. Please try again.', { status: 500, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }), { api });
+    }
   },
 };
