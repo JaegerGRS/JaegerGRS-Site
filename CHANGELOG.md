@@ -3,6 +3,8 @@
 All dates reflect work that actually shipped or was prepared as a release. No fabricated earlier commits.
 
 ## v0.3.0 - 15 October 2026
+- Each project now has its own colour theme across its pages: Svart violet, Grey Signal cyan, JaeTheTech blue, JAE rose, PC hardware ember and Rig API gold. The rest of the site stays grey, black and white.
+- Expanded the sub pages with set-up steps, FAQs, a pricing table, a security section and a hosting guide (new aq and steps components).
 - Paired the tray app with the live site (key made by the Worker, setup closed afterwards).
 - Added an all-rights-reserved LICENSE.
 - Deployed to Cloudflare with wrangler deploy (jaegergrs.com now serves the new site). Preview URLs are switched off (preview_urls = false). Live checks: security headers, 403 on wrong origin and on closed setup, 503 on rig POST without key.
@@ -47,6 +49,7 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.1.0 — 14 October 2026
 - Initial dark portfolio foundation, first technical project overviews, metadata and changelog.
+
 
 
 

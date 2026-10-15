@@ -84,6 +84,10 @@ export const cta = (h, p) => `<section class="section tight"><div class="contain
 export const back = `<section class="section tight container"><a class="text-link" href="{up}projects/">← All projects</a></section>`;
 export const backTo = (href, label) => `<section class="section tight container"><a class="text-link" href="{up}${href}">← ${label}</a> <span class="fine"> · </span> <a class="text-link" href="{up}projects/">All projects</a></section>`;
 export const more = (title, ...items) => `<section class="section container">${sectionHead('Go deeper', title)}${links(...items)}</section>`;
+export const faq = (title, ...qa) => `<section class="section container pt0">${sectionHead('Questions', title)}<div class="faq">${qa.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div></section>`;
+
+export const steps = (kicker, title, ...items) => `<section class="section container"><div class="two"><div><p class="kicker">${kicker}</p><h2 class="title">${title}</h2></div><ol class="steps">${items.map(i => `<li><span>${i}</span></li>`).join('')}</ol></div></section>`;
+
 export const facts = (...pairs) => `<section class="section container"><dl class="facts reveal">${pairs.map(([t, d]) => `<div><dt>${t}</dt><dd>${d}</dd></div>`).join('')}</dl></section>`;
 export const img = (src, alt, w, h, cls = '') => `<img class="${cls}" src="{up}assets/img/${src}" alt="${alt}" width="${w}" height="${h}" loading="lazy" decoding="async">`;
 export const fourCards = (t, items) => `<section class="section container"><div class="grid g4">${items.map(([i, k, h, p], n) => `<div class="card reveal"><span class="icon">${i}</span><span class="num mt-icon">0${n + 1} / ${k}</span><h3 class="h3s">${h}</h3><p>${p}</p></div>`).join('')}</div></section>`;

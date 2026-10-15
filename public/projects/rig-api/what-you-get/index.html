@@ -16,7 +16,7 @@
 <link rel="preload" href="../../../assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../../assets/styles.css">
 </head>
-<body class="">
+<body class="t-rig">
 <a class="skip" href="#main">Skip to main content</a>
 <header class="topbar"><div class="container nav"><a class="wordmark" href="../../../index.html" aria-label="Jaeger Stratton home"><span class="mark">J<span class="accent">.</span></span><span>JAEGER<span class="soft">GRS</span></span></a><button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">Menu <span aria-hidden="true">☰</span></button><nav id="site-nav" aria-label="Main navigation"><a href="../../../index.html">Home</a><a href="../../../projects/" aria-current="page">Projects</a><a href="../../../expertise/">Expertise</a><a href="../../../about/">About</a><a class="nav-contact" href="../../../contact/">Contact <span aria-hidden="true">↗</span></a></nav></div></header>
 <main id="main">
@@ -24,6 +24,9 @@
 <section class="section container"><div class="two">
 <div><p class="kicker">Included</p><h2 class="title">What you get.</h2></div>
 <div><ul class="ticks"><li><span>The Worker API (GET snapshot, key-protected POST) and Durable Object, ready to deploy to your own Cloudflare account.</span></li><li><span>JaegerRigAgent.exe, the Windows tray app with Start with Windows and an encrypted key.</span></li><li><span>The front-end live panel: one script tag, no coding.</span></li><li><span>A setup guide and help getting it running.</span></li></ul></div></div></section>
+<section class="section container pt0"><div class="two">
+<div><p class="kicker">Security</p><h2 class="title">How it stays safe.</h2></div>
+<div><ul class="ticks"><li><span>Only a PC holding the pairing key can post updates. The key is compared in constant time and stored encrypted on the PC for your Windows account only.</span></li><li><span>Updates are rate limited and size limited, and every value is cleaned before it is stored.</span></li><li><span>Only hardware names and load numbers are sent: no files, personal data or network details.</span></li><li><span>Strict security headers on every response, and setup mode is closed after pairing.</span></li></ul></div></div></section>
 <section class="section container pt0"><div class="note"><strong>Limits, stated plainly:</strong> one PC reports to one site. Windows only for the app (NVIDIA GPU stats need nvidia-smi). It is not built for large servers, many machines or heavy traffic yet, and it comes without a guarantee of uptime or support level beyond what we agree when you buy.</div></section>
 <section class="section tight container"><a class="text-link" href="../../../projects/rig-api/">← Rig API</a> <span class="fine"> · </span> <a class="text-link" href="../../../projects/">All projects</a></section>
 </main>

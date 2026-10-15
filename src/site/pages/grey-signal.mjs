@@ -1,5 +1,5 @@
 import { GREY, YT, TWITCH } from '../config.mjs';
-import { ext, int, links, sectionHead, hero, back, backTo, more, facts, img } from '../components.mjs';
+import { ext, int, links, sectionHead, hero, back, backTo, more, facts, img, faq, steps } from '../components.mjs';
 
 export default [
 {
@@ -24,6 +24,8 @@ ${back}`,
 <div><p class="kicker">Features</p><h2 class="title">Built end to end.</h2></div>
 <div><ul class="ticks"><li><span>Multi-page layout: home, transmissions, ops, rig, about and contact.</span></li><li><span>A rig page that refreshes itself with specs, load and temperatures.</span></li><li><span>Responsive design, metadata, social cards and accessibility basics.</span></li><li><span>A Windows app (C#) that runs and manages the site, with an .msi installer.</span></li><li><span>A Node.js site engine for a PC or VPS, plus a Cloudflare Worker version (D1, email, live stats) ready for a future domain.</span></li></ul>
 <div class="note">The rig page shares hardware details only: no personal information, files or network details. The self-hosted site runs over plain HTTP at an open IP address, so your browser may show a "not secure" notice.</div></div></div></section>
+${steps('Hosting', 'Three ways to run it.', '<strong>On this PC:</strong> free and private, and it can be shown to the world through a Cloudflare Tunnel that hides the home address.', '<strong>On Cloudflare:</strong> the Worker version with D1, email and live stats, online 24/7.', '<strong>On a rented server:</strong> the Node engine in Docker behind Caddy, for a VPS.')}
+${faq('Build questions.', ['Why is the live site not on HTTPS yet?', 'It is self-hosted at an open IP address over plain HTTP while a proper domain is set up, so browsers show a not secure notice.'], ['Does the rig page share personal data?', 'No. It shares hardware names and load numbers only: no personal information, files or network details.'])}
 <section class="section container pt0">${links(ext(GREY, 'Open the site', 'Self-hosted Grey Signal'), ext(GREY + '/rig.html', 'Live rig telemetry', 'Specs and load'), int('projects/rig-api/', 'Rig API', 'The same idea, for your own site'))}</section>
 ${backTo('projects/grey-signal/', 'Grey Signal')}`,
 },

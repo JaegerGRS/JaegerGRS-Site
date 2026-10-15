@@ -1,5 +1,5 @@
 import { SVART } from '../config.mjs';
-import { ext, int, links, sectionHead, hero, back, backTo, more, facts } from '../components.mjs';
+import { ext, int, links, sectionHead, hero, back, backTo, more, facts, faq } from '../components.mjs';
 
 const tool = (icon, name, cat, status, cls, desc) =>
   `<div class="card reveal"><div class="card-top"><span class="icon">${icon}</span><span class="tag ${cls}">${status}</span></div><h3 class="h3s">${name}</h3><p>${desc}</p><span class="num">${cat}</span></div>`;
@@ -40,6 +40,7 @@ ${tool('🗂️', 'File Encryption', 'Security', 'Planned', '', 'Encrypt, decryp
 ${tool('🛡️', 'Privacy Checker', 'Privacy', 'Planned', '', 'Scan and tune your privacy settings with guided fix tips.')}
 ${tool('🌐', 'VPN Service', 'Privacy', 'Planned', '', 'No-logs VPN in privacy-friendly jurisdictions, with a kill switch.')}
 </div></section>
+${faq('Tool questions.', ['What do the status labels mean?', 'In development and Building now mean work has started. Planned means it is on the roadmap. The labels mirror svartsecurity.org and may change before launch.'], ['Is anything collected about me?', 'No. Svart Security states no tracking, no ads and zero telemetry, analytics or data collection.'], ['How is data protected?', 'Tools use AES-256-GCM, with data encrypted on the device before it leaves.'])}
 ${backTo('projects/svart-security/', 'Svart Security')}`,
 },
 ];
