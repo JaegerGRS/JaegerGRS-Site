@@ -4,6 +4,8 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- **Homepage rewrite:** new hero (label, name, supporting headline, introduction, two actions, availability), dated facts instead of the years stat, featured projects with category, role, verified tech, status and case-study link, a real-evidence links section, short background and CTA. Peterborough removed from the description.
+
 - **Projects directory restructure:** new intro ('Selected technical work'), one data-driven card list with status tags and verified tech chips, a status key, a progressive category filter (all cards visible without JavaScript), real Grey Signal logo, no mock screenshots. Fixed horizontal overflow of the code block on the Rig API install page at 360px.
 
 - **Navigation:** menu button's accessible name now matches its visible text; Contact in the nav no longer shows an external-link arrow; footer adds GitHub and external-link markers.
