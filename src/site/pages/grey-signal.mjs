@@ -6,7 +6,7 @@ const GS_LOGO = img('grey-signal-logo.webp', 'Grey Signal logo', 160, 160, 'logo
 export default [
 {
   file: 'projects/grey-signal/index.html', section: 'projects', theme: 't-grey',
-  title: 'Grey Signal', desc: 'The engineering behind the Grey Signal gaming channel: a self-hosted multipage website, a C# Windows control app, an MSI installer, a Node.js site engine, a Cloudflare Worker version and live PC telemetry.',
+  title: 'Grey Signal', desc: 'The engineering behind the Grey Signal gaming channel: a self-hosted website, C# Windows control app, MSI installer, Node.js engine and live PC telemetry.',
   crumbs: [['Projects', 'projects/'], ['Grey Signal']],
   body: `${hero('Project · Website, app and infrastructure · 2026', 'Grey <span class="c">Signal.</span>', 'The engineering built around my gaming channel: a self-hosted multipage website, a C# Windows control app, an installer, a Node.js site engine, a Cloudflare Worker version and live PC telemetry.', `<div class="actions"><a class="btn primary" href="{up}projects/grey-signal/build/">How it is built</a><a class="btn secondary" href="${GREY}" target="_blank" rel="noopener noreferrer">Open the site (HTTP) <span aria-hidden="true">↗</span></a><a class="btn secondary" href="${GREY}/rig.html" target="_blank" rel="noopener noreferrer">Live rig page</a></div>`, GS_LOGO)}
 <section class="section container"><figure class="media reveal">${img('grey-signal-banner.webp', 'Grey Signal channel banner: tactical operator, helicopter and mountains with the GS logo', 1920, 520)}</figure></section>

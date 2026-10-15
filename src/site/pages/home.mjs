@@ -4,9 +4,9 @@ import { ext, int, links, sectionHead, cta } from '../components.mjs';
 export default [
 {
   file: 'index.html', section: 'home',
-  title: 'Jaeger Stratton | IT Technician, PC Builder & Developer',
-  desc: 'Jaeger George Richard Stratton: IT technician, PC builder and independent developer. PC assembly, Windows troubleshooting, self-hosted services and privacy-focused software. Based in the United Kingdom, open to remote, hybrid and international IT opportunities.',
-  schema: `\n<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Jaeger George Richard Stratton","url":"${SITE}/","jobTitle":"IT Technician and Independent Developer","knowsAbout":["PC building","Hardware troubleshooting","Windows installation","Web development","Technical support"],"sameAs":["${FB}","${LI}","${XJ}","${SVART}","${JTT}"]}</script>`,
+  title: 'Jaeger Stratton | IT Technician, PC Hardware & Developer',
+  desc: 'Explore Jaeger Stratton’s IT portfolio, featuring PC building, Windows troubleshooting, software development and privacy-focused projects. Open to international opportunities.',
+  schema: `\n<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","@id":"${SITE}/#person","name":"Jaeger George Richard Stratton","alternateName":"Jaeger Stratton","url":"${SITE}/","description":"UK-based IT technician, PC builder and independent developer.","jobTitle":"IT Technician and Independent Developer","knowsAbout":["PC building","Hardware troubleshooting","Windows installation","Web development","Technical support"],"sameAs":["${FB}","${LI}","${XJ}","${SVART}","${JTT}"]}</script>`,
   body: `
 <section class="container hero">
 <div><p class="eyebrow">IT technician · PC hardware · Software development</p>

@@ -9,7 +9,7 @@ export const links = (...items) => `<div class="link-row">${items.join('')}</div
 export const sectionHead = (kicker, title, p = '') =>
   `<div class="section-heading"><div><p class="kicker">${kicker}</p><h2 class="title">${title}</h2></div>${p ? `<p>${p}</p>` : ''}</div>`;
 
-export function page({ file, title, desc, section, theme = '', body, crumbs = [], schema = '' }) {
+export function page({ file, title, desc, section, theme = '', body, crumbs = [], schema = '', og = 'social-card.jpg', ogAlt = 'Jaeger Stratton: PCs, systems, web and privacy software' }) {
   const depth = file.split('/').length - 1;
   const up = '../'.repeat(depth);
   const urlPath = file.replace(/index\.html$/, '');
@@ -23,7 +23,7 @@ export function page({ file, title, desc, section, theme = '', body, crumbs = []
     ? `\n<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [['Home', ''], ...crumbs].map(([l, h], i, all) => ({ '@type': 'ListItem', position: i + 1, name: l, ...(h !== undefined && (h || i === 0) ? { item: `${SITE}/${h}` } : {}) })) })}</script>`
     : '';
   const siteLd = file === 'index.html'
-    ? `\n<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jaeger Stratton', url: `${SITE}/`, inLanguage: 'en-GB' })}</script>`
+    ? `\n<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${SITE}/#website`, name: 'Jaeger Stratton', url: `${SITE}/`, inLanguage: 'en-GB', publisher: { '@id': `${SITE}/#person` } })}</script>`
     : '';
   const fullTitle = file === 'index.html' ? title : `${title} | Jaeger Stratton`;
   return `<!doctype html>
@@ -34,10 +34,10 @@ export function page({ file, title, desc, section, theme = '', body, crumbs = []
 <meta name="theme-color" content="#0b1017">
 <title>${fullTitle}</title>
 <meta name="description" content="${desc}">
-<meta name="author" content="Jaeger George Richard Stratton">
+<meta name="author" content="Jaeger George Richard Stratton">${file === '404.html' ? '<meta name="robots" content="noindex">' : ''}
 <link rel="canonical" href="${SITE}/${urlPath}">
-<meta property="og:type" content="website"><meta property="og:site_name" content="Jaeger Stratton"><meta property="og:locale" content="en_GB"><meta property="og:title" content="${fullTitle}"><meta property="og:description" content="${desc}"><meta property="og:url" content="${SITE}/${urlPath}"><meta property="og:image" content="${SITE}/assets/img/social-card.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Jaeger Stratton: PCs, systems, web and privacy software">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@JaegerGRS"><meta name="twitter:title" content="${fullTitle}"><meta name="twitter:description" content="${desc}"><meta name="twitter:image" content="${SITE}/assets/img/social-card.jpg">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Jaeger Stratton"><meta property="og:locale" content="en_GB"><meta property="og:title" content="${fullTitle}"><meta property="og:description" content="${desc}"><meta property="og:url" content="${SITE}/${urlPath}"><meta property="og:image" content="${SITE}/assets/img/${og}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="${ogAlt}">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@JaegerGRS"><meta name="twitter:title" content="${fullTitle}"><meta name="twitter:description" content="${desc}"><meta name="twitter:image" content="${SITE}/assets/img/${og}"><meta name="twitter:image:alt" content="${ogAlt}">
 <script src="${up}assets/boot.js"></script>
 <link rel="icon" href="${up}assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="${up}assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>

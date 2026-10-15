@@ -6,6 +6,7 @@ const row = (...c) => `<tr>${c.map((x, i) => (i === 0 ? `<th scope="row">${x}</t
 export default [
 {
   file: 'projects/rig-api/index.html', section: 'projects', theme: 't-rig',
+  og: 'social-rig-api.jpg', ogAlt: 'The Rig API live panel showing a Windows PC as Online now, with CPU, GPU and memory meters.',
   title: 'Rig API case study', desc: 'Rig API case study by Jaeger Stratton: a Windows tray app, an authenticated Cloudflare Worker API and an embeddable live hardware panel, with architecture, security review and limits.',
   crumbs: [['Projects', 'projects/'], ['Rig API']],
   schema: `\n<script type="application/ld+json">${JSON.stringify({
@@ -41,7 +42,7 @@ ${facts(['Type', 'Windows app + Worker API + embed'], ['Agent size', '25.5 KB (2
 </div></section>
 <section class="section container pt0" id="live">${sectionHead('Live demonstration', 'Running now.', 'This is the real panel, reading the real Worker. If my PC is off you will see the last known specs, clearly marked.')}${rigPanel()}</section>
 <section class="section container pt0"><div class="grid g2">
-<figure class="media reveal">${img('rig-live-online.webp', 'The live panel showing the status Online now with this PC\'s specifications and CPU, GPU and memory meters.', 937, 477)}<figcaption class="fine">Online. Captured from jaegergrs.com on 15 October 2026 while the agent was running.</figcaption></figure>
+<figure class="media reveal">${img('rig-live-online.webp', 'The live panel showing the status Online now with this PC\'s specifications and CPU, GPU and memory meters.', 1010, 388)}<figcaption class="fine">Online. Captured from jaegergrs.com on 15 October 2026 while the agent was running.</figcaption></figure>
 <figure class="media reveal">${img('rig-live-offline.webp', 'The live panel showing the status Offline with last known specifications and no live meters.', 937, 573)}<figcaption class="fine">Offline. Captured from a local test copy of the Worker after updates stopped. It uses this PC\'s real specifications but is a test instance, not the production site.</figcaption></figure>
 </div></section>
 <section class="section container pt0" id="security">${sectionHead('Security review', 'What the code actually does.', 'Reviewed from the implementation, not the marketing. A gap is a gap even when it is acceptable for a small personal site.')}

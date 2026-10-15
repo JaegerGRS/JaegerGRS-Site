@@ -23,6 +23,15 @@ for (const file of pages) {
   else titles.set(title, rel);
   if (!/<meta name="description" content="[^"]{20,}/.test(html)) fail(`${rel}: missing or short meta description`);
   if (!/<link rel="canonical" href="https:\/\/jaegergrs\.com\//.test(html)) fail(`${rel}: missing canonical`);
+  if (title && title.length > 70) fail(`${rel}: title over 70 characters`);
+  const descLen = /<meta name="description" content="([^"]*)"/.exec(html)?.[1].length ?? 0;
+  if (descLen > 200) fail(`${rel}: meta description over 200 characters (${descLen})`);
+  for (const m of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    try { if (JSON.parse(m[1])['@context'] !== 'https://schema.org') fail(`${rel}: JSON-LD without schema.org context`); }
+    catch { fail(`${rel}: invalid JSON-LD`); }
+  }
+  if (rel !== '404.html' && /name="robots"[^>]*noindex/.test(html)) fail(`${rel}: unexpected noindex`);
+  if (rel === '404.html' && !/name="robots" content="noindex"/.test(html)) fail('404.html should be noindex');
   if ((html.match(/<h1[\s>]/g) || []).length !== 1) fail(`${rel}: needs exactly one <h1>`);
   for (const tag of html.match(/<img\b[^>]*>/g) || []) {
     if (!/\balt="/.test(tag)) fail(`${rel}: image without alt text`);
@@ -43,6 +52,11 @@ for (const file of pages) {
 }
 
 const sitemap = readFileSync(join(root, 'sitemap.xml'), 'utf8');
+for (const file of pages) {
+  const rel = relative(root, file).replace(/\\/g, '/');
+  if (rel === '404.html') continue;
+  if (!sitemap.includes(`<loc>https://jaegergrs.com/${rel.replace(/index\.html$/, '')}</loc>`)) fail(`${rel}: not in sitemap`);
+}
 for (const m of sitemap.matchAll(/<loc>https:\/\/jaegergrs\.com\/([^<]*)<\/loc>/g)) {
   const target = join(root, m[1], m[1].endsWith('.html') ? '' : 'index.html');
   if (!existsSync(target)) fail(`sitemap entry missing: /${m[1]}`);

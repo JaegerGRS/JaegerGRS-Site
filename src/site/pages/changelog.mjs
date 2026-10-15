@@ -54,7 +54,7 @@ const v010 = release('0.1.0', '2026-10-14', '14 October 2026', 'Portfolio founda
 export default [
 {
   file: 'changelog/index.html', section: '',
-  title: 'Changelog', desc: 'Version history and release notes for jaegergrs.com.',
+  title: 'Changelog', desc: 'Release history for jaegergrs.com: versions, real release dates and changes grouped as features, improvements, fixes, security and documentation.',
   crumbs: [['Changelog']],
   body: `${hero('Maintenance log', 'Changelog<span class="accent">.</span>', 'A public record of what changed and when. Dates are the real release dates, and nothing is backdated.')}
 <section class="section container">

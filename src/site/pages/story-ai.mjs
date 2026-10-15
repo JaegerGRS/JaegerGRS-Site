@@ -5,7 +5,7 @@ const stage = (name, state, text) => `<div class="card reveal"><span class="tag"
 export default [
 {
   file: 'projects/story-ai/index.html', section: 'projects', theme: 't-story',
-  title: 'YouTube AI Story', desc: 'YouTube AI Story is a local video-generation pipeline in Python: Ollama scripts, local text-to-speech, GPU-assisted rendering, similarity checks and file manifests. Status and limits are stated.',
+  title: 'YouTube AI Story', desc: 'YouTube AI Story is a local video-generation pipeline in Python: Ollama scripts, local text-to-speech, GPU rendering and similarity checks, with status and limits stated.',
   crumbs: [['Projects', 'projects/'], ['YouTube AI Story']],
   body: `${hero('Project · Automation and AI pipeline · In development', 'YouTube AI <span class="c">Story.</span>', 'A Python pipeline that turns a topic into a finished video on my own PC: a local language model for ideas and scripts, local text-to-speech, video rendering with optional GPU encoding, similarity checks and a file manifest. It is treated here as a technical system, and the page says which parts are only partly built.')}
 ${facts(['Status', 'In development · not released'], ['Role', 'Developer'], ['Core stack', 'Python, Ollama, Coqui XTTS, MoviePy and FFmpeg, OpenCV, Flask'], ['Desktop shell', 'Tauri (Rust and TypeScript), early stage'])}

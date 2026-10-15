@@ -4,6 +4,10 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- SEO pass, keeping the existing foundations (titles, descriptions, canonicals, Open Graph, robots.txt, sitemap, BreadcrumbList) and adding no dependencies. Homepage title and description updated to the agreed wording. Over-long descriptions on Grey Signal, YouTube AI Story and the changelog tightened. The 404 page is now `noindex`. Person and WebSite structured data now share linked `@id`s. No ratings, reviews or employment schema was added.
+- Social cards: pages can now set their own image and its alt text. The Rig API case study uses a card built from a real screenshot of the live panel on the brand background; every other page keeps the global card. The Rig API screenshot used on the page was recaptured, because the previous one was badly framed.
+- Site checker now also fails on invalid JSON-LD, titles over 70 characters, descriptions over 200, a `noindex` on a normal page, a missing `noindex` on the 404 page, and any indexable page missing from the sitemap.
+
 - Changelog page rebuilt: each release now has a semantic date, a version and changes grouped as Features, Improvements, Fixes, Security and Documentation. The v0.3.0 entry, which previously still described the earlier redesign, now summarises this release and links to this file. Dates were not altered or backdated.
 - The version number was removed from every page footer; it now appears on the changelog page only. The footer already links to the changelog.
 
