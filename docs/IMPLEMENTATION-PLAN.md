@@ -6,7 +6,7 @@ The work was done as small, separately verified, committed and deployed changes,
 - Architecture documented (generator in `src/site`, Worker in `src/`, tray app in `agent/`, Durable Objects for rig state and rate limiting).
 - Content accuracy audit: `docs/CONTENT-AUDIT.md`.
 - Security-sensitive areas: `docs/SECURITY-REVIEW.md`. Do not change casually: `src/worker.mjs`, `src/lib/security.mjs` (CSP and headers), `src/lib/rig.mjs` and `src/rig-hub.mjs` (authentication and the public allowlist), `src/lib/contact.mjs`, `src/guard.mjs`, `wrangler.toml`, and the CI workflow.
-- Baseline Lighthouse: **not recorded**. Chrome is not installed here. Core Web Vitals were measured with Chromium instead (see the changelog); install Chrome to add Lighthouse scores.
+- Lighthouse production lab baseline recorded with Playwright Chromium on 15 October 2026: performance 99 on `/`, `/about/` and `/contact/`; LCP 1.9 s, CLS 0 and TBT 0 ms in clean runs. Accessibility and SEO scored 100 on `/`, `/projects/`, `/projects/rig-api/` and `/contact/`. Results were variable across runs; see `TASKS.md` and the changelog. These are lab measurements, not field Core Web Vitals.
 
 ## Phase 2: Content and structure: done, except items needing your input
 - Homepage positioning, international availability, project directory, expertise, About and Journey are done. Rig API sales content is secondary.
@@ -40,7 +40,7 @@ The work was done as small, separately verified, committed and deployed changes,
 | CV feature works once an approved document is provided | Met. Set `CV` in `src/site/facts.mjs` and add the file; tested with a throwaway file, and the build fails if the file is missing. No CV is published yet. |
 | Navigation logical; SEO valid | Four main nav items; titles, descriptions, canonicals, JSON-LD and sitemap checked in CI. |
 | Accessibility problems found by testing resolved | Resolved for the issues found. WCAG 2.2 AA compliance is not claimed; manual screen-reader and zoom testing is outstanding. |
-| Performance measured | Met in Chromium lab tests. Lighthouse not recorded (Chrome missing); no field data. |
+| Performance measured | Met in Chromium lab tests and Lighthouse lab runs. No field data. |
 | Sensitive infrastructure not exposed; security claims match code | Public telemetry is an allowlist; private paths return 404; see `docs/SECURITY-REVIEW.md` for the remaining gaps. |
 | No invented images, achievements, credentials or testimonials | Met. Missing evidence is marked as content tasks. |
 | All 25 routes remain; project links and integrations preserved | Met. Compared with the pre-brief build, no page was removed (25 routes plus the 404 page); existing project and social links remain. |
@@ -48,10 +48,9 @@ The work was done as small, separately verified, committed and deployed changes,
 
 Not fully met, because it needs you: a real CV, verified qualifications, photographs and application screenshots, working contact email delivery, and an HTTPS address for Grey Signal.
 ## Owner decisions still open
-1. Set the `GUARD_SALT` secret; fix sender verification for `website@jaegergrs.com`; decide on Turnstile and `contact@jaegergrs.com`.
+1. Fix sender verification for `website@jaegergrs.com`; decide on Turnstile and `contact@jaegergrs.com`.
 2. Decide whether to turn off `workers_dev`; confirm `RIG_SETUP` is closed; confirm log retention.
 3. Approve the Grey Signal Cloudflare Tunnel and hostname.
 4. Supply the CV, qualifications, photos and screenshots.
 5. Confirm the dates, workstation, Rig API prices and support terms.
 6. Decide whether to purge the accidentally committed `YouTube AI Story` files (needs a force-push).
-7. Install Chrome to record Lighthouse baselines.

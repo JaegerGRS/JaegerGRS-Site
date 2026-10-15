@@ -85,7 +85,7 @@ Both are Worker routes (`src/worker.mjs`) backed by Durable Objects.
 - **Live PC panel** (`GET/POST /api/rig`): the PC app in [agent/](agent/README.md) posts with a secret pairing key. Easiest: set the Cloudflare variable `RIG_SETUP=open`, press **Get key from site** in `JaegerRigAgent.exe`, then delete the variable (the site makes and remembers the key; `rotate` replaces it). Or set your own with `npx wrangler secret put RIG_TOKEN` (32+ characters; `node agent/rig-agent.mjs --gen-token`), which takes priority.
 - **Rig API embed** (`public/embed/rig-embed.js`): add `<script src="/embed/rig-embed.js" defer></script>` to any page for a self-building live panel. The product page is `/projects/rig-api/` (made for small sites and servers only).
 - **Contact form** (`POST /api/contact`): sends mail to `CONTACT_TO` (in `wrangler.toml`) via Cloudflare Email Service. Onboard `jaegergrs.com` for sending in the Cloudflare dashboard (Email Service) so `CONTACT_FROM` is allowed, or instead set `npx wrangler secret put RESEND_API_KEY`. Until one is set the form answers 503 and tells visitors to use email.
-- Optional: `npx wrangler secret put GUARD_SALT` (any random string) to salt the hashed visitor keys used for rate limiting.
+- Optional: `npx wrangler secret put GUARD_SALT` with a cryptographically random secret (at least 32 bytes) to salt the hashed visitor keys used for rate limiting.
 
 Local testing: put `RIG_TOKEN=...` in `.dev.vars` (git-ignored) and run `npx wrangler dev`.
 

@@ -4,6 +4,8 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- Maintenance: set and verified the production `GUARD_SALT` Worker secret using 32 cryptographically random bytes. Reviewed `scripts/notes-server.mjs`; it binds to localhost, requires its generated password and stores notes under the git-ignored `notes/` directory. Refreshed the stale task tracker.
+- Performance: recorded a Lighthouse production lab baseline using Chromium. Clean runs scored 99 for performance on `/`, `/about/` and `/contact/` (LCP 1.9 s, CLS 0, TBT 0 ms); accessibility and SEO scored 100 on `/`, `/projects/`, `/projects/rig-api/` and `/contact/`. Results varied on repeated runs, and field Core Web Vitals are not available. The homepage's 93 best-practices score includes a Cloudflare-injected inline script blocked by the site's CSP.
 - The About page now shows a Download CV button when CV is set in src/site/facts.mjs (tested; the build fails if the file is missing). No CV is published until you approve one. The acceptance check is recorded in docs/IMPLEMENTATION-PLAN.md.
 
 - Documentation: `docs/IMPLEMENTATION-PLAN.md` maps the six implementation phases to what was done and what remains. Final checks on this date: all pages, the sitemap and robots.txt return 200; 709 internal links pass; all external links resolve (LinkedIn blocks automated requests); the live panel reports online with the allowlisted fields only.
@@ -16,7 +18,7 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 - Documentation: added an evidence register to the Projects page (`/projects/#evidence`). For each of the seven projects it lists the evidence that exists today (public source, screenshots, diagrams, tests, run history) and the content still to be gathered, such as hardware photographs, repair case studies, application screenshots and measured pipeline results. No example evidence was invented; missing items are marked as content tasks. The Expertise page links to it.
 - Copy audit: searched all page copy for promotional wording (for example "innovative", "cutting-edge", "seamless", "robust", "solution") and found none to remove. Pages already describe what was built and its status in plain terms.
 
-- Security review (see `docs/SECURITY-REVIEW.md`) and a Grey Signal HTTPS migration plan (see `docs/GREY-SIGNAL-HTTPS-MIGRATION.md`, plan only, no infrastructure changed). Gaps found and not yet fixed are listed there, including the unset `GUARD_SALT` secret, no Turnstile, and no replay nonce on Rig ingest.
+- Security review (see `docs/SECURITY-REVIEW.md`) and a Grey Signal HTTPS migration plan (see `docs/GREY-SIGNAL-HTTPS-MIGRATION.md`, plan only, no infrastructure changed). Remaining gaps include no Turnstile and no replay nonce on Rig ingest.
 - Security: repaired a syntax error in `src/worker.mjs` (a literal `\n` had swallowed the handler into a comment), which would have broken CI and deployment.
 - Security: the public Rig snapshot is now an allowlist. Board model, GPU driver version, storage totals, uptime, clocks, fan speed and power draw are no longer published; only what the panel displays is.
 - Tests: the Worker now has tests that unexpected failures return a generic error with no internal detail.
@@ -24,7 +26,7 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 - Performance pass, measured on production with Chromium. Unthrottled: LCP 0.35-0.55 s, CLS 0, 72-79 KB per page transferred. Throttled to a slow mobile profile (390px, 4x CPU, about 1.6 Mbps, 150 ms latency): LCP 1.4-1.6 s on the main pages, CLS 0, slowest interaction (menu open and close) 24-40 ms. These are lab measurements, not field data from real visitors.
 - Found and fixed one failure: the Grey Signal channel page had a throttled-mobile LCP of 3.0 s because its lead image (192 KB, 1400px wide) was lazy-loaded and shown at about 340px. It now has a 700px srcset candidate (72 KB), `fetchpriority="high"` and is not lazy; LCP is now 1.4 s. The Grey Signal banner and site-home images also got smaller srcset candidates.
 - Checked and left as they were: fonts are self-hosted (60 KB, preloaded) with no third-party requests; one small CSS file and no render-blocking scripts; Brotli compression; static assets cached for an hour to a week; every other image is WebP, lazy-loaded with width and height set; the live panel polls every 3 s only while the tab is visible and backs off on errors, with no animation libraries.
-- Not measured: real-user INP (needs field data), Lighthouse (no Chrome installed here) and non-Chromium browsers.
+- Not measured at the time of this pass: real-user INP (needs field data) and non-Chromium browsers. Lighthouse was recorded later in the maintenance entry above.
 
 - Responsive pass. Every page (25) was loaded at 320, 375, 390, 768, 1024, 1440, 2560 and 844x390 landscape in a browser and checked for page-level horizontal overflow (none found), content clipped without a scrollbar (none), distorted images (none) and header or menu problems (none). Screenshots of the code blocks, live panel and contact form at 320px were reviewed.
 - Fixed: breadcrumb links and the "All projects" / "back" links were 16-22px tall, under the 24px minimum in WCAG 2.2 (target size). They now have a 24px minimum, and 44px on touch screens.
@@ -54,7 +56,7 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 - JaeTheTech and Personal AI rewritten from the public repository and jaethetech.com. JaeTheTech now leads with the engineering (a Cloudflare Worker with email-code and GitHub sign-in, KV sessions, roles and rate limiting), architecture trade-offs without claiming frameworks are inferior, two real website screenshots and the source link. Personal AI now separates local inference from external market and news data, says storage and the desktop build are unconfirmed, notes there is no public repository or release, and states that the site's own Personal AI visual is a mock-up. The directory card for JaeTheTech was reworded to match.
 
-- Accessibility pass targeting WCAG 2.2 AA (compliance is not claimed). Fixed heading order on all pages, the logo link's accessible name, a focusable code block, footer headings, a skip link that now moves focus to the main content, and contact form status roles, required-field note and keyboard focus on submit. Tested: axe-core on 25 pages at 1280px and 320px (no violations, including contrast and target size), keyboard order, mobile menu, 200% text size, 320px reflow and reduced motion. Not yet tested: screen readers, real browser zoom, Lighthouse.
+- Accessibility pass targeting WCAG 2.2 AA (compliance is not claimed). Fixed heading order on all pages, the logo link's accessible name, a focusable code block, footer headings, a skip link that now moves focus to the main content, and contact form status roles, required-field note and keyboard focus on submit. Tested: axe-core on 25 pages at 1280px and 320px (no violations, including contrast and target size), keyboard order, mobile menu, 200% text size, 320px reflow and reduced motion. Not yet tested: screen readers or real browser zoom.
 
 - JAE rewritten from the GitHub repository: current state (backend, models, backups, 16 interface pages in source), architecture diagram, known limitations (no release, placeholder model manifest, no UI tests) and screenshot placeholders. The engineering page now lists only workflows confirmed in the repo, adds a pipeline diagram showing which stages are proven, and notes the MSI workflow has never run. Relationship to Personal AI clarified: separate codebases with a shared aim. No badges added.
 
@@ -124,7 +126,6 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.1.0 — 14 October 2026
 - Initial dark portfolio foundation, first technical project overviews, metadata and changelog.
-
 
 
 
