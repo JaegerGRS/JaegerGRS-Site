@@ -1,4 +1,4 @@
-# JaegerGRS.com
+﻿# JaegerGRS.com
 
 Independent IT and development portfolio by Jaeger G.R. Stratton.
 
@@ -43,6 +43,7 @@ npm run check      # internal links, sitemap, CSP-unsafe inline styles/scripts
 npm test           # Worker headers, redirects, image serving
 npm run verify     # all three
 npm run selfhost   # run the whole site and API on this PC (http://localhost:8787, also on your LAN)
+npm run notes      # private page to jot change requests for Copilot Chat (password in notes/.password)
 ```
 
 Do not hand-edit the generated `.html` files; commit them together with the source change (CI fails if they are out of date). Styles and scripts live directly in `public/assets/`.
