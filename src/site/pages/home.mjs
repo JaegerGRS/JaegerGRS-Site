@@ -14,8 +14,8 @@ export default [
 <p class="lead">Self-taught PC builder, troubleshooter and developer, open to IT technician, PC assembly and support roles. I was introduced to tech at 13, built my first websites at 14 and my first PC at 16. IT has been an interest for half my life (self-taught, not paid employment), and today I build my own websites, privacy tools and local AI software alongside hands-on hardware and Windows support.</p>
 <div class="actions"><a class="btn primary" href="{up}contact/">Get in touch <span aria-hidden="true">↗</span></a><a class="btn secondary" href="{up}projects/">See my projects</a><a class="btn secondary" href="{up}about/">About me</a></div>
 <div class="hero-stats"><span><b data-years-since="2013">13</b><small>Years of interest in IT</small></span><span><b>7</b><small>Independent projects</small></span><span><b>UK-based</b><small>Remote, hybrid, international</small></span></div></div>
-<div class="terminal" aria-hidden="true"><div class="terminal-bar"><i></i><i></i><i></i><span>jaeger@jaegergrs ~</span></div>
-<div class="terminal-body"><div><span class="p">$</span> whoami</div><div class="d">jaeger — builder, tinkerer, troubleshooter</div><div><span class="p">$</span> cat skills</div><div class="o">hardware · windows · web · security</div><div><span class="p">$</span> ls projects/</div><div class="o">hardware rig-api svart-security jae grey-signal<br>jaethetech story-ai</div><div><span class="p">$</span> <span class="caret"></span></div></div></div>
+<div class="terminal" role="group" aria-label="Profile summary"><div class="terminal-bar"><i></i><i></i><i></i><span>profile</span></div>
+<div class="terminal-body"><div class="d">Focus</div><div class="o">Hardware, Windows support, web</div><div class="d">PC building</div><div class="o">Since 2016</div><div class="d">Based</div><div class="o">United Kingdom</div><div class="d">Open to</div><div class="o">Remote, hybrid, international</div><div class="d">Work</div><div class="o">Seven independent projects</div></div></div>
 </section>
 
 <section class="section container">
