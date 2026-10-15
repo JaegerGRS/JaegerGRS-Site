@@ -175,3 +175,4 @@ main:focus{outline:none}
 @media(pointer:coarse){.crumbs a,.text-link:not(.inline){min-height:44px}.crumbs{margin-bottom:8px}}
 /* Short landscape screens: let the header scroll away rather than cover a fifth of the view */
 @media(max-height:480px) and (orientation:landscape){.topbar{position:static}html{scroll-padding-top:0}}
+#evidence .card .kicker{margin:18px 0 10px}#evidence .card .kicker:first-of-type{margin-top:0}#evidence .card h3{margin:0 0 14px}

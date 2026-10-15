@@ -36,6 +36,29 @@ const projects = [
 
 const card = (p, i) => `<article class="card ${p.theme} proj" data-cat="${p.cat}"><div class="card-top"><span class="num">${String(i + 1).padStart(2, '0')}</span><span class="tag">${p.status}</span></div>${p.logo ? img('grey-signal-logo.webp', 'Grey Signal logo', 160, 160, 'logo-badge mt-icon') : `<span class="icon mt-icon">${p.icon}</span>`}<h3>${p.title}</h3><p>${p.text}</p><div class="chips">${p.chips.map(c => `<span>${c}</span>`).join('')}</div><div class="stack">${p.links}</div></article>`;
 
+const REPO = 'https://github.com/JaegerGRS/JaegerGRS-Site';
+const gh = (href, text) => `<a href="${href}" target="_blank" rel="noopener noreferrer">${text}<span class="sr-only"> (opens in a new tab)</span></a>`;
+
+// What can be checked today, and what is still missing. Nothing here is a placeholder for evidence that does not exist.
+const evidence = [
+  { name: 'PC hardware', have: ['A written workstation specification, labelled as my own description and not read from a live machine.', 'The live Rig API panel, which reports the specifications of a real PC.'],
+    todo: ['Photographs of my own builds: complete system, internal layout, cooling, storage work.', 'Repair and upgrade case studies from real jobs, with the diagnostic steps and how each fix was verified.', 'Confirm the workstation specification against the machine itself.'] },
+  { name: 'Rig API', have: [`Source on GitHub: ${gh(REPO + '/tree/main/src', 'Worker')}, ${gh(REPO + '/tree/main/agent', 'tray app')}.`, 'An architecture diagram, a Wrangler configuration excerpt and the embed snippet.', `Online and offline screenshots, dated, with the offline one labelled as a local test copy.`, `An automated ${gh(REPO + '/blob/main/scripts/test-worker.mjs', 'Worker test script')} that CI runs, covering authentication, validation, rate limits, offline state and CORS.`, `A ${gh(REPO + '/blob/main/docs/SECURITY-REVIEW.md', 'security review')} listing what was checked and the gaps that remain.`],
+    todo: ['Screenshots of the tray app and the pairing step.', 'A clean-machine test of the install instructions, written up with the result.'] },
+  { name: 'Svart Security', have: ['The live website, svartsecurity.org.'],
+    todo: ['No tool is released, so there is no application screenshot, repository or test result to show yet.', 'Add them per tool when each one exists.'] },
+  { name: 'JAE', have: [`Public ${gh('https://github.com/JaegerGRS/JAE', 'source')} and ${gh('https://github.com/JaegerGRS/JAE/actions', 'GitHub Actions run history')}.`, 'Architecture and pipeline diagrams, with the known limitations listed.'],
+    todo: ['Screenshots of the running application.', 'A first release and a run of the MSI workflow, with the result.'] },
+  { name: 'Grey Signal', have: ['Screenshots of the site home page and the live rig page, and the channel artwork.', 'An architecture diagram and a written plan for moving off plain HTTP.'],
+    todo: ['Screenshots of the Windows control app.', 'Installer test notes.', 'The HTTPS move itself, once approved.'] },
+  { name: 'JaeTheTech', have: [`Public ${gh('https://github.com/JaeTheTech/JaeTheTech.com', 'repository')} and two site screenshots.`],
+    todo: ['Screenshots and a description of the Personal AI features that exist today.', 'A measured performance result for the site.'] },
+  { name: 'YouTube AI Story', have: ['Architecture and pipeline diagrams, with each stage marked as implemented, partial or planned.'],
+    todo: ['Screenshots of the application.', 'Real run logs and measured timings from the pipeline. No benchmark is shown until one has been measured.', 'A repository link, if the code is made public.'] },
+];
+
+const evidenceCard = e => `<article class="card"><h3>${e.name}</h3><p class="kicker">Available now</p><ul class="ticks">${e.have.map(x => `<li><span>${x}</span></li>`).join('')}</ul><p class="kicker">Content tasks</p><ul class="ticks">${e.todo.map(x => `<li><span>${x}</span></li>`).join('')}</ul></article>`;
+
 const statuses = [
   ['Released', 'Working and in use. It may still receive updates.'],
   ['Active', 'Running and maintained, with ongoing work.'],
@@ -56,6 +79,11 @@ export default [
 ${projects.map(card).join('\n')}
 </div>
 <p class="fine">Real screenshots and photographs are being added to each case study as they are gathered. Nothing on these pages is mock-up data.</p></section>
+<section class="section container" id="evidence">${sectionHead('Evidence', 'What you can check.', 'Per project: the evidence that exists today, and the content still to be gathered. I add evidence only when I have it.')}
+<div class="grid g2">
+${evidence.map(evidenceCard).join('\n')}
+</div>
+<p class="fine">Where a screenshot or photograph is not listed as available, it has not been published. Evidence is added only from real work.</p></section>
 <section class="section muted"><div class="container">${sectionHead('Status key', 'What the labels mean.', 'Used the same way on every card and case study.')}
 <dl class="statuses">${statuses.map(([t, d]) => `<div><dt><span class="tag">${t}</span></dt><dd>${d}</dd></div>`).join('')}</dl></div></section>
 ${cta('Want to talk about<br>any of these?', 'Happy to go deeper on how anything here was built.')}`,

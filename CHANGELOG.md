@@ -4,6 +4,9 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- Documentation: added an evidence register to the Projects page (`/projects/#evidence`). For each of the seven projects it lists the evidence that exists today (public source, screenshots, diagrams, tests, run history) and the content still to be gathered, such as hardware photographs, repair case studies, application screenshots and measured pipeline results. No example evidence was invented; missing items are marked as content tasks. The Expertise page links to it.
+- Copy audit: searched all page copy for promotional wording (for example "innovative", "cutting-edge", "seamless", "robust", "solution") and found none to remove. Pages already describe what was built and its status in plain terms.
+
 - Security review (see `docs/SECURITY-REVIEW.md`) and a Grey Signal HTTPS migration plan (see `docs/GREY-SIGNAL-HTTPS-MIGRATION.md`, plan only, no infrastructure changed). Gaps found and not yet fixed are listed there, including the unset `GUARD_SALT` secret, no Turnstile, and no replay nonce on Rig ingest.
 - Security: repaired a syntax error in `src/worker.mjs` (a literal `\n` had swallowed the handler into a comment), which would have broken CI and deployment.
 - Security: the public Rig snapshot is now an allowlist. Board model, GPU driver version, storage totals, uptime, clocks, fan speed and power draw are no longer published; only what the panel displays is.
