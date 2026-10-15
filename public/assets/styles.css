@@ -122,6 +122,8 @@ a.card:hover{border-color:color-mix(in srgb,var(--c) 55%,var(--line))}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .form-note{color:var(--dim);font-size:13.5px;margin-top:14px}
 .form-status{min-height:1.4em;font-size:14px;margin:0}.form-status[data-state=ok]{color:var(--ok)}.form-status[data-state=error]{color:#ff9b8a}
+.form-status[data-state=error]::before{content:"Problem: ";font-weight:700}
+.form [aria-invalid=true]{border-color:#ff9b8a;outline:2px solid #ff9b8a;outline-offset:1px}
 /* Live PC panel */
 .rig{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:26px;margin:26px 0}
 .rig-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.rig-head h3{margin:0;font:800 20px var(--head)}
