@@ -4,6 +4,8 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- Svart Security reworked around evidence: purpose, role, what exists versus what does not, approach, security principles labelled as design goals or policy, known limitations, and labelled placeholders for screenshots, threat model, encryption workflow and testing. The ten tools now use the standard status labels (two In development, eight Planned), each with an evidence note. Unverified wording (AES-256-GCM, X25519, no-logs, end-to-end, zero-knowledge, 750 free requests) was removed or reworded as intent.
+
 - Grey Signal reframed as engineering work: the main page now leads with the website, C# app, installer, Node engine, Cloudflare Worker and telemetry, with "working today" and "prepared, not live" kept separate. The channel page's subscribe button is now secondary.
 - Build page: corrected the source claim. "130+ files, about 62,000 lines" counted generated files; authored source is 91 files and about 8,500 lines. Added an architecture diagram, technology decisions, two real screenshots, labelled placeholders for the rest, and a documented (not yet applied) HTTPS migration plan.
 
