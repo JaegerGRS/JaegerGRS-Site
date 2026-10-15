@@ -1,5 +1,5 @@
-import { SITE, VERSION, DATE, GREY, SVART, JTT, YT, TWITCH, LI, XJ, FB, MAIL } from '../config.mjs';
-import { ext, int, links, sectionHead, hero, cta, back, facts, img, fourCards } from '../components.mjs';
+import { LI, XJ, FB, MAIL } from '../config.mjs';
+import { ext, links, hero } from '../components.mjs';
 
 export default [
 {

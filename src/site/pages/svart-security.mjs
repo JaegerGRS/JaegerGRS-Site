@@ -1,5 +1,5 @@
-import { SITE, VERSION, DATE, GREY, SVART, JTT, YT, TWITCH, LI, XJ, FB, MAIL } from '../config.mjs';
-import { ext, int, links, sectionHead, hero, cta, back, facts, img, fourCards } from '../components.mjs';
+import { SVART } from '../config.mjs';
+import { ext, links, sectionHead, hero, back, facts } from '../components.mjs';
 
 const tool = (icon, name, cat, status, cls, desc) =>
   `<div class="card reveal"><div class="card-top"><span class="icon">${icon}</span><span class="tag ${cls}">${status}</span></div><h3 class="h3s">${name}</h3><p>${desc}</p><span class="num">${cat}</span></div>`;

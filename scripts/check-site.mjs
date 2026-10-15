@@ -12,10 +12,24 @@ let errors = 0;
 const fail = msg => { errors++; console.error('FAIL', msg); };
 const pages = walk(root).filter(f => f.endsWith('.html'));
 let checked = 0;
+const titles = new Map();
 
 for (const file of pages) {
   const html = readFileSync(file, 'utf8');
   const rel = relative(root, file);
+  const title = /<title>([^<]+)<\/title>/.exec(html)?.[1];
+  if (!title) fail(`${rel}: missing <title>`);
+  else if (titles.has(title)) fail(`${rel}: duplicate title "${title}" (also ${titles.get(title)})`);
+  else titles.set(title, rel);
+  if (!/<meta name="description" content="[^"]{20,}/.test(html)) fail(`${rel}: missing or short meta description`);
+  if (!/<link rel="canonical" href="https:\/\/jaegergrs\.com\//.test(html)) fail(`${rel}: missing canonical`);
+  if ((html.match(/<h1[\s>]/g) || []).length !== 1) fail(`${rel}: needs exactly one <h1>`);
+  for (const tag of html.match(/<img\b[^>]*>/g) || []) {
+    if (!/\balt="/.test(tag)) fail(`${rel}: image without alt text`);
+    if (!/\bwidth="/.test(tag) || !/\bheight="/.test(tag)) fail(`${rel}: image without width/height (causes layout shift)`);
+  }
+  const og = /property="og:image" content="https:\/\/jaegergrs\.com\/([^"]+)"/.exec(html)?.[1];
+  if (!og || !existsSync(join(root, og))) fail(`${rel}: og:image missing or not found`);
   if (/\sstyle="/i.test(html)) fail(`${rel}: inline style attribute (blocked by CSP)`);
   if (/<script(?![^>]*(src=|application\/ld\+json))[^>]*>/i.test(html)) fail(`${rel}: inline script (blocked by CSP)`);
   for (const m of html.matchAll(/(?:href|src)="([^"]+)"/g)) {

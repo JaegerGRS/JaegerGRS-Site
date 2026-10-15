@@ -6,6 +6,8 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 - Added a contact form (`/api/contact`) with origin checks, honeypot, size limits and per-visitor rate limiting; mail via Cloudflare Email Service or Resend.
 - Added the live PC panel (`/api/rig`) and `agent/rig-agent.mjs`, a PC app that connects with a secret key (DPAPI-encrypted on the PC, `RIG_TOKEN` secret on Cloudflare).
 - Mobile, tablet, desktop and TV fixes: content visible without JavaScript, Escape/outside-click menu close, touch target sizes, larger scaling and focus rings for TV remotes.
+- Optimisation pass: re-compressed the two large JPEGs (about 240 KB saved), added a proper 1200x630 social card plus Twitter card and Open Graph tags, JSON-LD for the Rig API product, cache headers for images (1 week) and scripts/styles (revalidated hourly), removed unused imports from every page file and the unused `share.svg`.
+- The site checker now also enforces one `h1`, unique titles and descriptions, canonical links, image alt text and sizes, and a valid social image on every page.
 - `npm run selfhost` runs the full site and API on your own PC (same Worker code as production) so you can test the Rig API and tray app privately, from this PC or any device on your network.
 - `npm run notes` starts a private, password-protected page for jotting change requests to paste into Copilot Chat (local only, git-ignored).
 - Docs, changelog page and CI checks brought up to date with the current site and tools.

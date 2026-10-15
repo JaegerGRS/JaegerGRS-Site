@@ -1,4 +1,4 @@
-import { SITE, SVART, JTT, GREY, LI, XJ, FB } from '../config.mjs';
+import { SITE, GREY, SVART, JTT, LI, XJ, FB } from '../config.mjs';
 import { ext, links, sectionHead, cta } from '../components.mjs';
 
 export default [

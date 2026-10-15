@@ -1,3 +1,4 @@
+import { SITE } from '../config.mjs';
 import { sectionHead, hero, cta, back, facts, fourCards } from '../components.mjs';
 
 export default [
@@ -5,6 +6,13 @@ export default [
   file: 'projects/rig-api/index.html', section: 'projects',
   title: 'Rig API', desc: 'Rig API and Windows tray app by Jaeger Stratton: show your PC or server specs and live load on your own website. For small sites and servers.',
   crumbs: [['Projects', 'projects/'], ['Rig API']],
+  schema: `\n<script type="application/ld+json">${JSON.stringify({
+    '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'Rig API',
+    applicationCategory: 'DeveloperApplication', operatingSystem: 'Windows 10, Windows 11',
+    description: 'Live PC and server specs and load for your own website: a Cloudflare Worker API, a Windows tray app and a one-line embed. For small sites and servers.',
+    author: { '@type': 'Person', name: 'Jaeger Stratton', url: SITE + '/' },
+    offers: [['Single site', '29'], ['Done for you', '49'], ['5-site licence', '79']].map(([name, price]) => ({ '@type': 'Offer', name, price, priceCurrency: 'GBP' })),
+  })}</script>`,
   body: `${hero('Product · For sale · v0.3', 'Rig <span class="gradient">API.</span>', 'Show your own PC or server on your website: specs, CPU, GPU and RAM load, all live. A tiny Windows app plus a Cloudflare Worker API, sold together.', '<div class="actions"><a class="btn primary" href="{up}contact/">Enquire about buying <span aria-hidden="true">↗</span></a><a class="btn secondary" href="{up}projects/hardware/">See it running live</a></div>')}
 <section class="section container"><div class="note"><strong>Made for small site owners and servers.</strong> The Rig API has not been designed or tested for large servers, big fleets of machines or high-traffic sites yet. It reports one machine to one site. If you need more than that, ask first.</div></section>
 ${facts(['Type', 'API + Windows app'], ['App size', 'About 24 KB'], ['Footprint', '~40 MB RAM, near-zero CPU'], ['Runs on', 'Cloudflare Workers'])}

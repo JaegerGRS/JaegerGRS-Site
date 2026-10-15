@@ -30,7 +30,8 @@ export function page({ file, title, desc, section, theme = '', body, crumbs = []
 <meta name="description" content="${desc}">
 <meta name="author" content="Jaeger George Richard Stratton">
 <link rel="canonical" href="${SITE}/${urlPath}">
-<meta property="og:type" content="website"><meta property="og:title" content="${fullTitle}"><meta property="og:description" content="${desc}"><meta property="og:url" content="${SITE}/${urlPath}"><meta property="og:image" content="${SITE}/assets/img/grey-signal-welcome.jpg">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Jaeger Stratton"><meta property="og:locale" content="en_GB"><meta property="og:title" content="${fullTitle}"><meta property="og:description" content="${desc}"><meta property="og:url" content="${SITE}/${urlPath}"><meta property="og:image" content="${SITE}/assets/img/social-card.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Jaeger Stratton: PCs, systems, web and privacy software">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@JaegerGRS"><meta name="twitter:title" content="${fullTitle}"><meta name="twitter:description" content="${desc}"><meta name="twitter:image" content="${SITE}/assets/img/social-card.jpg">
 <script src="${up}assets/boot.js"></script>
 <link rel="icon" href="${up}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
