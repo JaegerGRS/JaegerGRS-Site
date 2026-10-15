@@ -7,6 +7,7 @@
   "scripts": {
     "generate": "node src/site/build.mjs",
     "check": "node scripts/check-site.mjs",
+    "selfhost": "powershell -ExecutionPolicy Bypass -File scripts/selfhost.ps1",
     "test": "node scripts/test-worker.mjs",
     "verify": "npm run generate && npm run check && npm test",
     "deploy": "npm run verify && wrangler deploy"
