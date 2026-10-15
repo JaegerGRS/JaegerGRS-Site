@@ -1,5 +1,5 @@
 // Shared HTML building blocks and the page shell (header, footer, SEO tags).
-import { SITE, VERSION, SVART, JTT, GREY, LI, XJ, FB, NAV } from './config.mjs';
+import { SITE, SVART, JTT, GREY, LI, XJ, FB, NAV } from './config.mjs';
 
 export const ext = (href, label, sub) =>
   `<a href="${href}" target="_blank" rel="noopener noreferrer"><span>${label}${sub ? `<small>${sub}</small>` : ''}</span><span class="ar">↗</span></a>`;
@@ -57,7 +57,7 @@ ${crumbHtml}${body.replace(/\{up\}/g, up)}
 <div><h2 class="fh">Live sites</h2><a href="${SVART}" target="_blank" rel="noopener noreferrer">Svart Security ↗</a><a href="${JTT}" target="_blank" rel="noopener noreferrer">JaeTheTech ↗</a><a href="${GREY}" target="_blank" rel="noopener noreferrer">Grey Signal ↗</a><a href="https://github.com/JaegerGRS/JAE" target="_blank" rel="noopener noreferrer">JAE on GitHub ↗</a></div>
 <div><h2 class="fh">Elsewhere</h2><a href="${LI}" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/JaegerGRS" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="${up}contact/">Email via contact form</a><a href="${XJ}" target="_blank" rel="noopener noreferrer">X ↗</a><a href="${FB}" target="_blank" rel="noopener noreferrer">Facebook ↗</a><a href="${up}changelog/">Changelog</a></div>
 </div>
-<div class="footer-bottom"><small>© <span id="year">2026</span> Jaeger George Richard Stratton</small><small>v${VERSION}</small></div>
+<div class="footer-bottom"><small>© <span id="year">2026</span> Jaeger George Richard Stratton</small></div>
 </div></footer>
 <script src="${up}assets/main.js" defer></script>${body.includes('data-contact-form') ? `<script src="${up}assets/contact.js" defer></script>` : ''}${body.includes('data-rig') ? `<script src="${up}assets/rig.js" defer></script>` : ''}
 </body></html>
