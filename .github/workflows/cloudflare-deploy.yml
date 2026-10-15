@@ -20,6 +20,17 @@ jobs:
       - run: node scripts/check-site.mjs
       - run: node scripts/test-worker.mjs
       - run: node --check src/worker.mjs && node --check public/assets/main.js && node --check public/assets/rig.js && node --check public/assets/contact.js && node --check agent/rig-agent.mjs
+  agent-app:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the Windows tray app
+        shell: powershell
+        run: ./agent/app/build.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: JaegerRigAgent
+          path: agent/dist/JaegerRigAgent.exe
   deploy:
     needs: validate
     if: ${{ github.event_name != 'pull_request' && vars.CLOUDFLARE_DEPLOY_ENABLED == 'true' }}

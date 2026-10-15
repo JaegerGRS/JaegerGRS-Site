@@ -6,6 +6,7 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 - Added a contact form (`/api/contact`) with origin checks, honeypot, size limits and per-visitor rate limiting; mail via Cloudflare Email Service or Resend.
 - Added the live PC panel (`/api/rig`) and `agent/rig-agent.mjs`, a PC app that connects with a secret key (DPAPI-encrypted on the PC, `RIG_TOKEN` secret on Cloudflare).
 - Mobile, tablet, desktop and TV fixes: content visible without JavaScript, Escape/outside-click menu close, touch target sizes, larger scaling and focus rings for TV remotes.
+- Added `JaegerRigAgent.exe`, a 24 KB native Windows tray app (agent/app): key typed into the app and stored with DPAPI, starts quietly with Windows, below-normal priority, near-zero CPU. CI builds it as a downloadable artifact.
 - Contact rate limiting now persists in Durable Object storage, so limits survive the object being evicted.
 - Extra security headers (COOP, `form-action`), security.txt and no-store API responses.
 - Rebuilt around a page generator (scripts/generate-pages.mjs) as the single source of truth.

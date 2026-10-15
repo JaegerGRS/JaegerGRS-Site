@@ -9,3 +9,4 @@ JaeTheTech-main/
 .dev.vars
 .env
 rig-agent.json
+agent/dist/

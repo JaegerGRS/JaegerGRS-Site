@@ -1,33 +1,37 @@
 # PC agent
 
-Sends this PC's specs and live load to jaegergrs.com so the **Live from my PC** panel on the hardware page updates in real time. It is the same idea as Grey Signal: a small app on the PC that connects to the site using a secret key.
+Sends this PC's specs and live load to jaegergrs.com so the **Live from my PC** panel updates in real time. Same idea as Grey Signal: an app on the PC that connects to the site with a secret key.
 
-Needs Node 18+ on Windows. No packages to install.
+## The app (recommended): `JaegerRigAgent.exe`
 
-## Set up
+A tiny native Windows tray app. No Node, no installer, nothing else to install.
 
-1. Make a pairing key: `node agent/rig-agent.mjs --gen-token`
-2. Give the same key to Cloudflare: `npx wrangler secret put RIG_TOKEN`
-3. Save it on this PC: `node agent/rig-agent.mjs setup` (site address `https://jaegergrs.com`, then the key). The key is encrypted with Windows DPAPI, so only your Windows account can read it. It is stored in `%APPDATA%\JaegerGRS\rig-agent.json`, outside the repo.
-4. Run it: `node agent/rig-agent.mjs`
+**Get it**
+- Build it yourself: `powershell -ExecutionPolicy Bypass -File agent\app\build.ps1` creates `agent\dist\JaegerRigAgent.exe` (about 24 KB, uses the .NET Framework compiler that ships with Windows), or
+- Download the `JaegerRigAgent` artifact from the latest GitHub Actions run.
 
-To start it with Windows, run `powershell -ExecutionPolicy Bypass -File agent\install-startup.ps1` once.
+**Set up (once)**
+1. Make a key: `node agent\rig-agent.mjs --gen-token` (or any random 32 to 200 characters: letters, numbers, `-`, `_`).
+2. Give the same key to the site: `npx wrangler secret put RIG_TOKEN`.
+3. Run `JaegerRigAgent.exe`. A window asks for the site address and the key. Tick **Start with Windows** and press **Save and start**.
 
-## Other commands
+After that it lives in the system tray (green dot = online, orange = retrying, red = key rejected, grey = starting). Right-click for status, change key, start-with-Windows toggle, open site and exit. It starts quietly at sign-in with no window.
 
-| Command | What it does |
-| --- | --- |
-| `--dry-run` | Prints exactly what would be sent and sends nothing |
-| `--once` | Sends one sample and exits |
-| `--gen-token` | Prints a new random key |
+**How light it is**
+- About 16 ms of CPU per 30 seconds and roughly 40 MB of memory, running at below-normal priority.
+- CPU and RAM come from two kernel calls; GPU from one short `nvidia-smi` call per sample (skipped if there is no NVIDIA GPU).
+- One small request every 5 seconds while someone is viewing the site, every 15 seconds when nobody is.
+- It never records or scans files, and sends nothing but the fields below.
 
-## What is shared
+**What is shared:** hardware names, loads, temperatures, RAM, OS, storage totals. Never the PC name, username, IP, serials or files. The Worker filters everything again on arrival.
 
-Only hardware names and load numbers: CPU, GPU, RAM, board, OS, storage totals, loads, temperatures. Never the PC name, username, IP, serial numbers, files or anything else. The Worker re-filters everything on arrival.
+**Key safety**
+- The key is encrypted with Windows DPAPI (only your Windows account can read it) in `%APPDATA%\JaegerGRS\rig-agent.dat`, outside the repo.
+- The site only accepts a request carrying the exact key; anything else gets a 401 and nothing is stored.
+- If the key leaks: make a new one, run `wrangler secret put RIG_TOKEN`, then right-click the tray icon, **Set or change key**.
 
-## Safety
+`JaegerRigAgent.exe --dry-run` (from a terminal) prints what would be sent and sends nothing.
 
-- Without the correct key the site answers 401 and stores nothing.
-- Keys are compared in constant time. Samples are limited to one per second.
-- If the key is ever exposed, run `--gen-token`, set the new value with `wrangler secret put RIG_TOKEN`, then run `setup` again.
-- The agent slows down to a sample every 15 seconds when nobody is viewing the site.
+## The Node version (optional)
+
+`node agent\rig-agent.mjs` does the same job from a terminal (Node 18+). Commands: `setup`, `--once`, `--dry-run`, `--gen-token`. `agent\install-startup.ps1` registers it to start at sign-in; the tray app does not need this because it has its own Start with Windows option.
