@@ -1,4 +1,6 @@
-/* Rig API: one-tag live PC panel.  Add <script src="/embed/rig-embed.js" defer></script> to any page.
+/* Rig API: one-tag live PC panel.  Add <script src="https://YOUR-WORKER-DOMAIN/embed/rig-embed.js" defer></script> to any page.
+   Use the full address: a relative path resolves to the site the page is on, not to the Worker.
+   The Worker must list that site in RIG_EMBED_ORIGINS or the browser blocks the data request (CORS).
    Optional: put <div data-jgrs-rig></div> where the panel should go (otherwise it floats bottom-right).
    Options on the script tag: data-api="https://your-site.com/api/rig", data-title="My PC", data-theme="dark|light". */
 (function () {
@@ -28,6 +30,7 @@
   var head = el('div', 'jgrs-head');
   var dot = el('span', 'jgrs-dot');
   var status = el('span', 'jgrs-status', 'Checking…');
+  status.setAttribute('role', 'status');
   head.appendChild(el('strong', '', title));
   head.appendChild(dot);
   head.appendChild(status);
@@ -37,6 +40,7 @@
   [['cpuLoad', 'CPU'], ['gpuLoad', 'GPU'], ['ramPct', 'RAM']].forEach(function (m) {
     var row = el('label', '', m[1] + ' ');
     var out = el('output', '', '—');
+    out.setAttribute('aria-live', 'off');
     var bar = el('meter');
     bar.min = 0; bar.max = 100; bar.value = 0;
     row.appendChild(out); row.appendChild(bar);

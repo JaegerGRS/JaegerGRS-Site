@@ -37,6 +37,9 @@ ALLOWED_ORIGINS = "https://jaegergrs.com"
 #   RIG_TOKEN        pairing key the PC app uses to send live stats (32+ chars)
 #   RESEND_API_KEY   optional: use Resend instead of Cloudflare Email Service
 #   GUARD_SALT       optional: random string that salts hashed visitor keys
+#
+# Optional variable (off by default): RIG_EMBED_ORIGINS = "https://customer.example" (comma-separated,
+# or "*") lets other websites read GET /api/rig from the browser, which the embed needs.
 
 [observability]
 enabled = true

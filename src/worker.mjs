@@ -44,6 +44,19 @@ async function handleRig(request, env, ctx) {
   return json({ ok: false, code: 'method_not_allowed' }, 405, { Allow: 'GET, POST' });
 }
 
+// Off by default. RIG_EMBED_ORIGINS ("*" or a comma-separated origin list) lets other websites read the
+// public GET snapshot from the browser. Only GET is covered; POST never gets CORS headers.
+function embedCors(request, env, res) {
+  const allow = (env.RIG_EMBED_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean);
+  if (request.method !== 'GET' || !allow.length) return res;
+  const origin = request.headers.get('Origin');
+  const out = new Response(res.body, res);
+  out.headers.append('Vary', 'Origin');
+  if (allow.includes('*')) out.headers.set('Access-Control-Allow-Origin', '*');
+  else if (origin && allow.includes(origin)) out.headers.set('Access-Control-Allow-Origin', origin);
+  return out;
+}
+
 // The site can create the pairing key itself, but only while the owner has switched on setup in
 // Cloudflare (variable RIG_SETUP = "open", or "rotate" to replace an existing key). The key is
 // returned once, straight to the app, and never shown on a page.
@@ -78,7 +91,7 @@ export default {
     }
 
     if (url.pathname === '/api/rig') {
-      return secure(await handleRig(request, env, ctx), { api: true });
+      return secure(embedCors(request, env, await handleRig(request, env, ctx)), { api: true });
     }
 
     if (url.pathname.startsWith('/api/')) return secure(json({ ok: false, code: 'not_found' }, 404), { api: true });

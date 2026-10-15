@@ -181,4 +181,13 @@ check((await req('/api/rig', { method: 'DELETE' })).status === 405, 'DELETE /api
 check((await req('/api/unknown')).status === 404, 'unknown API path is 404');
 check((await req('/api/rig')).headers.get('content-security-policy')?.includes("default-src 'none'"), 'API responses carry a locked-down CSP');
 
+const corsGet = (origin, e) => { env = makeEnv(e); return req('/api/rig', { headers: { Origin: origin } }); };
+check(!(await corsGet('https://customer.example', {})).headers.get('access-control-allow-origin'), 'CORS is off by default');
+let c = await corsGet('https://customer.example', { RIG_EMBED_ORIGINS: 'https://customer.example, https://other.example' });
+check(c.headers.get('access-control-allow-origin') === 'https://customer.example' && c.headers.get('vary')?.includes('Origin'), 'listed origin is allowed, with Vary');
+check(!(await corsGet('https://evil.example', { RIG_EMBED_ORIGINS: 'https://customer.example' })).headers.get('access-control-allow-origin'), 'unlisted origin gets no CORS header');
+check((await corsGet('https://any.example', { RIG_EMBED_ORIGINS: '*' })).headers.get('access-control-allow-origin') === '*', 'wildcard allows any origin');
+env = makeEnv({ RIG_EMBED_ORIGINS: '*' });
+check(!(await req('/api/rig', { method: 'POST', body: '{}', headers: { Origin: 'https://x.example' } })).headers.get('access-control-allow-origin'), 'POST never gets CORS headers');
+
 if (failed) process.exit(1);
