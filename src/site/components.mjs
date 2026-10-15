@@ -19,7 +19,12 @@ export function page({ file, title, desc, section, theme = '', body, crumbs = []
   const crumbHtml = crumbs.length
     ? `<div class="container crumb-wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="${up}index.html">Home</a>${crumbs.map(([l, h]) => `<span>/</span>${h ? `<a href="${up}${h}">${l}</a>` : l}`).join('')}</nav></div>`
     : '';
-  const fullTitle = file === 'index.html' ? title : `${title} | Jaeger Stratton`;
+  const crumbLd = crumbs.length
+    ? `\n<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [['Home', ''], ...crumbs].map(([l, h], i, all) => ({ '@type': 'ListItem', position: i + 1, name: l, ...(h !== undefined && (h || i === 0) ? { item: `${SITE}/${h}` } : {}) })) })}</script>`
+    : '';
+  const siteLd = file === 'index.html'
+    ? `\n<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jaeger Stratton', url: `${SITE}/`, inLanguage: 'en-GB' })}</script>`
+    : '';  const fullTitle = file === 'index.html' ? title : `${title} | Jaeger Stratton`;
   return `<!doctype html>
 <html lang="en-GB">
 <head>
@@ -36,7 +41,7 @@ export function page({ file, title, desc, section, theme = '', body, crumbs = []
 <link rel="icon" href="${up}assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="${up}assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${up}assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${up}assets/styles.css">${schema}
+<link rel="stylesheet" href="${up}assets/styles.css">${schema}${siteLd}${crumbLd}
 </head>
 <body class="${theme}">
 <a class="skip" href="#main">Skip to main content</a>

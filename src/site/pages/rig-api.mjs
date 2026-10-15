@@ -28,8 +28,8 @@ ${back}`,
   body: `${hero('Rig API · Install', 'One line. <span class="gradient">No coding.</span>', 'Add a single tag to your page and the live panel appears by itself. It updates every few seconds and works on phones and TVs.')}
 <section class="section container"><div class="two">
 <div><p class="kicker">On your site</p><h2 class="title">Add the tag.</h2></div>
-<div><pre class="code"><code>&lt;script src="/embed/rig-embed.js" defer&gt;&lt;/script&gt;</code></pre>
-<ul class="ticks"><li><span>Want it in a certain spot? Add <code>&lt;div data-jgrs-rig&gt;&lt;/div&gt;</code> where it should go. Otherwise it floats in the corner.</span></li><li><span>Options on the tag: <code>data-title</code>, <code>data-theme="light"</code>, <code>data-api</code>.</span></li></ul></div></div></section>
+<div><pre class="code"><code>&lt;script src="https://YOUR-WORKER-DOMAIN/embed/rig-embed.js" defer&gt;&lt;/script&gt;</code></pre>
+<ul class="ticks"><li><span>Want it in a certain spot? Add <code>&lt;div data-jgrs-rig&gt;&lt;/div&gt;</code> where it should go. Otherwise it floats in the corner.</span></li><li><span>Replace <code>YOUR-WORKER-DOMAIN</code> with the domain your Rig API Worker runs on (a relative path would point at your own site and fail). Options on the tag: <code>data-title</code>, <code>data-theme="light"</code>, <code>data-api</code>.</span></li></ul></div></div></section>
 <section class="section container pt0"><div class="two">
 <div><p class="kicker">On your PC</p><h2 class="title">Pair the app.</h2></div>
 <div><ul class="ticks"><li><span>Run <strong>JaegerRigAgent.exe</strong>. It lives in the tray and can start with Windows.</span></li><li><span>Click <strong>Get key from site</strong>. No key to copy or paste.</span></li><li><span>Your PC appears on the panel within a few seconds.</span></li></ul></div></div></section>

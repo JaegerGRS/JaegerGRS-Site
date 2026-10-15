@@ -14,10 +14,10 @@ ${facts(['Status', 'Tools in development'], ['Website', 'Live'], ['Role', 'Solo 
 <section class="section container pt0"><div class="two">
 <div><p class="kicker">Principles</p><h2 class="title">What it stands for.</h2></div>
 <div><ul class="ticks">
-<li><span><b>Encrypted by default.</b> AES-256-GCM, with data encrypted on the device before it leaves.</span></li>
-<li><span><b>No tracking. No ads. Ever.</b> Zero telemetry, analytics, data collection or advertising.</span></li>
+<li><span><b>Encrypted by default (design goal).</b> The plan is AES-256-GCM, with data encrypted on the device before it leaves. Each tool is labelled below as it ships.</span></li>
+<li><span><b>No tracking, no ads (policy).</b> The stated policy is no telemetry, analytics, data collection or advertising. It applies to released tools and is not independently audited.</span></li>
 <li><span><b>Built for real people.</b> One developer, building tools that just work without setup guides.</span></li></ul>
-<div class="note">The website is live; the tools are in active development and features may change before launch. Status labels on the tools page mirror svartsecurity.org.</div></div></div></section>
+<div class="note">The website is live; the tools are in active development and features may change before launch. Most tools are not released yet, so encryption and privacy statements here are design goals, not verified features. Status labels mirror svartsecurity.org.</div></div></div></section>
 ${more('The toolkit.', int('projects/svart-security/tools/', 'The ten tools', 'Browser, AI, passwords, notes, chat, email and more'))}
 <section class="section container">${sectionHead('Explore the site', 'Jump straight in.')}
 ${links(ext(SVART, 'Home', 'svartsecurity.org'), ext(SVART + '/tools', 'Tools', 'Full toolkit'), ext(SVART + '/roadmap', 'Roadmap', 'What ships when'), ext(SVART + '/pricing', 'Pricing', 'Plans'), ext(SVART + '/about', 'About', 'Who builds it'), ext('https://x.com/SvartSecurity', 'Svart on X', '@SvartSecurity'))}</section>
@@ -38,9 +38,9 @@ ${tool('💬', 'SVART Chat', 'Communication', 'Planned', '', 'Self-hosted encryp
 ${tool('✉️', 'Secure Email', 'Communication', 'Planned', '', 'End-to-end encrypted email with temporary addresses and anonymous forwarding.')}
 ${tool('🗂️', 'File Encryption', 'Security', 'Planned', '', 'Encrypt, decrypt and manage files with batch operations across platforms.')}
 ${tool('🛡️', 'Privacy Checker', 'Privacy', 'Planned', '', 'Scan and tune your privacy settings with guided fix tips.')}
-${tool('🌐', 'VPN Service', 'Privacy', 'Planned', '', 'No-logs VPN in privacy-friendly jurisdictions, with a kill switch.')}
+${tool('🌐', 'VPN Service', 'Privacy', 'Planned', '', 'Planned VPN service with a no-logs policy and a kill switch. Not built yet.')}
 </div></section>
-${faq('Tool questions.', ['What do the status labels mean?', 'In development and Building now mean work has started. Planned means it is on the roadmap. The labels mirror svartsecurity.org and may change before launch.'], ['Is anything collected about me?', 'No. Svart Security states no tracking, no ads and zero telemetry, analytics or data collection.'], ['How is data protected?', 'Tools use AES-256-GCM, with data encrypted on the device before it leaves.'])}
+${faq('Tool questions.', ['What do the status labels mean?', 'In development and Building now mean work has started (Building now is the same as In development). Planned means it is on the roadmap. The labels mirror svartsecurity.org and may change before launch.'], ['Is anything collected about me?', 'That is the stated policy: no tracking, no ads and no telemetry, analytics or data collection. It is a policy statement and has not been independently audited.'], ['How is data protected?', 'The design uses AES-256-GCM, with data encrypted on the device before it leaves. Treat this as the plan for each tool until it is released.'])}
 ${backTo('projects/svart-security/', 'Svart Security')}`,
 },
 ];
