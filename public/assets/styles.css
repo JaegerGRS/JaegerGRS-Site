@@ -170,3 +170,8 @@ code{font-family:ui-monospace,Consolas,monospace;font-size:.92em}
 main:focus{outline:none}
 .media+.grid{margin-top:24px}
 .rel-kind{display:block;margin-top:6px;font-size:11px;color:var(--dim)}.rel-cat{margin:20px 0 6px;font-size:inherit}.rel-cat .tag{font-size:10px}.release h3+ul{margin-bottom:6px}
+/* Touch targets: at least 24px tall for standalone links (WCAG 2.2 SC 2.5.8), 44px on touch screens */
+.crumbs a,.text-link:not(.inline){display:inline-flex;align-items:center;min-height:24px;min-width:24px}
+@media(pointer:coarse){.crumbs a,.text-link:not(.inline){min-height:44px}.crumbs{margin-bottom:8px}}
+/* Short landscape screens: let the header scroll away rather than cover a fifth of the view */
+@media(max-height:480px) and (orientation:landscape){.topbar{position:static}html{scroll-padding-top:0}}

@@ -4,6 +4,11 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- Responsive pass. Every page (25) was loaded at 320, 375, 390, 768, 1024, 1440, 2560 and 844x390 landscape in a browser and checked for page-level horizontal overflow (none found), content clipped without a scrollbar (none), distorted images (none) and header or menu problems (none). Screenshots of the code blocks, live panel and contact form at 320px were reviewed.
+- Fixed: breadcrumb links and the "All projects" / "back" links were 16-22px tall, under the 24px minimum in WCAG 2.2 (target size). They now have a 24px minimum, and 44px on touch screens.
+- Landscape phones: the header no longer stays fixed on screens under 480px tall, so it stops covering a sixth of the view.
+- Not tested: real devices, browsers other than Chromium, and text zoom at 200% in a real browser UI.
+
 - SEO pass, keeping the existing foundations (titles, descriptions, canonicals, Open Graph, robots.txt, sitemap, BreadcrumbList) and adding no dependencies. Homepage title and description updated to the agreed wording. Over-long descriptions on Grey Signal, YouTube AI Story and the changelog tightened. The 404 page is now `noindex`. Person and WebSite structured data now share linked `@id`s. No ratings, reviews or employment schema was added.
 - Social cards: pages can now set their own image and its alt text. The Rig API case study uses a card built from a real screenshot of the live panel on the brand background; every other page keeps the global card. The Rig API screenshot used on the page was recaptured, because the previous one was badly framed.
 - Site checker now also fails on invalid JSON-LD, titles over 70 characters, descriptions over 200, a `noindex` on a normal page, a missing `noindex` on the 404 page, and any indexable page missing from the sitemap.
