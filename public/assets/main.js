@@ -29,3 +29,19 @@
     showAll();
   }
 })();
+
+(function(){
+  var bar=document.querySelector('[data-filters]');
+  var cards=document.querySelectorAll('[data-project-grid] [data-cat]');
+  if(!bar||!cards.length)return;
+  var sets=[['all','All projects'],['hardware','PC hardware'],['software','Software'],['systems','Systems'],['privacy','Privacy & security'],['ai','AI & automation'],['creative','Creative technology']];
+  sets.forEach(function(s,i){
+    var b=document.createElement('button');
+    b.type='button';b.textContent=s[1];b.setAttribute('aria-pressed',i===0?'true':'false');
+    b.addEventListener('click',function(){
+      bar.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+      cards.forEach(function(c){c.hidden=!(s[0]==='all'||c.dataset.cat.split(' ').indexOf(s[0])>-1);});
+    });
+    bar.appendChild(b);
+  });
+})();

@@ -144,3 +144,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .code{margin:0 0 16px;padding:14px 16px;overflow-x:auto;border:1px solid var(--line,#263140);border-radius:12px;background:rgba(0,0,0,.35);font:13px/1.5 ui-monospace,Consolas,monospace}
 code{font-family:ui-monospace,Consolas,monospace;font-size:.92em}
 .prose p,.lead{max-width:68ch}.tag,.num,.chips span,.facts dt{font-family:var(--mono)}
+.two>*{min-width:0}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}.filters:empty{display:none}
+.filters button{background:transparent;color:var(--sub);border:1px solid var(--line);border-radius:8px;padding:9px 14px;font:inherit;font-size:13px;cursor:pointer;transition:border-color .2s,color .2s}
+.filters button:hover{border-color:var(--accent);color:var(--text)}
+.filters button[aria-pressed=true]{border-color:var(--accent);color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent)}
+.card[hidden]{display:none}
+.proj .stack{gap:8px}
+.statuses{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:0}.statuses div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}.statuses dt{margin:0 0 10px}.statuses dd{margin:0;color:var(--sub);font-size:14px}
+@media(pointer:coarse){.filters button{min-height:44px}}

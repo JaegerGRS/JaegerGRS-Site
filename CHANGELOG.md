@@ -4,6 +4,10 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- **Projects directory restructure:** new intro ('Selected technical work'), one data-driven card list with status tags and verified tech chips, a status key, a progressive category filter (all cards visible without JavaScript), real Grey Signal logo, no mock screenshots. Fixed horizontal overflow of the code block on the Rig API install page at 360px.
+
+- **Navigation:** menu button's accessible name now matches its visible text; Contact in the nav no longer shows an external-link arrow; footer adds GitHub and external-link markers.
+
 - **Visual refresh (premium technical minimalism):** charcoal/slate palette with a teal default accent; project colours now only tint tags, icons and a thin card edge; removed glows, gradient text, background gradients, scanlines, pulsing dot, card lift and blinking caret; calmer reveal motion; mono font for tags and labels; 68ch reading width; the home terminal now shows real profile facts instead of fake commands. All text and accent colours checked at 5.6:1 or higher on panels.
 
 - **Identity wording:** home and footer use the agreed availability statement (UK-based, open to remote, hybrid and international IT opportunities); home title leads with IT technician; project stat reads 7.

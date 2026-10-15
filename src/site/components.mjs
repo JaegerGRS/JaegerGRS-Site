@@ -15,7 +15,7 @@ export function page({ file, title, desc, section, theme = '', body, crumbs = []
   const urlPath = file.replace(/index\.html$/, '');
   const nav = NAV.map(([k, label, href]) =>
     `<a href="${up}${href || 'index.html'}"${section === k ? ' aria-current="page"' : ''}>${label}</a>`).join('') +
-    `<a class="nav-contact" href="${up}contact/"${section === 'contact' ? ' aria-current="page"' : ''}>Contact <span aria-hidden="true">↗</span></a>`;
+    `<a class="nav-contact" href="${up}contact/"${section === 'contact' ? ' aria-current="page"' : ''}>Contact</a>`;
   const crumbHtml = crumbs.length
     ? `<div class="container crumb-wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="${up}index.html">Home</a>${crumbs.map(([l, h]) => `<span>/</span>${h ? `<a href="${up}${h}">${l}</a>` : l}`).join('')}</nav></div>`
     : '';
@@ -45,7 +45,7 @@ export function page({ file, title, desc, section, theme = '', body, crumbs = []
 </head>
 <body class="${theme}">
 <a class="skip" href="#main">Skip to main content</a>
-<header class="topbar"><div class="container nav"><a class="wordmark" href="${up}index.html" aria-label="Jaeger Stratton home"><span class="mark">J<span class="accent">.</span></span><span>JAEGER<span class="soft">GRS</span></span></a><button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">Menu <span aria-hidden="true">☰</span></button><nav id="site-nav" aria-label="Main navigation">${nav}</nav></div></header>
+<header class="topbar"><div class="container nav"><a class="wordmark" href="${up}index.html" aria-label="Jaeger Stratton home"><span class="mark">J<span class="accent">.</span></span><span>JAEGER<span class="soft">GRS</span></span></a><button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">Menu <span aria-hidden="true">☰</span></button><nav id="site-nav" aria-label="Main navigation">${nav}</nav></div></header>
 <main id="main">
 ${crumbHtml}${body.replace(/\{up\}/g, up)}
 </main>
@@ -54,7 +54,7 @@ ${crumbHtml}${body.replace(/\{up\}/g, up)}
 <div><a class="wordmark" href="${up}index.html"><span class="mark">J<span class="accent">.</span></span><span>JAEGER<span class="soft">GRS</span></span></a><p>Independent technical work: PCs, systems, web and privacy-focused software. Based in the United Kingdom, open to international opportunities.</p></div>
 <div><h4>Explore</h4><a href="${up}projects/">Projects</a><a href="${up}expertise/">Expertise</a><a href="${up}about/">About</a><a href="${up}contact/">Contact</a></div>
 <div><h4>Live sites</h4><a href="${SVART}" target="_blank" rel="noopener noreferrer">Svart Security ↗</a><a href="${JTT}" target="_blank" rel="noopener noreferrer">JaeTheTech ↗</a><a href="${GREY}" target="_blank" rel="noopener noreferrer">Grey Signal ↗</a><a href="https://github.com/JaegerGRS/JAE" target="_blank" rel="noopener noreferrer">JAE on GitHub ↗</a></div>
-<div><h4>Elsewhere</h4><a href="${LI}" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="${XJ}" target="_blank" rel="noopener noreferrer">X</a><a href="${FB}" target="_blank" rel="noopener noreferrer">Facebook</a><a href="${up}changelog/">Changelog</a></div>
+<div><h4>Elsewhere</h4><a href="${LI}" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/JaegerGRS" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="${up}contact/">Email via contact form</a><a href="${XJ}" target="_blank" rel="noopener noreferrer">X ↗</a><a href="${FB}" target="_blank" rel="noopener noreferrer">Facebook ↗</a><a href="${up}changelog/">Changelog</a></div>
 </div>
 <div class="footer-bottom"><small>© <span id="year">2026</span> Jaeger George Richard Stratton</small><small>v${VERSION}</small></div>
 </div></footer>
