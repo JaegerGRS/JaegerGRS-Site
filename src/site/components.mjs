@@ -97,5 +97,10 @@ export const faq = (title, ...qa) => `<section class="section container pt0">${s
 export const steps = (kicker, title, ...items) => `<section class="section container"><div class="two"><div><p class="kicker">${kicker}</p><h2 class="title">${title}</h2></div><ol class="steps">${items.map(i => `<li><span>${i}</span></li>`).join('')}</ol></div></section>`;
 
 export const facts = (...pairs) => `<section class="section container"><dl class="facts reveal">${pairs.map(([t, d]) => `<div><dt>${t}</dt><dd>${d}</dd></div>`).join('')}</dl></section>`;
-export const img = (src, alt, w, h, cls = '') => `<img class="${cls}" src="{up}assets/img/${src}" alt="${alt}" width="${w}" height="${h}" loading="lazy" decoding="async">`;
+// opts.small = [file, width] adds a smaller srcset candidate; opts.eager marks the lead image so it is not lazy-loaded.
+export const img = (src, alt, w, h, cls = '', opts = {}) => {
+  const set = opts.small ? ` srcset="{up}assets/img/${opts.small[0]} ${opts.small[1]}w, {up}assets/img/${src} ${w}w" sizes="(min-width:1180px) 1100px, calc(100vw - 48px)"` : '';
+  const load = opts.eager ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"';
+  return `<img class="${cls}" src="{up}assets/img/${src}"${set} alt="${alt}" width="${w}" height="${h}" ${load}>`;
+};
 export const fourCards = (t, items) => `<section class="section container">${t ? `<h2 class="sr-only">${t}</h2>` : ''}<div class="grid g4">${items.map(([i, k, h, p], n) => `<div class="card reveal"><span class="icon">${i}</span><span class="num mt-icon">0${n + 1} / ${k}</span><h3 class="h3s">${h}</h3><p>${p}</p></div>`).join('')}</div></section>`;
