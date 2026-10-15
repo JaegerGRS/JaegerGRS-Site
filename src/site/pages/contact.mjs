@@ -10,6 +10,7 @@ export default [
 <section class="section container">
 <div class="two"><div><p class="kicker">Send a message</p><h2 class="title">Write to me directly.</h2><p class="form-note">I'm autistic and I prefer written communication and remote or hybrid work, so a message here is the best way to reach me. Your details are only used to reply to you. The site keeps no message database, but your message is sent by email through a third-party mail provider, and the Worker keeps short-lived anonymous counters to limit spam.</p></div>
 <form id="contact-form" class="form" method="post" action="/api/contact" data-contact-form>
+<p class="fine">All fields are required, except the topic, which has a default.</p>
 <label>Your name<input name="name" type="text" autocomplete="name" required minlength="2" maxlength="80"></label>
 <label>Your email<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
 <label>What is it about?<select name="topic"><option>Job or role</option><option>Project or collaboration</option><option>PC building or repair help</option><option>Buy the Rig API</option><option>Something else</option></select></label>

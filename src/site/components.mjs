@@ -46,16 +46,16 @@ export function page({ file, title, desc, section, theme = '', body, crumbs = []
 </head>
 <body class="${theme}">
 <a class="skip" href="#main">Skip to main content</a>
-<header class="topbar"><div class="container nav"><a class="wordmark" href="${up}index.html" aria-label="Jaeger Stratton home"><span class="mark">J<span class="accent">.</span></span><span>JAEGER<span class="soft">GRS</span></span></a><button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">Menu <span aria-hidden="true">☰</span></button><nav id="site-nav" aria-label="Main navigation">${nav}</nav></div></header>
-<main id="main">
+<header class="topbar"><div class="container nav"><a class="wordmark" href="${up}index.html"><span class="mark" aria-hidden="true">J<span class="accent">.</span></span><span>JAEGER<span class="soft">GRS</span><span class="sr-only"> home</span></span></a><button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">Menu <span aria-hidden="true">☰</span></button><nav id="site-nav" aria-label="Main navigation">${nav}</nav></div></header>
+<main id="main" tabindex="-1">
 ${crumbHtml}${body.replace(/\{up\}/g, up)}
 </main>
 <footer class="footer"><div class="container">
 <div class="footer-grid">
 <div><a class="wordmark" href="${up}index.html"><span class="mark">J<span class="accent">.</span></span><span>JAEGER<span class="soft">GRS</span></span></a><p>Independent technical work: PCs, systems, web and privacy-focused software. Based in the United Kingdom, open to international opportunities.</p></div>
-<div><h4>Explore</h4><a href="${up}projects/">Projects</a><a href="${up}expertise/">Expertise</a><a href="${up}about/">About</a><a href="${up}contact/">Contact</a></div>
-<div><h4>Live sites</h4><a href="${SVART}" target="_blank" rel="noopener noreferrer">Svart Security ↗</a><a href="${JTT}" target="_blank" rel="noopener noreferrer">JaeTheTech ↗</a><a href="${GREY}" target="_blank" rel="noopener noreferrer">Grey Signal ↗</a><a href="https://github.com/JaegerGRS/JAE" target="_blank" rel="noopener noreferrer">JAE on GitHub ↗</a></div>
-<div><h4>Elsewhere</h4><a href="${LI}" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/JaegerGRS" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="${up}contact/">Email via contact form</a><a href="${XJ}" target="_blank" rel="noopener noreferrer">X ↗</a><a href="${FB}" target="_blank" rel="noopener noreferrer">Facebook ↗</a><a href="${up}changelog/">Changelog</a></div>
+<div><h2 class="fh">Explore</h2><a href="${up}projects/">Projects</a><a href="${up}expertise/">Expertise</a><a href="${up}about/">About</a><a href="${up}contact/">Contact</a></div>
+<div><h2 class="fh">Live sites</h2><a href="${SVART}" target="_blank" rel="noopener noreferrer">Svart Security ↗</a><a href="${JTT}" target="_blank" rel="noopener noreferrer">JaeTheTech ↗</a><a href="${GREY}" target="_blank" rel="noopener noreferrer">Grey Signal ↗</a><a href="https://github.com/JaegerGRS/JAE" target="_blank" rel="noopener noreferrer">JAE on GitHub ↗</a></div>
+<div><h2 class="fh">Elsewhere</h2><a href="${LI}" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/JaegerGRS" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="${up}contact/">Email via contact form</a><a href="${XJ}" target="_blank" rel="noopener noreferrer">X ↗</a><a href="${FB}" target="_blank" rel="noopener noreferrer">Facebook ↗</a><a href="${up}changelog/">Changelog</a></div>
 </div>
 <div class="footer-bottom"><small>© <span id="year">2026</span> Jaeger George Richard Stratton</small><small>v${VERSION}</small></div>
 </div></footer>
@@ -98,4 +98,4 @@ export const steps = (kicker, title, ...items) => `<section class="section conta
 
 export const facts = (...pairs) => `<section class="section container"><dl class="facts reveal">${pairs.map(([t, d]) => `<div><dt>${t}</dt><dd>${d}</dd></div>`).join('')}</dl></section>`;
 export const img = (src, alt, w, h, cls = '') => `<img class="${cls}" src="{up}assets/img/${src}" alt="${alt}" width="${w}" height="${h}" loading="lazy" decoding="async">`;
-export const fourCards = (t, items) => `<section class="section container"><div class="grid g4">${items.map(([i, k, h, p], n) => `<div class="card reveal"><span class="icon">${i}</span><span class="num mt-icon">0${n + 1} / ${k}</span><h3 class="h3s">${h}</h3><p>${p}</p></div>`).join('')}</div></section>`;
+export const fourCards = (t, items) => `<section class="section container">${t ? `<h2 class="sr-only">${t}</h2>` : ''}<div class="grid g4">${items.map(([i, k, h, p], n) => `<div class="card reveal"><span class="icon">${i}</span><span class="num mt-icon">0${n + 1} / ${k}</span><h3 class="h3s">${h}</h3><p>${p}</p></div>`).join('')}</div></section>`;

@@ -44,7 +44,7 @@ ${back}`,
   title: 'Svart Security tools', desc: 'The ten Svart Security privacy tools: browser, AI, passwords, notes, docs, chat, email, file encryption, privacy checker and VPN, with their current status.',
   crumbs: [['Projects', 'projects/'], ['Svart Security', 'projects/svart-security/'], ['Tools']],
   body: `${hero('Svart Security · Toolkit', 'Ten tools, <span class="c">none released yet.</span>', 'Two tools are in development and eight are planned. None is released. Descriptions say what each is intended to do.', `<div class="actions"><a class="btn primary" href="${SVART}/tools" target="_blank" rel="noopener noreferrer">Full toolkit on svartsecurity.org <span aria-hidden="true">↗</span></a></div>`)}
-<section class="section container"><div class="grid g3">
+<section class="section container"><h2 class="sr-only">The ten tools</h2><div class="grid g3">
 ${tool('🔒', 'Svart Browser', 'Web browsing', 'In development', '', 'Intended as a privacy browser with ad blocking and DNS privacy.')}
 ${tool('🤖', 'Svart AI', 'AI assistant', 'In development', '', 'Intended as an AI chat and document-analysis assistant. It needs an online connection.')}
 ${tool('🔑', 'SVART Passwords', 'Password security', 'Planned', '', 'Intended as an encrypted password vault with a generator and master password.')}

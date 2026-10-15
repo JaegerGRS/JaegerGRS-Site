@@ -4,6 +4,8 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- Accessibility pass targeting WCAG 2.2 AA (compliance is not claimed). Fixed heading order on all pages, the logo link's accessible name, a focusable code block, footer headings, a skip link that now moves focus to the main content, and contact form status roles, required-field note and keyboard focus on submit. Tested: axe-core on 25 pages at 1280px and 320px (no violations, including contrast and target size), keyboard order, mobile menu, 200% text size, 320px reflow and reduced motion. Not yet tested: screen readers, real browser zoom, Lighthouse.
+
 - JAE rewritten from the GitHub repository: current state (backend, models, backups, 16 interface pages in source), architecture diagram, known limitations (no release, placeholder model manifest, no UI tests) and screenshot placeholders. The engineering page now lists only workflows confirmed in the repo, adds a pipeline diagram showing which stages are proven, and notes the MSI workflow has never run. Relationship to Personal AI clarified: separate codebases with a shared aim. No badges added.
 
 - Svart Security reworked around evidence: purpose, role, what exists versus what does not, approach, security principles labelled as design goals or policy, known limitations, and labelled placeholders for screenshots, threat model, encryption workflow and testing. The ten tools now use the standard status labels (two In development, eight Planned), each with an evidence note. Unverified wording (AES-256-GCM, X25519, no-logs, end-to-end, zero-knowledge, 750 free requests) was removed or reworded as intent.
