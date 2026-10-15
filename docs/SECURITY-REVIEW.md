@@ -16,6 +16,8 @@ This is a self-review, not an independent audit or penetration test.
 | Brute force | Keys are 32+ characters, so guessing is impractical; ingest is rate-limited. Failed attempts are not separately throttled. | Accepted |
 | Rate limits | Ingest 1/s. Contact 3 per 10 minutes and 8 per day per salted IP hash. | In code and tests |
 | Contact abuse | Origin allowlist, 12 KB cap, honeypot, validation, rate limit. No CAPTCHA/Turnstile. The client timestamp is not validated server-side. | Gaps listed below |
+| Private inbox | D1 stores form messages, inbound plain-text email and replies. Admin page/API verify Cloudflare Access RS256 JWT signature, issuer, audience, expiry and allowlisted email; writes require same-origin. No-store responses. | Implemented locally; Access and deployment pending |
+| Inbound email | Cloudflare Email Routing can invoke the Worker email handler. MIME parser rejects attachments, raw messages over 128 KiB and text over 8 KiB; Message-ID deduplicates incoming mail. | Code and D1 migrations ready; route/MX not configured |
 | Secrets | None committed (`.gitignore` covers `.dev.vars`, `.env`, agent config). Production bindings contain plain variables plus the `GUARD_SALT` secret (set 15 October 2026). `scripts/notes-server.mjs` was reviewed: it binds to 127.0.0.1, requires a generated password and writes to the git-ignored `notes/` folder. | Done |
 | CORS | Contact: same-origin allowlist. Rig read endpoint: no CORS unless `RIG_EMBED_ORIGINS` is set; GET only. | Tested in suite |
 | Cache | API is `no-store`; CSS/JS cached for an hour; static assets cached longer. | Verified |
@@ -33,6 +35,8 @@ This is a self-review, not an independent audit or penetration test.
 ## Decisions needed from the owner
 
 - ~~Set `GUARD_SALT`~~ done 15 October 2026.
+- Configure Cloudflare Access for `/inbox*` and `/api/inbox*`, setting the Worker team-domain and audience variables; setup is documented in `docs/EMAIL-INBOX-SETUP.md`.
+- Verify `website@jaegergrs.com` with Cloudflare Email Service, then configure inbound Email Routing for `contact@jaegergrs.com` and approve any requested DNS/MX records.
 - Decide whether to add Cloudflare Turnstile (needs a site key and secret; server-side verification would be added).
 - Decide whether to set `workers_dev = false`.
 - Confirm `RIG_SETUP` is closed in production.

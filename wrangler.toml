@@ -24,19 +24,32 @@ class_name = "Guard"
 tag = "v1"
 new_sqlite_classes = ["RigHub", "Guard"]
 
-# Outbound email for the contact form (Cloudflare Email Service)
+# Outbound email for form notifications and inbox replies (Cloudflare Email Service)
 [[send_email]]
 name = "EMAIL"
+
+# Private contact inbox (the remote D1 database is created and migrated; it is not active until deploy).
+[[d1_databases]]
+binding = "INBOX_DB"
+database_name = "jaegergrs-inbox"
+database_id = "6072538b-5dd0-4cea-9f39-7e42678ee739"
+migrations_dir = "./migrations"
 
 [vars]
 CONTACT_TO = "jaegergrstratton@gmail.com"
 CONTACT_FROM = "website@jaegergrs.com"
 ALLOWED_ORIGINS = "https://jaegergrs.com"
+INBOX_ALLOWED_EMAIL = "jaegergrstratton@gmail.com"
 
 # Secrets (never put these here). Set with: npx wrangler secret put <NAME>
 #   RIG_TOKEN        pairing key the PC app uses to send live stats (32+ chars)
 #   RESEND_API_KEY   optional: use Resend instead of Cloudflare Email Service
 #   GUARD_SALT       optional: random string that salts hashed visitor keys
+#
+# Inbox variables set after configuring Cloudflare Access:
+#   ACCESS_TEAM_DOMAIN  https://<team>.cloudflareaccess.com
+#   ACCESS_AUD          Access application's audience tag
+#   INBOX_REPLY_TO      contact@jaegergrs.com (only after Email Routing is enabled)
 #
 # Optional variable (off by default): RIG_EMBED_ORIGINS = "https://customer.example" (comma-separated,
 # or "*") lets other websites read GET /api/rig from the browser, which the embed needs.

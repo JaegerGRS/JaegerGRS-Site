@@ -1,4 +1,7 @@
 import { handleContact } from './lib/contact.mjs';
+import { handleInbox } from './lib/inbox.mjs';
+import { authorizeInbox } from './lib/inbox-auth.mjs';
+import { receiveEmail } from './lib/email-receive.mjs';
 import { SECURITY_TXT, secure } from './lib/security.mjs';
 import { json, readLimited, safeEqual } from './lib/util.mjs';
 
@@ -87,6 +90,25 @@ async function handle(request, env, ctx) {
       return secure(await handleContact(request, env), { api: true });
     }
 
+    if (url.pathname.startsWith('/api/inbox/')) {
+      if (request.method !== 'GET' && request.method !== 'POST') return secure(json({ ok: false, code: 'method_not_allowed' }, 405), { api: true });
+      return secure(await handleInbox(request, env), { api: true });
+    }
+
+    if (url.pathname === '/inbox' || url.pathname.startsWith('/inbox/')) {
+      if (request.method !== 'GET' && request.method !== 'HEAD') return secure(new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } }));
+      const identity = await authorizeInbox(request, env);
+      if (identity === 'not_configured') return secure(new Response('Inbox is not configured.', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }));
+      if (identity === 'unavailable') return secure(new Response('Inbox authentication is temporarily unavailable.', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }));
+      if (identity === 'unauthorized') return secure(new Response('Sign in through the authorised Cloudflare Access account to continue.', { status: 401, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }));
+      if (!env.INBOX_DB) return secure(new Response('Inbox storage is not configured.', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }));
+      const page = await env.ASSETS.fetch(new Request(new URL('/inbox/index.html', request.url), request));
+      const protectedPage = secure(page, { html: true });
+      const headers = new Headers(protectedPage.headers);
+      headers.set('Cache-Control', 'no-store');
+      return new Response(protectedPage.body, { status: protectedPage.status, statusText: protectedPage.statusText, headers });
+    }
+
     if (url.pathname === '/api/rig/claim') {
       return secure(await handleClaim(request, env), { api: true });
     }
@@ -117,6 +139,14 @@ export default {
       console.error('worker error', e && e.name);
       const api = new URL(request.url).pathname.startsWith('/api/');
       return secure(api ? json({ ok: false, code: 'server_error' }, 500) : new Response('Something went wrong. Please try again.', { status: 500, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }), { api });
+    }
+  },
+  async email(message, env) {
+    try {
+      await receiveEmail(message, env);
+    } catch (error) {
+      console.error('incoming email storage failed', error?.name || 'Error');
+      message.setReject('The site inbox could not store this message.');
     }
   },
 };

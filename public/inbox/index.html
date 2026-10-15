@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="referrer" content="no-referrer">
+  <title>Private inbox | Jaeger Stratton</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/inbox.css">
+  <script src="/assets/inbox.js" defer></script>
+</head>
+<body>
+  <main class="inbox-shell">
+    <header class="inbox-header">
+      <div>
+        <p class="inbox-kicker">Private workspace</p>
+        <h1>Contact inbox</h1>
+        <p>Messages sent through the portfolio contact form.</p>
+      </div>
+      <a href="/" class="back-link">View portfolio</a>
+    </header>
+    <div class="inbox-toolbar">
+      <div class="inbox-tabs" role="group" aria-label="Message folder">
+        <button type="button" data-folder="inbox" aria-pressed="true">Inbox</button>
+        <button type="button" data-folder="archived" aria-pressed="false">Archived</button>
+      </div>
+      <button type="button" class="quiet-button" data-refresh>Refresh</button>
+    </div>
+    <p class="inbox-status" data-status role="status" aria-live="polite"></p>
+    <div class="inbox-columns">
+      <section class="message-list" aria-label="Messages" data-list></section>
+      <section class="message-detail" aria-label="Selected message" data-detail aria-live="polite">
+        <p class="empty-detail">Choose a message to read it.</p>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

@@ -4,7 +4,7 @@ import { dirname, join, resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'public');
-const skip = new Set();
+const skip = new Set(['inbox']); // Private, Access-protected admin page; intentionally excluded from the public sitemap checks.
 const walk = d => readdirSync(d, { withFileTypes: true }).flatMap(e =>
   skip.has(e.name) ? [] : e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)]);
 

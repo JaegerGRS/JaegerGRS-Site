@@ -36,7 +36,7 @@ The work was done as small, separately verified, committed and deployed changes,
 | Experience without exaggeration; planned work not shown as finished | Met. Status labels are checked in CI, and unverified items are listed in `docs/CONTENT-AUDIT.md`. |
 | UK location does not restrict international opportunities | Met. Wording is "based in the United Kingdom, open to remote, hybrid and international". |
 | Consistent and professional on desktop and mobile | Tested at 320 to 2560 px and landscape. No horizontal overflow found. |
-| Existing functionality intact; contact methods work | Contact form tested with mocks only; email, LinkedIn and links work. Sending real mail still depends on sender verification for `website@jaegergrs.com`, which is not done. |
+| Existing functionality intact; contact methods work | Existing contact flow remains; the new private inbox and inbound email handler are implemented and tested locally. Production still needs Cloudflare Access, sender verification and Email Routing/DNS setup; no test email or production deployment was made. See `docs/EMAIL-INBOX-SETUP.md`. |
 | CV feature works once an approved document is provided | Met. Set `CV` in `src/site/facts.mjs` and add the file; tested with a throwaway file, and the build fails if the file is missing. No CV is published yet. |
 | Navigation logical; SEO valid | Four main nav items; titles, descriptions, canonicals, JSON-LD and sitemap checked in CI. |
 | Accessibility problems found by testing resolved | Resolved for the issues found. WCAG 2.2 AA compliance is not claimed; manual screen-reader and zoom testing is outstanding. |
@@ -48,7 +48,7 @@ The work was done as small, separately verified, committed and deployed changes,
 
 Not fully met, because it needs you: a real CV, verified qualifications, photographs and application screenshots, working contact email delivery, and an HTTPS address for Grey Signal.
 ## Owner decisions still open
-1. Fix sender verification for `website@jaegergrs.com`; decide on Turnstile and `contact@jaegergrs.com`.
+1. Configure Cloudflare Access, verify `website@jaegergrs.com`, and approve any DNS/MX records needed for Cloudflare Email Routing to `contact@jaegergrs.com`. See `docs/EMAIL-INBOX-SETUP.md`. Decide on Turnstile.
 2. Decide whether to turn off `workers_dev`; confirm `RIG_SETUP` is closed; confirm log retention.
 3. Approve the Grey Signal Cloudflare Tunnel and hostname.
 4. Supply the CV, qualifications, photos and screenshots.

@@ -14,7 +14,8 @@
     invalid_message:'Please write a message between 10 and 4000 characters.',
     rate_limited:'Too many messages. Please try again later.',
     not_configured:'The form is not switched on yet. Please email me directly.',
-    too_large:'That message is too large.'
+    too_large:'That message is too large.',
+    inbox_unavailable:'The form could not save your message. Please email me directly.'
   };
   var generic='Sorry, that did not send. Please email me directly.';
 
@@ -49,8 +50,8 @@
   // Result of a no-script form post, reported through the address.
   var q=/[?&]status=([a-z_]+)/.exec(location.search);
   if(q){
-    var ok=q[1]==='sent';
-    say(ok?'Thanks! Your message has been sent. I will reply to the email you gave.':(msgs[q[1]]||generic),ok);
+    var ok=q[1]==='sent'||q[1]==='received';
+    say(q[1]==='received'?'Your message was received in the site inbox, but the email notification could not be sent. I will still see it here.':(ok?'Thanks! Your message has been sent. I will reply to the email you gave.':(msgs[q[1]]||generic)),ok);
     var bad=fieldFor(q[1]);if(bad&&!ok)flag(bad,msgs[q[1]]);
   }
 
@@ -71,7 +72,7 @@
       body:JSON.stringify(data)
     }).then(function(r){return r.json().catch(function(){return{};}).then(function(j){return{r:r,j:j};});})
     .then(function(x){
-      if(x.r.ok&&x.j.ok){form.reset();btn.removeAttribute('aria-disabled');started=Date.now();if(stamp)stamp.value=String(started);say('Thanks! Your message has been sent. I will reply to the email you gave.',true);}
+      if(x.r.ok&&x.j.ok){form.reset();btn.removeAttribute('aria-disabled');started=Date.now();if(stamp)stamp.value=String(started);say(x.j.message||'Thanks! Your message has been sent. I will reply to the email you gave.',true);}
       else{
         var field=fieldFor(x.j.code);
         btn.removeAttribute('aria-disabled');

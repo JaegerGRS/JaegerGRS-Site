@@ -1,0 +1,48 @@
+:root{color-scheme:dark;--bg:#0b1017;--panel:#111a24;--line:#263140;--text:#edf2f8;--muted:#9ba9ba;--accent:#ff702e;--danger:#ff9388}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+button,textarea{font:inherit}
+button{color:inherit}
+.inbox-shell{max-width:1280px;margin:0 auto;padding:32px 24px 64px}
+.inbox-header{display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid var(--line);padding-bottom:24px}
+.inbox-header h1{font-size:clamp(2rem,5vw,3.4rem);letter-spacing:-.04em;line-height:1.1;margin:4px 0 10px}
+.inbox-header p{color:var(--muted);margin:0}
+.inbox-kicker{color:var(--accent)!important;font-size:.75rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.back-link{color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px 14px;text-decoration:none}
+.back-link:focus-visible,button:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.inbox-toolbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0 4px}
+.inbox-tabs{display:flex;gap:8px}
+.inbox-tabs button,.quiet-button,.send-button{border:1px solid var(--line);background:var(--panel);border-radius:9px;padding:9px 14px;cursor:pointer}
+.inbox-tabs button[aria-pressed=true],.send-button{background:var(--accent);border-color:var(--accent);color:#17100c;font-weight:750}
+.quiet-button:hover,.back-link:hover{border-color:var(--accent)}
+.quiet-button.danger{color:var(--danger)}
+.inbox-status{min-height:24px;color:var(--muted);margin:10px 0}
+.inbox-status[data-state=error]{color:var(--danger)}
+.inbox-columns{display:grid;grid-template-columns:minmax(260px,380px) minmax(0,1fr);gap:18px;align-items:start}
+.message-list,.message-detail{min-width:0;border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
+.message-item{width:100%;min-height:96px;position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;text-align:left;padding:15px 16px 15px 20px;border:0;border-bottom:1px solid var(--line);background:transparent;cursor:pointer}
+.message-item:last-child{border-bottom:0}
+.message-item:hover,.message-item:focus-visible{background:#192431}
+.message-item.unread:before{content:"";position:absolute;left:8px;top:22px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.message-sender,.message-subject,.message-preview{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.message-sender{font-weight:700}.message-date,.detail-meta,.reply-meta{color:var(--muted);font-size:.82rem}
+.message-subject,.message-preview,.message-source{grid-column:1/-1}
+.message-source{color:var(--accent);font-size:.75rem;font-weight:700}
+.message-preview{color:var(--muted);font-size:.9rem}
+.delivery-warning{grid-column:1/-1;color:#ffc28b;font-size:.8rem}
+.message-detail{padding:22px}
+.empty-detail,.empty-list{color:var(--muted);padding:14px}
+.detail-top h2{font-size:1.5rem;line-height:1.25;overflow-wrap:anywhere;margin:0 0 7px}
+.detail-meta{overflow-wrap:anywhere}
+.detail-actions{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.conversation{display:grid;gap:14px}
+.message-body{margin:0;border:1px solid var(--line);border-radius:10px;padding:16px;white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}
+.reply-entry{border-left:3px solid var(--accent);padding-left:12px}
+.reply-meta{margin:0 0 7px}
+.reply-form{border-top:1px solid var(--line);margin-top:20px;padding-top:18px}
+.reply-form label{display:grid;gap:8px;font-weight:700}
+.reply-form textarea{width:100%;resize:vertical;min-height:130px;background:#0b1017;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:12px}
+.reply-help{color:var(--muted);font-size:.85rem}
+.send-button:disabled{opacity:.6;cursor:wait}
+@media(max-width:760px){.inbox-shell{padding:22px 14px 40px}.inbox-header{align-items:flex-start;flex-direction:column}.inbox-columns{grid-template-columns:1fr}.message-list{max-height:42vh;overflow:auto}.message-detail{padding:16px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}

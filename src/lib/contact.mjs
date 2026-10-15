@@ -10,7 +10,7 @@ const redirect = (origin, status) => new Response(null, { status: 303, headers: 
 export async function handleContact(request, env) {
   const wantsJson = (request.headers.get('accept') || '').includes('application/json');
   const origin = new URL(request.url).origin;
-  const reply = (status, code, message) => (wantsJson ? json({ ok: status < 300, code, message }, status) : redirect(origin, status < 300 ? 'sent' : code));
+  const reply = (status, code, message) => (wantsJson ? json({ ok: status < 300, code, message }, status) : redirect(origin, status < 300 ? (code === 'received' ? 'received' : 'sent') : code));
 
   const allowed = String(env.ALLOWED_ORIGINS || '').split(',').map((s) => s.trim()).filter(Boolean);
   const from = request.headers.get('origin');
@@ -56,6 +56,18 @@ export async function handleContact(request, env) {
   const country = request.headers.get('cf-ipcountry') || '';
   const text = `New message from the jaegergrs.com contact form\n\nName: ${name}\nEmail: ${email}\nTopic: ${topic}${country ? `\nCountry: ${country}` : ''}\n\n${message}\n`;
 
+  const inboxId = env.INBOX_DB ? crypto.randomUUID() : null;
+  if (inboxId) {
+    try {
+      await env.INBOX_DB.prepare(
+        'INSERT INTO inbox_messages (id, source, sender_name, sender_email, subject, body_text, received_at, notification_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      ).bind(inboxId, 'contact_form', name, email, `[${topic}] ${name}`, message, Date.now(), 'pending').run();
+    } catch (err) {
+      console.error('contact inbox save failed', err?.name || 'Error');
+      return reply(503, 'inbox_unavailable', 'Sorry, the form could not save your message. Please email me directly.');
+    }
+  }
+
   try {
     if (env.EMAIL) {
       await env.EMAIL.send({ to: env.CONTACT_TO, from: { email: env.CONTACT_FROM, name: 'JaegerGRS Website' }, replyTo: email, subject, text });
@@ -69,7 +81,22 @@ export async function handleContact(request, env) {
     }
   } catch (err) {
     console.error('contact send failed', err?.code || '', err?.message || err);
+    if (inboxId) {
+      try {
+        await env.INBOX_DB.prepare('UPDATE inbox_messages SET notification_status = ? WHERE id = ?').bind('failed', inboxId).run();
+      } catch (statusError) {
+        console.error('contact notification status update failed', statusError?.name || 'Error');
+      }
+      return reply(200, 'received', 'Your message was received in the site inbox, but the email notification could not be sent. I will still see it here.');
+    }
     return reply(502, 'send_failed', 'Sorry, that did not send. Please email me directly.');
+  }
+  if (inboxId) {
+    try {
+      await env.INBOX_DB.prepare('UPDATE inbox_messages SET notification_status = ? WHERE id = ?').bind('sent', inboxId).run();
+    } catch (statusError) {
+      console.error('contact notification status update failed', statusError?.name || 'Error');
+    }
   }
   return reply(200, 'sent', 'Thanks! Your message has been sent.');
 }

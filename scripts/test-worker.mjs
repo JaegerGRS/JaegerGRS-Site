@@ -17,6 +17,75 @@ const namespace = (Cls) => { const objs = new Map(); return { idFromName: (n) =>
 
 const TOKEN = 'a'.repeat(16) + 'B'.repeat(16) + '0123456789abcdef';
 const sent = [];
+const fakeInboxDb = () => {
+  const messages = new Map();
+  const replies = new Map();
+  return {
+    messages,
+    replies,
+    prepare(sql) {
+      let args = [];
+      const statement = {
+        bind(...values) { args = values; return statement; },
+        async all() {
+          if (sql.includes('FROM inbox_replies')) return { results: [...replies.values()].filter((item) => item.message_id === args[0]).sort((a, b) => a.created_at - b.created_at) };
+          const archived = sql.includes('archived_at IS NOT NULL');
+          const rows = [...messages.values()].filter((item) => archived ? item.archived_at !== null : item.archived_at === null);
+          return { results: rows.sort((a, b) => b.received_at - a.received_at).slice(0, 100) };
+        },
+        async first() {
+          if (sql.includes('internet_message_id')) return [...messages.values()].find((item) => item.internet_message_id === args[0]) || null;
+          if (sql.includes('FROM inbox_messages')) return messages.get(args[0]) || null;
+          return null;
+        },
+        async run() {
+          if (sql.includes('INSERT INTO inbox_messages')) {
+            const [id, source, sender_name, sender_email, subject, body_text, received_at, notification_status, internet_message_id] = args;
+            messages.set(id, { id, source, sender_name, sender_email, subject, body_text, received_at, read_at: null, archived_at: null, notification_status, internet_message_id: internet_message_id || null });
+            return { meta: { changes: 1 } };
+          }
+          if (sql.includes('UPDATE inbox_messages SET notification_status')) {
+            const item = messages.get(args[1]);
+            if (item) item.notification_status = args[0];
+            return { meta: { changes: item ? 1 : 0 } };
+          }
+          if (sql.includes('UPDATE inbox_messages SET read_at = COALESCE')) {
+            const item = messages.get(args[1]);
+            if (item && item.read_at === null) item.read_at = args[0];
+            return { meta: { changes: item ? 1 : 0 } };
+          }
+          if (sql.includes('UPDATE inbox_messages SET read_at = ?')) {
+            const item = messages.get(args[1]);
+            if (item) item.read_at = args[0];
+            return { meta: { changes: item ? 1 : 0 } };
+          }
+          if (sql.includes('UPDATE inbox_messages SET archived_at')) {
+            const item = messages.get(args[1]);
+            if (item) item.archived_at = args[0];
+            return { meta: { changes: item ? 1 : 0 } };
+          }
+          if (sql.includes('DELETE FROM inbox_messages')) {
+            const deleted = messages.delete(args[0]);
+            if (deleted) for (const [id, reply] of replies) if (reply.message_id === args[0]) replies.delete(id);
+            return { meta: { changes: deleted ? 1 : 0 } };
+          }
+          if (sql.includes('INSERT INTO inbox_replies')) {
+            const [id, message_id, body_text, created_at, status] = args;
+            replies.set(id, { id, message_id, body_text, created_at, status });
+            return { meta: { changes: 1 } };
+          }
+          if (sql.includes('UPDATE inbox_replies SET status')) {
+            const reply = replies.get(args[1]);
+            if (reply) reply.status = args[0];
+            return { meta: { changes: reply ? 1 : 0 } };
+          }
+          return { meta: { changes: 0 } };
+        },
+      };
+      return statement;
+    },
+  };
+};
 const makeEnv = (over = {}) => ({
   ASSETS: {
     async fetch(req) {
@@ -47,8 +116,9 @@ let failed = false;
 const check = (ok, label) => { console.log(ok ? 'OK  ' : 'FAIL', label); if (!ok) failed = true; };
 
 // ---- static site
-const pages = ['/', '/projects/', '/projects/svart-security/', '/projects/svart-security/tools/', '/projects/grey-signal/', '/projects/grey-signal/build/', '/projects/grey-signal/channel/', '/projects/jaethetech/', '/projects/jaethetech/personal-ai/', '/projects/jae/', '/projects/jae/engineering/', '/projects/story-ai/', '/projects/story-ai/pipeline/', '/projects/rig-api/', '/projects/rig-api/install/', '/projects/rig-api/pricing/', '/projects/rig-api/what-you-get/', '/embed/rig-embed.js', '/embed/rig-embed.css', '/projects/hardware/', '/expertise/', '/expertise/hardware/', '/expertise/development/', '/about/', '/about/journey/', '/contact/', '/changelog/', '/robots.txt', '/sitemap.xml', '/assets/styles.css', '/assets/main.js', '/assets/boot.js', '/assets/rig.js', '/assets/contact.js', '/assets/favicon.svg'];
+const pages = ['/', '/projects/', '/projects/svart-security/', '/projects/svart-security/tools/', '/projects/grey-signal/', '/projects/grey-signal/build/', '/projects/grey-signal/channel/', '/projects/jaethetech/', '/projects/jaethetech/personal-ai/', '/projects/jae/', '/projects/jae/engineering/', '/projects/story-ai/', '/projects/story-ai/pipeline/', '/projects/rig-api/', '/projects/rig-api/install/', '/projects/rig-api/pricing/', '/projects/rig-api/what-you-get/', '/embed/rig-embed.js', '/embed/rig-embed.css', '/projects/hardware/', '/expertise/', '/expertise/hardware/', '/expertise/development/', '/about/', '/about/journey/', '/contact/', '/changelog/', '/robots.txt', '/sitemap.xml', '/assets/styles.css', '/assets/main.js', '/assets/boot.js', '/assets/rig.js', '/assets/contact.js', '/assets/inbox.js', '/assets/inbox.css', '/assets/favicon.svg'];
 for (const p of pages) check((await req(p)).status === 200, `200 ${p}`);
+check((await req('/inbox/')).status === 503, 'inbox fails closed until Cloudflare Access and storage are configured');
 check((await req('/assets/img/social-card.jpg')).headers.get('cache-control') === 'public, max-age=604800', 'images are cached for a week');
 check(/must-revalidate/.test((await req('/assets/main.js')).headers.get('cache-control') || ''), 'scripts revalidate');
 check((await req('/assets/fonts/manrope.woff2')).status === 200, 'self-hosted font is served');
@@ -118,6 +188,96 @@ env = makeEnv({ EMAIL: undefined, RESEND_API_KEY: undefined });
 check((await post('/api/contact', good, { 'CF-Connecting-IP': '192.0.2.123' })).status === 503 && sent.length === before, 'unconfigured mail returns 503');
 env = makeEnv({ EMAIL: { send: async () => { throw Object.assign(new Error('boom'), { code: 'E_X' }); } } });
 check((await post('/api/contact', good, { 'CF-Connecting-IP': '192.0.2.124' })).status === 502, 'mail provider failure returns 502');
+
+// ---- private contact inbox
+const inboxDb = fakeInboxDb();
+env = makeEnv({ INBOX_DB: inboxDb });
+r = await post('/api/contact', good, { 'CF-Connecting-IP': '192.0.2.125' });
+const inboxMessage = [...inboxDb.messages.values()][0];
+check(r.status === 200 && inboxMessage?.sender_email === good.email && inboxMessage?.notification_status === 'sent', 'contact submissions are stored in the private inbox and emailed');
+const notifyDb = fakeInboxDb();
+env = makeEnv({ INBOX_DB: notifyDb, EMAIL: { send: async () => { throw new Error('offline'); } } });
+r = await post('/api/contact', good, { 'CF-Connecting-IP': '192.0.2.126' });
+check(r.status === 200 && (await r.json()).code === 'received' && [...notifyDb.messages.values()][0]?.notification_status === 'failed', 'stored contact message remains received when its email alert fails');
+
+const inboundDb = fakeInboxDb();
+env = makeEnv({ INBOX_DB: inboundDb });
+const rawMail = 'From: Example Sender <person@example.net>\r\nTo: contact@jaegergrs.com\r\nSubject: Inbound test\r\nMessage-ID: <inbound-test@example.net>\r\nContent-Type: text/plain; charset=utf-8\r\n\r\nThis email arrived through Cloudflare Email Routing.';
+const incoming = {
+  from: 'person@example.net',
+  to: 'contact@jaegergrs.com',
+  headers: new Headers({ Subject: 'Inbound test', 'Message-ID': '<inbound-test@example.net>' }),
+  rawSize: new TextEncoder().encode(rawMail).length,
+  raw: new Response(rawMail).body,
+  rejection: '',
+  setReject(reason) { this.rejection = reason; },
+};
+await worker.email(incoming, env);
+const inboundMessage = [...inboundDb.messages.values()][0];
+check(inboundMessage?.source === 'inbound_email' && inboundMessage?.sender_email === 'person@example.net' && inboundMessage.body_text.includes('Cloudflare Email Routing'), 'incoming Cloudflare email is parsed and stored in the site inbox');
+await worker.email({ ...incoming, raw: new Response(rawMail).body }, env);
+check(inboundDb.messages.size === 1, 'incoming email Message-ID prevents duplicate inbox entries');
+const mailWithAttachment = 'From: Example Sender <person@example.net>\r\nTo: contact@jaegergrs.com\r\nSubject: Attachment\r\nMessage-ID: <attachment-test@example.net>\r\nContent-Type: multipart/mixed; boundary="mail-boundary"\r\n\r\n--mail-boundary\r\nContent-Type: text/plain\r\n\r\nPlease see attached.\r\n--mail-boundary\r\nContent-Type: text/plain\r\nContent-Disposition: attachment; filename="notes.txt"\r\n\r\nprivate attachment\r\n--mail-boundary--';
+const attachmentMail = {
+  ...incoming,
+  headers: new Headers({ Subject: 'Attachment', 'Message-ID': '<attachment-test@example.net>' }),
+  rawSize: new TextEncoder().encode(mailWithAttachment).length,
+  raw: new Response(mailWithAttachment).body,
+  rejection: '',
+  setReject(reason) { this.rejection = reason; },
+};
+await worker.email(attachmentMail, env);
+check(attachmentMail.rejection.includes('attachments') && inboundDb.messages.size === 1, 'inbound attachments are rejected without storing them');
+const oversized = { ...incoming, rawSize: 200 * 1024, rejection: '', setReject(reason) { this.rejection = reason; } };
+await worker.email(oversized, env);
+check(oversized.rejection.includes('too large'), 'oversized inbound email is rejected before parsing');
+
+const rsa = await crypto.subtle.generateKey({ name: 'RSASSA-PKCS1-v1_5', modulusLength: 2048, publicExponent: new Uint8Array([1, 0, 1]), hash: 'SHA-256' }, true, ['sign', 'verify']);
+const publicJwk = await crypto.subtle.exportKey('jwk', rsa.publicKey);
+publicJwk.kid = 'test-access-key';
+publicJwk.alg = 'RS256';
+const originalFetch = globalThis.fetch;
+globalThis.fetch = async (url, options) => String(url).endsWith('/cdn-cgi/access/certs')
+  ? Response.json({ keys: [publicJwk] })
+  : originalFetch(url, options);
+const part = (value) => Buffer.from(JSON.stringify(value)).toString('base64url');
+const jwt = async (email = 'jaegergrstratton@gmail.com') => {
+  const head = part({ alg: 'RS256', kid: publicJwk.kid, typ: 'JWT' });
+  const claims = part({ iss: 'https://portfolio.cloudflareaccess.com', aud: ['inbox-audience'], exp: Math.floor(Date.now() / 1000) + 300, email });
+  const input = `${head}.${claims}`;
+  const sig = await crypto.subtle.sign('RSASSA-PKCS1-v1_5', rsa.privateKey, new TextEncoder().encode(input));
+  return `${input}.${Buffer.from(sig).toString('base64url')}`;
+};
+env = makeEnv({
+  INBOX_DB: inboxDb,
+  ACCESS_TEAM_DOMAIN: 'https://portfolio.cloudflareaccess.com',
+  ACCESS_AUD: 'inbox-audience',
+  INBOX_ALLOWED_EMAIL: 'jaegergrstratton@gmail.com',
+});
+r = await req('/api/inbox/messages');
+check(r.status === 401, 'private inbox rejects requests without Cloudflare Access JWT');
+const accessToken = await jwt();
+r = await req('/api/inbox/messages', { headers: { 'CF-Access-Jwt-Assertion': accessToken } });
+check(r.status === 200 && (await r.json()).messages.length === 1, 'verified Cloudflare Access identity can list stored messages');
+r = await req('/api/inbox/messages', { headers: { 'CF-Access-Jwt-Assertion': await jwt('someone-else@example.com') } });
+check(r.status === 401, 'private inbox only allows its configured owner identity');
+r = await req(`/api/inbox/messages/${inboxMessage.id}/reply`, { method: 'POST', body: JSON.stringify({ body: 'Thanks for getting in touch. I will reply soon.' }), headers: { 'CF-Access-Jwt-Assertion': accessToken, 'Content-Type': 'application/json' } });
+check(r.status === 403, 'private inbox rejects state changes without a same-origin header');
+r = await req('/inbox/', { headers: { 'CF-Access-Jwt-Assertion': accessToken } });
+check(r.status === 200 && r.headers.get('cache-control') === 'no-store' && (await r.text()).includes('Contact inbox'), 'authenticated private inbox page is not publicly cached');
+r = await req(`/api/inbox/messages/${inboxMessage.id}/reply`, { method: 'POST', body: JSON.stringify({ body: 'Thanks for getting in touch. I will reply soon.' }), headers: { 'CF-Access-Jwt-Assertion': accessToken, 'Content-Type': 'application/json', Origin: 'https://jaegergrs.com' } });
+check(r.status === 200 && inboxDb.replies.size === 1 && sent.at(-1)?.to === good.email, 'owner can send and retain a reply from the private inbox');
+r = await req(`/api/inbox/messages/${inboxMessage.id}`, { headers: { 'CF-Access-Jwt-Assertion': accessToken } });
+const messageDetail = await r.json();
+check(r.status === 200 && messageDetail.replies.length === 1 && !!messageDetail.message.read_at, 'owner can read stored message and reply history');
+r = await req(`/api/inbox/messages/${inboxMessage.id}/archive`, { method: 'POST', headers: { 'CF-Access-Jwt-Assertion': accessToken, Origin: 'https://jaegergrs.com' } });
+check(r.status === 200 && inboxMessage.archived_at !== null, 'owner can archive a private inbox message');
+r = await req(`/api/inbox/messages/${inboxMessage.id}/restore`, { method: 'POST', headers: { 'CF-Access-Jwt-Assertion': accessToken, Origin: 'https://jaegergrs.com' } });
+check(r.status === 200 && inboxMessage.archived_at === null, 'owner can restore an archived message');
+r = await req(`/api/inbox/messages/${inboxMessage.id}/delete`, { method: 'POST', headers: { 'CF-Access-Jwt-Assertion': accessToken, Origin: 'https://jaegergrs.com' } });
+check(r.status === 200 && !inboxDb.messages.has(inboxMessage.id) && !inboxDb.replies.size, 'owner can permanently delete a message and its replies');
+globalThis.fetch = originalFetch;
+
 env = makeEnv();
 
 // ---- PC pairing key and live data

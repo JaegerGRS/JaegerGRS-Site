@@ -4,13 +4,14 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- Email workflow prepared, not deployed: built a private D1 inbox for contact-form and inbound email, verified Cloudflare Access JWT authorization, owner replies, archive/restore/delete, and Email Routing MIME parsing. Created the empty D1 database and applied both migrations. Access, sender verification and inbound Email Routing/MX still need setup; see `docs/EMAIL-INBOX-SETUP.md`. No mail was sent and no DNS or production Worker settings were changed.
 - Maintenance: set and verified the production `GUARD_SALT` Worker secret using 32 cryptographically random bytes. Reviewed `scripts/notes-server.mjs`; it binds to localhost, requires its generated password and stores notes under the git-ignored `notes/` directory. Refreshed the stale task tracker.
 - Performance: recorded a Lighthouse production lab baseline using Chromium. Clean runs scored 99 for performance on `/`, `/about/` and `/contact/` (LCP 1.9 s, CLS 0, TBT 0 ms); accessibility and SEO scored 100 on `/`, `/projects/`, `/projects/rig-api/` and `/contact/`. Results varied on repeated runs, and field Core Web Vitals are not available. The homepage's 93 best-practices score includes a Cloudflare-injected inline script blocked by the site's CSP.
 - The About page now shows a Download CV button when CV is set in src/site/facts.mjs (tested; the build fails if the file is missing). No CV is published until you approve one. The acceptance check is recorded in docs/IMPLEMENTATION-PLAN.md.
 
 - Documentation: `docs/IMPLEMENTATION-PLAN.md` maps the six implementation phases to what was done and what remains. Final checks on this date: all pages, the sitemap and robots.txt return 200; 709 internal links pass; all external links resolve (LinkedIn blocks automated requests); the live panel reports online with the allowlisted fields only.
 
-- Documentation: feature audit against the "avoid unnecessary features" list. The site has no accounts, dashboards, chatbot, visitor counter, music, video, canvas or particle effects, CSS animations, analytics, cookies or browser storage, blog, or sales content on the homepage. Its only scripts are four small files (menu and reveal, project filter, contact form, live panel), and the only server state is two Durable Objects (rig snapshot, rate limiter). The live panel appears only on the Hardware and Rig API pages and shows real online or offline state. Nothing was added or removed.
+- Documentation: feature audit against the "avoid unnecessary features" list. There are no public user accounts, chatbot, visitor counter, music, video, canvas or particle effects, CSS animations, analytics, cookies or browser storage, blog, or sales content on the homepage. A private owner inbox is prepared but not deployed (see the email setup note). Server state now includes the D1 inbox plus two Durable Objects (rig snapshot, rate limiter).
 
 - Maintenance: recurring facts (name, title, location, availability, the 2013, 2014 and 2016 dates, the listed workstation, project statuses, project count, repository links and the contact email) now come from one file, `src/site/facts.mjs`, instead of being repeated across pages. The generated pages are unchanged apart from "Seven projects" now reading "7 projects". The site check also fails on unresolved template text.
 - Documentation: `docs/CONTENT-AUDIT.md` lists where each fact lives and the ten items that need manual verification (employment versus interest dates, PC building start, workstation, release states, security, privacy, CI claims, measured figures, supported systems, pricing and support terms). No unverified claim was changed or replaced with a guess.
@@ -126,7 +127,6 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.1.0 — 14 October 2026
 - Initial dark portfolio foundation, first technical project overviews, metadata and changelog.
-
 
 
 
