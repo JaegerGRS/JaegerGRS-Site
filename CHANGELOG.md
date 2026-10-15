@@ -4,6 +4,9 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- Maintenance: recurring facts (name, title, location, availability, the 2013, 2014 and 2016 dates, the listed workstation, project statuses, project count, repository links and the contact email) now come from one file, `src/site/facts.mjs`, instead of being repeated across pages. The generated pages are unchanged apart from "Seven projects" now reading "7 projects". The site check also fails on unresolved template text.
+- Documentation: `docs/CONTENT-AUDIT.md` lists where each fact lives and the ten items that need manual verification (employment versus interest dates, PC building start, workstation, release states, security, privacy, CI claims, measured figures, supported systems, pricing and support terms). No unverified claim was changed or replaced with a guess.
+
 - Documentation: added an evidence register to the Projects page (`/projects/#evidence`). For each of the seven projects it lists the evidence that exists today (public source, screenshots, diagrams, tests, run history) and the content still to be gathered, such as hardware photographs, repair case studies, application screenshots and measured pipeline results. No example evidence was invented; missing items are marked as content tasks. The Expertise page links to it.
 - Copy audit: searched all page copy for promotional wording (for example "innovative", "cutting-edge", "seamless", "robust", "solution") and found none to remove. Pages already describe what was built and its status in plain terms.
 

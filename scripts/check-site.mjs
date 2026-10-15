@@ -32,6 +32,8 @@ for (const file of pages) {
   }
   if (rel !== '404.html' && /name="robots"[^>]*noindex/.test(html)) fail(`${rel}: unexpected noindex`);
   if (rel === '404.html' && !/name="robots" content="noindex"/.test(html)) fail('404.html should be noindex');
+  // Catches template slips such as an unresolved placeholder.
+  if (/\$\{|>undefined<|>null<|\bundefined\b(?![^<]*<\/script>)/.test(html.replace(/<script[\s\S]*?<\/script>/g, ''))) fail(`${rel}: leaked template text or undefined`);
   if ((html.match(/<h1[\s>]/g) || []).length !== 1) fail(`${rel}: needs exactly one <h1>`);
   for (const tag of html.match(/<img\b[^>]*>/g) || []) {
     if (!/\balt="/.test(tag)) fail(`${rel}: image without alt text`);

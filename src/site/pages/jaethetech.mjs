@@ -1,7 +1,8 @@
 import { JTT } from '../config.mjs';
+import { STATUS as S, REPOS } from '../facts.mjs';
 import { ext, int, links, sectionHead, facts, hero, back, backTo, more, faq, img } from '../components.mjs';
 
-const REPO = 'https://github.com/JaeTheTech/JaeTheTech.com';
+const REPO = REPOS.jaethetech;
 
 export default [
 {
@@ -9,7 +10,7 @@ export default [
   title: 'JaeTheTech', desc: 'JaeTheTech is my personal technical site: hand-written HTML, CSS and JavaScript with a Cloudflare Worker for sign-in. It also hosts the Personal AI project.',
   crumbs: [['Projects', 'projects/'], ['JaeTheTech']],
   body: `${hero('Project · Personal technical site', 'Jae<span class="c">The</span>Tech.', 'A personal site for technical writing and software experiments, written in plain HTML, CSS and JavaScript with a small Cloudflare Worker behind it for passwordless sign-in. It is also where the Personal AI project is described.', `<div class="actions"><a class="btn primary" href="${JTT}" target="_blank" rel="noopener noreferrer">Visit jaethetech.com <span aria-hidden="true">↗</span></a><a class="btn secondary" href="${REPO}" target="_blank" rel="noopener noreferrer">Source on GitHub <span aria-hidden="true">↗</span></a></div>`)}
-${facts(['Status', 'Active · live at jaethetech.com'], ['Role', 'Solo developer (as stated on the site)'], ['Stack', 'HTML, CSS, JavaScript, Cloudflare Workers and KV'], ['Source', 'Public repository, all rights reserved'])}
+${facts(['Status', `${S.jaethetech} · live at jaethetech.com`], ['Role', 'Solo developer (as stated on the site)'], ['Stack', 'HTML, CSS, JavaScript, Cloudflare Workers and KV'], ['Source', 'Public repository, all rights reserved'])}
 <section class="section container">${sectionHead('Overview', 'What the project is.')}<div class="prose"><p>The site has pages for projects, a development roadmap, platforms and an about page, plus a sign-in area with a dashboard and an admin page. The part that is most relevant to employers is the sign-in backend, a single Cloudflare Worker in the repository.</p><p>The channel and content side of JaeTheTech is supporting creative work. This page focuses on the engineering.</p></div></section>
 <section class="section muted"><div class="container">${sectionHead('Engineering', 'What the Worker does.', 'Read from the public repository (worker/auth-worker.js and wrangler.toml).')}<div class="grid g3">
 <div class="card reveal"><h3>Passwordless sign-in</h3><p>Routes for sending and verifying one-time email codes, sign-up, and a GitHub sign-in flow with a short-lived state value.</p></div>

@@ -1,3 +1,4 @@
+import { STATUS as S, REPOS } from '../facts.mjs';
 import { ext, int, links, hero, back, backTo, facts, faq, sectionHead } from '../components.mjs';
 
 export default [
@@ -5,8 +6,8 @@ export default [
   file: 'projects/jae/index.html', section: 'projects', theme: 't-ae',
   title: 'JAE: Jaeger Adaptive Engine', desc: 'JAE (Jaeger Adaptive Engine): a prototype local-first AI desktop app built with Tauri, a Python FastAPI backend and a React frontend. Source on GitHub; no release published yet.',
   crumbs: [['Projects', 'projects/'], ['JAE']],
-  body: `${hero('Project · Local-first AI · 2026', 'J<span class="c">A</span>E.', 'A prototype desktop AI app that runs language models on your own PC. It is built with a Tauri shell, a Python backend and a React interface.', `<div class="actions"><a class="btn primary" href="https://github.com/JaegerGRS/JAE" target="_blank" rel="noopener noreferrer">View source on GitHub <span aria-hidden="true">↗</span></a><a class="btn secondary" href="{up}projects/jae/engineering/">Engineering and CI</a></div>`)}
-${facts(['Status', 'Prototype · no release yet'], ['Latest version', '0.2.3 (8 Sep 2026)'], ['Platform', 'Windows 10 / 11'], ['Role', 'Developer'])}
+  body: `${hero('Project · Local-first AI · 2026', 'J<span class="c">A</span>E.', 'A prototype desktop AI app that runs language models on your own PC. It is built with a Tauri shell, a Python backend and a React interface.', `<div class="actions"><a class="btn primary" href="${REPOS.jae}" target="_blank" rel="noopener noreferrer">View source on GitHub <span aria-hidden="true">↗</span></a><a class="btn secondary" href="{up}projects/jae/engineering/">Engineering and CI</a></div>`)}
+${facts(['Status', `${S.jae} · no release yet`], ['Latest version', '0.2.3 (8 Sep 2026)'], ['Platform', 'Windows 10 / 11'], ['Role', 'Developer'])}
 <section class="section container pt0"><div class="two">
 <div><p class="kicker">Overview</p><h2 class="title">What it is.</h2></div>
 <div><p>JAE is a desktop app for chatting with AI models that run locally, so prompts are not sent to a cloud service. The README states that runtime data is local and is not used as a cloud inference backend.</p>
@@ -32,7 +33,7 @@ ${facts(['Status', 'Prototype · no release yet'], ['Latest version', '0.2.3 (8 
 <section class="section muted"><div class="container">${sectionHead('Known limitations', 'Honest gaps.')}<ul class="ticks"><li><span>Prototype: no release, installer download or screenshots yet.</span></li><li><span>The model manifest holds a placeholder download URL and checksum, so models are not downloadable out of the box.</span></li><li><span>The MSI build workflow exists but has never run, so an installer build is not yet proven in CI.</span></li><li><span>Backend tests cover core modules such as the API, backups, database, hardware detection and model download. The interface has a build check but no tests.</span></li></ul>
 <div class="gallery"><div class="ph"><strong>Screenshot needed</strong><span>Chat page</span></div><div class="ph"><strong>Screenshot needed</strong><span>Models or System page</span></div></div></div></section>
 <section class="section container">${sectionHead('Related work', 'JAE and Personal AI.')}<p>JAE and the <a class="text-link inline" href="{up}projects/jaethetech/personal-ai/">Personal AI</a> project on JaeTheTech are separate codebases with the same aim: a private AI assistant on your own PC. JAE uses Python, FastAPI, llama.cpp and React inside Tauri. Personal AI uses Node.js, Express and Ollama, as a Tauri app or a PWA. They are two approaches to one idea, not two finished products.</p></section>
-<section class="section container pt0">${links(ext('https://github.com/JaegerGRS/JAE', 'JAE repository', 'Source, README and changelog'), ext('https://github.com/JaegerGRS/JAE/actions', 'GitHub Actions', 'CI and health-check runs'), ext('https://github.com/JaegerGRS/JAE/releases', 'Releases', 'None published yet'), int('projects/jae/engineering/', 'Engineering', 'CI, health checks, MSI workflow'))}</section>
+<section class="section container pt0">${links(ext(REPOS.jae, 'JAE repository', 'Source, README and changelog'), ext(REPOS.jae + '/actions', 'GitHub Actions', 'CI and health-check runs'), ext(REPOS.jae + '/releases', 'Releases', 'None published yet'), int('projects/jae/engineering/', 'Engineering', 'CI, health checks, MSI workflow'))}</section>
 ${back}`,
 },
 {
@@ -57,7 +58,7 @@ ${facts(['Workflows', '3 (CI, health check, MSI)'], ['CI runs', '14, latest pass
 <div class="note">A passing workflow shows that the checks ran and passed. It does not prove the app is complete. JAE is still a prototype with no release.</div></div></section>
 <section class="section container">${sectionHead('Badges', 'Left out on purpose.')}<p>I have not added status badges. The workflow history is linked below, and the explanation above matters more than a row of green icons.</p></section>
 ${faq('Engineering questions.', ['Does JAE need the cloud?', 'The README says local inference and local data are the default, and that runtime data is not used as a cloud inference backend.'], ['What does it run on?', 'Windows 10 and 11, with a Tauri shell and a local Python 3.12+ backend managed by Tauri.'], ['How does JAE differ from Personal AI?', 'They are separate codebases with a shared aim. JAE uses Python, FastAPI and llama.cpp. Personal AI uses Node.js and Ollama.'])}
-<section class="section container pt0">${links(ext('https://github.com/JaegerGRS/JAE', 'JAE repository', 'Source and scripts'), ext('https://github.com/JaegerGRS/JAE/actions', 'GitHub Actions', 'Real run history'), int('projects/jaethetech/personal-ai/', 'Personal AI', 'The related assistant on JaeTheTech'))}</section>
+<section class="section container pt0">${links(ext(REPOS.jae, 'JAE repository', 'Source and scripts'), ext(REPOS.jae + '/actions', 'GitHub Actions', 'Real run history'), int('projects/jaethetech/personal-ai/', 'Personal AI', 'The related assistant on JaeTheTech'))}</section>
 ${backTo('projects/jae/', 'JAE')}`,
 },
 ];

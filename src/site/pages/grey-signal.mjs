@@ -1,4 +1,5 @@
 import { GREY, YT, TWITCH } from '../config.mjs';
+import { STATUS as S } from '../facts.mjs';
 import { ext, int, links, sectionHead, hero, back, backTo, more, facts, img, faq, steps } from '../components.mjs';
 
 const GS_LOGO = img('grey-signal-logo.webp', 'Grey Signal logo', 160, 160, 'logo-badge hero-logo');
@@ -10,7 +11,7 @@ export default [
   crumbs: [['Projects', 'projects/'], ['Grey Signal']],
   body: `${hero('Project · Website, app and infrastructure · 2026', 'Grey <span class="c">Signal.</span>', 'The engineering built around my gaming channel: a self-hosted multipage website, a C# Windows control app, an installer, a Node.js site engine, a Cloudflare Worker version and live PC telemetry.', `<div class="actions"><a class="btn primary" href="{up}projects/grey-signal/build/">How it is built</a><a class="btn secondary" href="${GREY}" target="_blank" rel="noopener noreferrer">Open the site (HTTP) <span aria-hidden="true">↗</span></a><a class="btn secondary" href="${GREY}/rig.html" target="_blank" rel="noopener noreferrer">Live rig page</a></div>`, GS_LOGO)}
 <section class="section container"><figure class="media reveal">${img('grey-signal-banner.webp', 'Grey Signal channel banner: tactical operator, helicopter and mountains with the GS logo', 1920, 520, '', { small: ['grey-signal-banner-900.webp', 900] })}</figure></section>
-${facts(['Type', 'Engineering project'], ['Status', 'Active'], ['Role', 'Designer and developer'], ['Hosting today', 'Self-hosted · HTTP only'])}
+${facts(['Type', 'Engineering project'], ['Status', S.greySignal], ['Role', 'Designer and developer'], ['Hosting today', 'Self-hosted · HTTP only'])}
 <section class="section container pt0">${sectionHead('What I built', 'The engineering behind a channel.')}<div class="grid g3">
 <div class="card reveal"><span class="icon">⌘</span><h3>Self-hosted website</h3><p>A multipage site: home, videos, ops, a live rig page, about and contact.</p></div>
 <div class="card reveal"><span class="icon">▣</span><h3>C# Windows control app</h3><p>Runs and manages the site engine on my PC and reports the PC's specs and load.</p></div>

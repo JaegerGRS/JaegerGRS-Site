@@ -12,7 +12,9 @@ export const TWITCH = 'https://www.twitch.tv/grey_signal';
 export const LI = 'https://www.linkedin.com/in/jaegergrs/';
 export const XJ = 'https://x.com/JaegerGRS';
 export const FB = 'https://www.facebook.com/JaegerGRStratton';
-export const MAIL = 'mailto:jaegergrstratton@gmail.com';
+import { CONTACT_EMAIL, GITHUB as GH } from './facts.mjs';
+export const GITHUB = GH;
+export const MAIL = `mailto:${CONTACT_EMAIL}`;
 
 export const NAV = [
   ['home', 'Home', ''],

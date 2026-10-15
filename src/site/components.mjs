@@ -1,5 +1,6 @@
 // Shared HTML building blocks and the page shell (header, footer, SEO tags).
 import { SITE, SVART, JTT, GREY, LI, XJ, FB, NAV } from './config.mjs';
+import { REPOS } from './facts.mjs';
 
 export const ext = (href, label, sub) =>
   `<a href="${href}" target="_blank" rel="noopener noreferrer"><span>${label}${sub ? `<small>${sub}</small>` : ''}</span><span class="ar">↗</span></a>`;
@@ -54,7 +55,7 @@ ${crumbHtml}${body.replace(/\{up\}/g, up)}
 <div class="footer-grid">
 <div><a class="wordmark" href="${up}index.html"><span class="mark">J<span class="accent">.</span></span><span>JAEGER<span class="soft">GRS</span></span></a><p>Independent technical work: PCs, systems, web and privacy-focused software. Based in the United Kingdom, open to international opportunities.</p></div>
 <div><h2 class="fh">Explore</h2><a href="${up}projects/">Projects</a><a href="${up}expertise/">Expertise</a><a href="${up}about/">About</a><a href="${up}contact/">Contact</a></div>
-<div><h2 class="fh">Live sites</h2><a href="${SVART}" target="_blank" rel="noopener noreferrer">Svart Security ↗</a><a href="${JTT}" target="_blank" rel="noopener noreferrer">JaeTheTech ↗</a><a href="${GREY}" target="_blank" rel="noopener noreferrer">Grey Signal ↗</a><a href="https://github.com/JaegerGRS/JAE" target="_blank" rel="noopener noreferrer">JAE on GitHub ↗</a></div>
+<div><h2 class="fh">Live sites</h2><a href="${SVART}" target="_blank" rel="noopener noreferrer">Svart Security ↗</a><a href="${JTT}" target="_blank" rel="noopener noreferrer">JaeTheTech ↗</a><a href="${GREY}" target="_blank" rel="noopener noreferrer">Grey Signal ↗</a><a href="${REPOS.jae}" target="_blank" rel="noopener noreferrer">JAE on GitHub ↗</a></div>
 <div><h2 class="fh">Elsewhere</h2><a href="${LI}" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/JaegerGRS" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="${up}contact/">Email via contact form</a><a href="${XJ}" target="_blank" rel="noopener noreferrer">X ↗</a><a href="${FB}" target="_blank" rel="noopener noreferrer">Facebook ↗</a><a href="${up}changelog/">Changelog</a></div>
 </div>
 <div class="footer-bottom"><small>© <span id="year">2026</span> Jaeger George Richard Stratton</small></div>

@@ -1,3 +1,4 @@
+import { STATUS as S } from '../facts.mjs';
 import { int, links, sectionHead, hero, backTo, more, facts, faq } from '../components.mjs';
 
 const stage = (name, state, text) => `<div class="card reveal"><span class="tag">${state}</span><h3>${name}</h3><p>${text}</p></div>`;
@@ -8,7 +9,7 @@ export default [
   title: 'YouTube AI Story', desc: 'YouTube AI Story is a local video-generation pipeline in Python: Ollama scripts, local text-to-speech, GPU rendering and similarity checks, with status and limits stated.',
   crumbs: [['Projects', 'projects/'], ['YouTube AI Story']],
   body: `${hero('Project · Automation and AI pipeline · In development', 'YouTube AI <span class="c">Story.</span>', 'A Python pipeline that turns a topic into a finished video on my own PC: a local language model for ideas and scripts, local text-to-speech, video rendering with optional GPU encoding, similarity checks and a file manifest. It is treated here as a technical system, and the page says which parts are only partly built.')}
-${facts(['Status', 'In development · not released'], ['Role', 'Developer'], ['Core stack', 'Python, Ollama, Coqui XTTS, MoviePy and FFmpeg, OpenCV, Flask'], ['Desktop shell', 'Tauri (Rust and TypeScript), early stage'])}
+${facts(['Status', `${S.storyAi} · not released`], ['Role', 'Developer'], ['Core stack', 'Python, Ollama, Coqui XTTS, MoviePy and FFmpeg, OpenCV, Flask'], ['Desktop shell', 'Tauri (Rust and TypeScript), early stage'])}
 <section class="section container"><div class="note"><strong>How this page was written.</strong> I read the project source on my own PC. I have not benchmarked it or run an automated test, because none exist yet. Statements below describe what the code does, not measured results. Status words: <strong>Built</strong> means the code exists and is wired into the pipeline; <strong>Partial</strong> means some of it exists; <strong>Planned</strong> means it is not implemented.</div></section>
 <section class="section container">${sectionHead('Overview', 'What it is for.')}<div class="prose"><p>It explores how far a chain of local AI tools can be automated end to end: choosing an idea, writing a script, recording a voiceover, rendering and checking the result. The interest for me is the orchestration, error handling and record keeping, not content volume.</p><p>Story-style videos are the test case. It is a technical system in progress, not a content business and not a finished product.</p></div></section>
 <section class="section muted"><div class="container">${sectionHead('Architecture', 'How the parts fit together.', 'Read from the source. A Flask dashboard and a Tauri desktop shell sit alongside the same Python modules.')}
