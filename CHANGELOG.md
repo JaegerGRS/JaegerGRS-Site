@@ -4,6 +4,8 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- Documentation: feature audit against the "avoid unnecessary features" list. The site has no accounts, dashboards, chatbot, visitor counter, music, video, canvas or particle effects, CSS animations, analytics, cookies or browser storage, blog, or sales content on the homepage. Its only scripts are four small files (menu and reveal, project filter, contact form, live panel), and the only server state is two Durable Objects (rig snapshot, rate limiter). The live panel appears only on the Hardware and Rig API pages and shows real online or offline state. Nothing was added or removed.
+
 - Maintenance: recurring facts (name, title, location, availability, the 2013, 2014 and 2016 dates, the listed workstation, project statuses, project count, repository links and the contact email) now come from one file, `src/site/facts.mjs`, instead of being repeated across pages. The generated pages are unchanged apart from "Seven projects" now reading "7 projects". The site check also fails on unresolved template text.
 - Documentation: `docs/CONTENT-AUDIT.md` lists where each fact lives and the ten items that need manual verification (employment versus interest dates, PC building start, workstation, release states, security, privacy, CI claims, measured figures, supported systems, pricing and support terms). No unverified claim was changed or replaced with a guess.
 
