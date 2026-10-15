@@ -18,7 +18,7 @@ const projects = [
     links: `<a class="text-link" href="{up}projects/svart-security/">Read the case study →</a><a class="text-link" href="${SVART}" target="_blank" rel="noopener noreferrer">svartsecurity.org ↗</a>` },
   { cat: 'ai software', theme: 't-ae', status: 'Prototype', icon: 'AE', title: 'JAE',
     text: 'A little AI I am building: a private, local-first desktop app made with Tauri, with source on GitHub.',
-    chips: ['Tauri', 'Local AI', 'MSI builds'],
+    chips: ['Tauri', 'Local AI', 'MSI workflow'],
     links: '<a class="text-link" href="{up}projects/jae/">Read the case study →</a><a class="text-link" href="https://github.com/JaegerGRS/JAE" target="_blank" rel="noopener noreferrer">Source on GitHub ↗</a>' },
   { cat: 'systems creative', theme: 't-grey', status: 'Active', logo: true, title: 'Grey Signal',
     text: 'A tactical-shooter gaming content channel, plus the website, Windows app and live rig page I built for it.',

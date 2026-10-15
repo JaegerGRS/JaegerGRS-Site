@@ -27,7 +27,7 @@ ${back}`,
 <div class="prose"><p>It works as a desktop app (Tauri) or a PWA on any device, and keeps everything local by default.</p>
 <div class="chips"><span>AI-powered code editor</span><span>Live gold &amp; crypto</span><span>Multi-source news</span><span>Personal dashboard</span><span>Network privacy layer</span><span>WebSocket sync</span></div>
 <div class="chips"><span>Node.js</span><span>Express</span><span>WebSocket</span><span>PWA</span><span>Service workers</span><span>Ollama</span></div>
-<p>It’s closely related to <a class="text-link inline" href="{up}projects/jae/">JAE, the Jaeger Adaptive Engine</a>, my local-first desktop AI project on GitHub.</p></div></div></section>
+<p>It shares its aim with <a class="text-link inline" href="{up}projects/jae/">JAE, the Jaeger Adaptive Engine</a>, my local-first desktop AI prototype on GitHub, but they are separate codebases: this one uses Node.js and Ollama, JAE uses Python and llama.cpp.</p></div></div></section>
 ${faq('About Personal AI.', ['Does my data leave my machine?', 'No. It runs on local AI through Ollama and keeps everything local by default.'], ['Is it a desktop app or a web app?', 'Both. It works as a Tauri desktop app or as a PWA on any device.'], ['Which frameworks does it use?', 'None for the interface. It is built from scratch, with Node.js, Express and WebSockets behind it.'])}
 ${backTo('projects/jaethetech/', 'JaeTheTech')}`,
 },

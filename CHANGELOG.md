@@ -4,6 +4,8 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- JAE rewritten from the GitHub repository: current state (backend, models, backups, 16 interface pages in source), architecture diagram, known limitations (no release, placeholder model manifest, no UI tests) and screenshot placeholders. The engineering page now lists only workflows confirmed in the repo, adds a pipeline diagram showing which stages are proven, and notes the MSI workflow has never run. Relationship to Personal AI clarified: separate codebases with a shared aim. No badges added.
+
 - Svart Security reworked around evidence: purpose, role, what exists versus what does not, approach, security principles labelled as design goals or policy, known limitations, and labelled placeholders for screenshots, threat model, encryption workflow and testing. The ten tools now use the standard status labels (two In development, eight Planned), each with an evidence note. Unverified wording (AES-256-GCM, X25519, no-logs, end-to-end, zero-knowledge, 750 free requests) was removed or reworded as intent.
 
 - Grey Signal reframed as engineering work: the main page now leads with the website, C# app, installer, Node engine, Cloudflare Worker and telemetry, with "working today" and "prepared, not live" kept separate. The channel page's subscribe button is now secondary.
