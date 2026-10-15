@@ -2,6 +2,7 @@ name = "jaegergrs-portfolio"
 main = "src/worker.mjs"
 compatibility_date = "2026-10-14"
 workers_dev = true
+preview_urls = false
 
 [assets]
 directory = "./public"

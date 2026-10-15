@@ -32,6 +32,8 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 - Reorganised the code into public/ (deployed files) and src/site/ (page generator).
 - Grey Signal is now described as self-hosted at an open IP (no full site or domain yet).
 
+- Deployed to Cloudflare and verified live. Turned off workers.dev preview URLs. Contact form needs the sender domain onboarded in Email Service.
+
 ## v0.2.0 — 14 October 2026
 - Redesigned the portfolio with a restrained dark editorial visual system.
 - Split projects, expertise, background, contact and changelog into real independent pages and nested subpages.
