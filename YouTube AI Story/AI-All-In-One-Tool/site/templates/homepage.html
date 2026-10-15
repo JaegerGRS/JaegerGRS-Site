@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creator Studio | Homepage</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <div class="dashboard-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Creator Studio</p>
+          <h2>Homepage</h2>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center;">
+          <a class="logout" href="{{ url_for('dashboard') }}">My account</a>
+          <a class="logout" href="{{ url_for('logout') }}">Log out</a>
+        </div>
+      </header>
+
+      <main class="dashboard-grid homepage-grid">
+        <section class="panel">
+          <h3>Welcome, {{ user.name }}</h3>
+          <p class="intro">
+            Your Creator Studio homepage is private and only available once you sign in.
+            This is where creators can manage their studio flow, content plans, and secure account access.
+          </p>
+          <div class="recovery-box">
+            <span>Account number</span>
+            <strong>{{ user.account_number }}</strong>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h3>Studio overview</h3>
+          <ul class="homepage-list">
+            <li>Short-form content workflow</li>
+            <li>Secure creator login</li>
+            <li>Recovery code protection</li>
+            <li>Private local workspace data</li>
+          </ul>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

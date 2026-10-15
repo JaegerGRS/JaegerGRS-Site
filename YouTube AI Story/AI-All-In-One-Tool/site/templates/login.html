@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creator Studio Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <div class="auth-shell">
+      <div class="auth-card">
+        <div class="brand-block">
+          <div class="brand-mark">CS</div>
+          <div>
+            <p class="eyebrow">Creator Studio</p>
+            <h1>Secure access</h1>
+          </div>
+        </div>
+
+        <p class="intro">
+          Use your account number and secure code to sign in. If you lose access,
+          your recovery code can be used to regain access.
+        </p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form method="post" action="{{ url_for('login') }}">
+          <label for="account_number">Account number</label>
+          <input id="account_number" name="account_number" type="text" inputmode="numeric" placeholder="10000001" required />
+
+          <label for="password">Secure code</label>
+          <input id="password" name="password" type="password" placeholder="Enter your secure code" required />
+
+          <label for="recovery_code">Recovery code</label>
+          <input id="recovery_code" name="recovery_code" type="password" placeholder="Optional fallback code" />
+
+          <button type="submit">Sign in</button>
+        </form>
+
+        <div class="footer-links">
+          <p>Need an account? <a href="{{ url_for('register') }}">Create one</a></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

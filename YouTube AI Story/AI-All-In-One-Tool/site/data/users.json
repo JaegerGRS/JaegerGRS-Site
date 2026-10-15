@@ -1,0 +1,11 @@
+{
+  "10000001": {
+    "account_number": "10000001",
+    "name": "Demo User",
+    "email": "demo@creatorstudio.local",
+    "password_hash": "scrypt:32768:8:1$p493e22HTLpTuEpb$690c02eb1f25339b7bbc2df52fd79af6015f95b6b1f5707b2d1e2e5760ec450bb236ab9b7aeb13776b235afe9009d8afdf8d487948e3f26cd55db37ce83eb5af",
+    "recovery_hash": "scrypt:32768:8:1$LPJgmVw3gMcRWSQ4$4555399e205501384d07639920340709707266f1ae9a61312bc60435fc88620eebfb2cc9598418c22541c29defc285411bb9773289368b31d18336cd8f9780e7",
+    "recovery_code": "RC-1F6H8M7N4Q2P9X7K",
+    "created_at": "system-init"
+  }
+}

@@ -1,0 +1,19 @@
+<svg width="640" height="640" viewBox="0 0 640 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="640" rx="72" fill="#141006"/>
+  <circle cx="320" cy="300" r="215" fill="url(#halo)" fill-opacity="0.26"/>
+  <path d="M452 176C416 146 370 128 320 128C213 128 126 215 126 322C126 429 213 516 320 516C370 516 416 498 452 468L452 388L404 388L404 436C380 456 351 468 320 468C239 468 174 403 174 322C174 241 239 176 320 176C351 176 380 188 404 208L404 256L452 256L452 176Z" fill="url(#ribbon)"/>
+  <path d="M404 256L452 256L452 176L404 208L404 256Z" fill="#0A1020" fill-opacity="0.55"/>
+  <path d="M404 388L452 388L452 468L404 436L404 388Z" fill="#0A1020" fill-opacity="0.35"/>
+  <path d="M404 208L452 176" stroke="#D6E4FF" stroke-opacity="0.5" stroke-width="3" stroke-linecap="round"/>
+  <defs>
+    <radialGradient id="halo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(320 300) rotate(90) scale(250)">
+      <stop stop-color="#F5C04E"/>
+      <stop offset="1" stop-color="#F5C04E" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ribbon" x1="126" y1="128" x2="452" y2="516" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE08A"/>
+      <stop offset="0.52" stop-color="#F5C04E"/>
+      <stop offset="1" stop-color="#D98A2B"/>
+    </linearGradient>
+  </defs>
+</svg>

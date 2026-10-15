@@ -1,0 +1,22 @@
+<svg width="640" height="640" viewBox="0 0 640 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="640" rx="72" fill="#141006"/>
+  <circle cx="320" cy="312" r="215" fill="url(#halo)" fill-opacity="0.26"/>
+  <!-- Serif C: a high-contrast editorial C with elegant thick/thin strokes and bracketed serifs -->
+  <path d="M452 190C416 152 370 132 320 132C214 132 128 218 128 324C128 430 214 516 320 516C370 516 416 496 452 458L420 420C392 450 358 468 320 468C240 468 176 404 176 324C176 244 240 180 320 180C358 180 392 198 420 228L452 190Z" fill="url(#gold)" stroke="url(#edge)" stroke-width="4"/>
+  <!-- bracketed serif caps on the terminals -->
+  <path d="M420 228L452 190L486 208L470 250L420 228Z" fill="url(#gold)"/>
+  <path d="M420 420L452 458L486 440L470 398L420 420Z" fill="url(#gold)"/>
+  <!-- inner counter highlight for editorial contrast -->
+  <path d="M320 232C269 232 228 273 228 324C228 375 269 416 320 416" stroke="#FFE9B8" stroke-opacity="0.55" stroke-width="6" stroke-linecap="round"/>
+  <defs>
+    <radialGradient id="halo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(320 312) rotate(90) scale(240)">
+      <stop stop-color="#F5C04E"/><stop offset="1" stop-color="#F5C04E" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="128" y1="132" x2="486" y2="516" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE08A"/><stop offset="0.5" stop-color="#F5C04E"/><stop offset="1" stop-color="#D98A2B"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="128" y1="132" x2="486" y2="516" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF0C4"/><stop offset="1" stop-color="#B9741F"/>
+    </linearGradient>
+  </defs>
+</svg>

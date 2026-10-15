@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator Studio | Short-form video workflow for ambitious creators</title>
+    <style>
+        :root {
+            --bg: #08110f;
+            --panel: #101d1b;
+            --panel-strong: #122521;
+            --line: rgba(167, 210, 197, 0.18);
+            --text: #edf6f1;
+            --muted: #a4b8b0;
+            --accent: #8af0c6;
+            --accent-2: #d7f9a8;
+            --warm: #f2c98b;
+            --shadow: rgba(0, 0, 0, 0.38);
+            --button: #9ef3c3;
+            --button-text: #062d23;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            background:
+                radial-gradient(circle at top left, rgba(138, 240, 198, 0.12), transparent 32%),
+                radial-gradient(circle at bottom right, rgba(215, 249, 168, 0.1), transparent 28%),
+                var(--bg);
+            color: var(--text);
+            font-family: Inter, "Segoe UI", sans-serif;
+            line-height: 1.55;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; display: block; }
+
+        .container {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(16px);
+            background: rgba(8, 17, 15, 0.72);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .topbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            min-height: 72px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .brand-mark {
+            display: grid;
+            place-items: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #062d23;
+            font-weight: 900;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            color: var(--muted);
+            font-size: 0.96rem;
+        }
+
+        .nav a:hover { color: var(--text); }
+
+        .header-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.9rem 1.3rem;
+            border-radius: 999px;
+            background: var(--button);
+            color: var(--button-text);
+            font-weight: 800;
+            box-shadow: 0 18px 38px rgba(154, 243, 195, 0.18);
+        }
+
+        .hero {
+            padding: 72px 0 36px;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 0.8rem;
+            border: 1px solid rgba(138, 240, 198, 0.25);
+            border-radius: 999px;
+            background: rgba(138, 240, 198, 0.06);
+            color: var(--accent);
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 18px 0 18px;
+            font-size: clamp(2.7rem, 5vw, 5.2rem);
+            line-height: 0.96;
+            letter-spacing: -0.06em;
+        }
+
+        .gradient {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2), #76d3ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .lead {
+            max-width: 620px;
+            margin: 0 0 28px;
+            color: var(--muted);
+            font-size: 1.14rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 26px;
+        }
+
+        .button-primary,
+        .button-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            padding: 1rem 1.5rem;
+            font-weight: 800;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .button-primary {
+            background: var(--button);
+            color: var(--button-text);
+            box-shadow: 0 20px 40px rgba(154, 243, 195, 0.15);
+        }
+
+        .button-secondary {
+            border: 1px solid var(--line);
+            color: var(--text);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .button-primary:hover,
+        .button-secondary:hover,
+        .header-cta:hover {
+            transform: translateY(-1px);
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .hero-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .preview-card {
+            position: relative;
+            padding: 20px;
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            background: linear-gradient(180deg, rgba(15, 30, 28, 0.9), rgba(12, 22, 20, 0.95));
+            box-shadow: 0 28px 62px var(--shadow);
+        }
+
+        .preview-window {
+            border: 1px solid rgba(138, 240, 198, 0.18);
+            border-radius: 20px;
+            background:
+                linear-gradient(180deg, rgba(11, 17, 16, 0.85), rgba(11, 17, 16, 0.98));
+            overflow: hidden;
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--line);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.18);
+        }
+
+        .dot:nth-child(1) { background: #ff8a80; }
+        .dot:nth-child(2) { background: #ffd166; }
+        .dot:nth-child(3) { background: #7ae582; }
+
+        .preview-body {
+            display: grid;
+            gap: 14px;
+            padding: 20px;
+        }
+
+        .mini-panel {
+            padding: 16px 18px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .mini-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        .mini-row strong {
+            color: var(--text);
+            font-size: 0.94rem;
+        }
+
+        .bar {
+            position: relative;
+            height: 10px;
+            border-radius: 99px;
+            background: rgba(255,255,255,0.06);
+            overflow: hidden;
+        }
+
+        .bar span {
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 78%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(120px, 1fr));
+            gap: 14px;
+            margin-top: 22px;
+        }
+
+        .stat-card {
+            padding: 18px 16px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .stat-card .icon {
+            font-size: 1.35rem;
+            margin-bottom: 8px;
+        }
+
+        .stat-card strong {
+            display: block;
+            font-size: clamp(1.4rem, 3vw, 2.1rem);
+            letter-spacing: -0.06em;
+        }
+
+        .stat-card span {
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        section {
+            padding: 36px 0;
+        }
+
+        .section-tag {
+            margin: 0 0 14px;
+            color: var(--accent);
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 4vw, 3rem);
+            letter-spacing: -0.05em;
+        }
+
+        .section-copy {
+            max-width: 680px;
+            margin: 0 0 28px;
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+
+        .feature-grid,
+        .stack-grid,
+        .roadmap-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .feature-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .feature-card,
+        .stack-card,
+        .roadmap-card,
+        .pricing-card {
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: rgba(16, 29, 27, 0.8);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+        }
+
+        .feature-card {
+            padding: 22px 20px;
+        }
+
+        .feature-icon {
+            display: grid;
+            place-items: center;
+            width: 52px;
+            height: 52px;
+            margin-bottom: 18px;
+            border-radius: 14px;
+            background: rgba(138, 240, 198, 0.1);
+            font-size: 1.6rem;
+        }
+
+        .feature-card h3,
+        .stack-card h3,
+        .roadmap-card h3,
+        .pricing-card h3 {
+            margin: 0 0 10px;
+            font-size: 1.24rem;
+        }
+
+        .feature-card p,
+        .stack-card p,
+        .roadmap-card p,
+        .pricing-card p,
+        .pricing-card li {
+            color: var(--muted);
+        }
+
+        .stack-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .stack-card {
+            padding: 24px;
+        }
+
+        .stack-card ul,
+        .pricing-card ul {
+            margin: 16px 0 0;
+            padding-left: 18px;
+            color: var(--muted);
+            display: grid;
+            gap: 8px;
+        }
+
+        .roadmap-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .roadmap-card {
+            padding: 24px;
+        }
+
+        .chip {
+            display: inline-flex;
+            padding: 0.45rem 0.7rem;
+            border-radius: 999px;
+            border: 1px solid rgba(138, 240, 198, 0.2);
+            background: rgba(138, 240, 198, 0.08);
+            color: var(--accent);
+            font-size: 0.74rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .pricing-wrap {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .pricing-card {
+            padding: 26px;
+        }
+
+        .price {
+            margin: 8px 0 12px;
+            font-size: 2.5rem;
+            letter-spacing: -0.06em;
+        }
+
+        .cta-panel {
+            margin-top: 18px;
+            padding: 26px;
+            border: 1px solid var(--line);
+            border-radius: 26px;
+            background: linear-gradient(135deg, rgba(138, 240, 198, 0.08), rgba(215, 249, 168, 0.04));
+        }
+
+        .cta-panel h3 {
+            margin: 0 0 8px;
+            font-size: clamp(1.7rem, 3vw, 2.5rem);
+            letter-spacing: -0.05em;
+        }
+
+        .cta-panel p {
+            margin: 0 0 18px;
+            color: var(--muted);
+        }
+
+        footer {
+            padding: 24px 0 64px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 900px) {
+            .hero-inner,
+            .pricing-wrap,
+            .feature-grid,
+            .stack-grid,
+            .roadmap-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, minmax(120px, 1fr));
+            }
+
+            .nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding-top: 52px;
+            }
+
+            .header-cta {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <a href="#top" class="brand" aria-label="Creator Studio home">
+                <span class="brand-mark">C</span>
+                <span>Creator Studio</span>
+            </a>
+
+            <nav class="nav" aria-label="Main navigation">
+                <a href="#features">Features</a>
+                <a href="#workflow">Workflow</a>
+                <a href="#roadmap">Roadmap</a>
+                <a href="#pricing">Pricing</a>
+            </nav>
+
+            <a href="#cta" class="header-cta">Get early access</a>
+        </div>
+    </header>
+
+    <main id="top" class="container">
+        <section class="hero">
+            <div class="hero-inner">
+                <div>
+                    <div class="eyebrow">Short-form creator OS</div>
+                    <h1>Turn your best ideas into a <span class="gradient">full creator workflow</span>.</h1>
+                    <p class="lead">
+                        Creator Studio helps content teams research faster, sharpen scripts, shape production,
+                        and ship better short-form video without the usual chaos.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a class="button-primary" href="#cta">Request early access</a>
+                        <a class="button-secondary" href="#features">See the product</a>
+                    </div>
+
+                    <div class="hero-meta">
+                        <span>⚡ Built for fast short-form execution</span>
+                        <span>🧠 Designed for creative teams</span>
+                    </div>
+                </div>
+
+                <div class="preview-card" aria-label="Studio product preview">
+                    <div class="preview-window">
+                        <div class="preview-header">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+
+                        <div class="preview-body">
+                            <div class="mini-panel">
+                                <div class="mini-row">
+                                    <span>Pipeline status</span>
+                                    <strong>Ready</strong>
+                                </div>
+                                <div class="bar"><span></span></div>
+                            </div>
+
+                            <div class="mini-panel">
+                                <div class="mini-row">
+                                    <span>Research</span>
+                                    <strong>12 prompts</strong>
+                                </div>
+                                <div class="mini-row">
+                                    <span>Scripts</span>
+                                    <strong>7 drafts</strong>
+                                </div>
+                                <div class="mini-row">
+                                    <span>Publish</span>
+                                    <strong>3 queues</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid" aria-label="Platform metrics">
+                <div class="stat-card">
+                    <div class="icon">🧠</div>
+                    <strong>3x</strong>
+                    <span>faster ideation</span>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">🎬</div>
+                    <strong>10+</strong>
+                    <span>asset lanes</span>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">📈</div>
+                    <strong>24/7</strong>
+                    <span>creator workflow</span>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">🚀</div>
+                    <strong>1 OS</strong>
+                    <span>for production</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="features">
+            <div class="section-tag">Product</div>
+            <h2>Everything a short-form team needs to move faster.</h2>
+            <p class="section-copy">
+                The product is designed to help creators and teams research, plan, produce, and package content
+                with less friction and more consistency.
+            </p>
+
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <div class="feature-icon">🔎</div>
+                    <h3>Trend research</h3>
+                    <p>Turn a topic into a clear creative direction with smarter research signals and better content prompts.</p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">✍️</div>
+                    <h3>Script planning</h3>
+                    <p>Build stronger hooks, structure, and editorial flow before spending time on production or rendering.</p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">🎙️</div>
+                    <h3>Voice and tone</h3>
+                    <p>Shape the narrator, personality, and emotional tone to match the audience and the format.</p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">🎞️</div>
+                    <h3>Visual assembly</h3>
+                    <p>Organize assets, scenes, and editing cues into a more reliable production flow for team output.</p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3>Outputs and manifests</h3>
+                    <p>Keep every project organized with local records, asset handling, and a clean production trail.</p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Creator analytics</h3>
+                    <p>Align content decisions with channel goals, content themes, and publish-ready production metrics.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="workflow">
+            <div class="section-tag">Workflow</div>
+            <h2>A studio flow built for short-form content.</h2>
+            <p class="section-copy">
+                The experience is centered around the creator journey: idea, direction, production, and publishing. It is a product page for the app, not a raw tool console.
+            </p>
+
+            <div class="stack-grid">
+                <article class="stack-card">
+                    <h3>1. Discover</h3>
+                    <p>Use trend intelligence and early signal analysis to find topics that match audience demand and creator positioning.</p>
+                    <ul>
+                        <li>Research prompts</li>
+                        <li>Content angle discovery</li>
+                        <li>Audience-fit checks</li>
+                    </ul>
+                </article>
+
+                <article class="stack-card">
+                    <h3>2. Design</h3>
+                    <p>Turn direction into a clear production plan with tone, structure, and story flow built before final output.</p>
+                    <ul>
+                        <li>Script structure</li>
+                        <li>Voice personality</li>
+                        <li>Format selection</li>
+                    </ul>
+                </article>
+
+                <article class="stack-card">
+                    <h3>3. Produce</h3>
+                    <p>Sequence rendering, voice, visuals, and scene assembly in a clean pipeline designed for consistent output.</p>
+                    <ul>
+                        <li>Scene planning</li>
+                        <li>Asset routing</li>
+                        <li>Final render queue</li>
+                    </ul>
+                </article>
+
+                <article class="stack-card">
+                    <h3>4. Publish</h3>
+                    <p>Package your work for upload with clear ownership records and a creator-first production experience.</p>
+                    <ul>
+                        <li>Ready-to-upload exports</li>
+                        <li>Manifest tracking</li>
+                        <li>Channel-ready handoff</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section id="roadmap">
+            <div class="section-tag">Roadmap</div>
+            <h2>Built for the next wave of creator tooling.</h2>
+            <p class="section-copy">
+                The product is intentionally focused on short-form now, with long-form workflows set to follow once the core studio flow is locked in.
+            </p>
+
+            <div class="roadmap-grid">
+                <article class="roadmap-card">
+                    <span class="chip">Now</span>
+                    <h3>Short-form studio</h3>
+                    <p>Focus on creator speed, workflow clarity, and better production quality for vertical content.</p>
+                </article>
+
+                <article class="roadmap-card">
+                    <span class="chip">Next</span>
+                    <h3>Asset intelligence</h3>
+                    <p>Add stronger scripting, library management, and richer prompts that help teams work with less friction.</p>
+                </article>
+
+                <article class="roadmap-card">
+                    <span class="chip">Later</span>
+                    <h3>Long-form expansion</h3>
+                    <p>Scale the same system into deeper storytelling formats once the short-form foundation is fully proven.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="pricing">
+            <div class="section-tag">Access</div>
+            <h2>Launch the studio with a simple, premium entry point.</h2>
+
+            <div class="pricing-wrap">
+                <article class="pricing-card">
+                    <h3>Early access plan</h3>
+                    <div class="price">$29<span style="font-size: 1rem; color: var(--muted);">/month</span></div>
+                    <p>For creators and small teams who want a cleaner workflow and a faster content pipeline.</p>
+                    <ul>
+                        <li>Short-form creative workflow</li>
+                        <li>Project manifests and output tracking</li>
+                        <li>Early feature access and roadmap influence</li>
+                    </ul>
+                </article>
+
+                <article class="pricing-card">
+                    <h3>Built for teams</h3>
+                    <p>Designed for creators who want a premium studio experience without a bloated, generic AI dashboard.</p>
+                    <ul>
+                        <li>Creator-first UX</li>
+                        <li>Short-form only focus</li>
+                        <li>Modern studio positioning</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section id="cta">
+            <div class="cta-panel">
+                <div class="section-tag">Launch</div>
+                <h3>Make the studio feel premium before the product is even fully built.</h3>
+                <p>The landing page should sell the workflow, the creative OS, and the ambition of the brand — not expose the raw generation tools on the first view.</p>
+                <div class="hero-actions">
+                    <a href="#top" class="button-primary">Get early access</a>
+                    <a href="#features" class="button-secondary">View the experience</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container">
+        Creator Studio — built for short-form creators, premium workflow, and modern content production.
+    </footer>
+</body>
+</html>

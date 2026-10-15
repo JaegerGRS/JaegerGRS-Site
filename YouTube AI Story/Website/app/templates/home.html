@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Createvra | Professional creator software{% endblock %}
+
+{% block content %}
+<main class="page-shell">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Professional creator workflow</p>
+      <h1>Plan, script, design, and produce YouTube content in one clean workspace.</h1>
+      <p class="lead">
+        Createvra is built for every creator type, from faceless channels and educators to brands and media teams.
+        Start free on local AI, then upgrade for higher-quality cloud generation when output needs to scale.
+      </p>
+      <div class="cta-row">
+        <a class="primary" href="{{ url_for('pricing') }}">Start free</a>
+        <a class="secondary" href="{{ url_for('products') }}">Explore products</a>
+      </div>
+      <div class="social-proof">
+        <span>Built as a production workspace, not a toy generator.</span>
+        <span>Short-form and long-form creator workflows.</span>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="window-header">
+        <span class="dot red"></span>
+        <span class="dot amber"></span>
+        <span class="dot green"></span>
+      </div>
+      <div class="window-body">
+        <div class="mini-panel">
+          <span>Pipeline status</span>
+          <strong>Ready to publish</strong>
+        </div>
+        <div class="stat-row">
+          <div>
+            <small>Script score</small>
+            <strong>92%</strong>
+          </div>
+          <div>
+            <small>SEO coverage</small>
+            <strong>89%</strong>
+          </div>
+          <div>
+            <small>Render queue</small>
+            <strong>Fast</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <p class="eyebrow">Why creators switch</p>
+      <h2>More output quality, less workflow chaos.</h2>
+    </div>
+    <div class="feature-grid">
+      <article class="feature-card">
+        <h3>All-in-one workflow</h3>
+        <p>Script, thumbnail, video generation, and publishing prep in one connected workflow.</p>
+      </article>
+      <article class="feature-card">
+        <h3>Free local AI tier</h3>
+        <p>Creators can start at zero cost and validate ideas without committing to a paid plan.</p>
+      </article>
+      <article class="feature-card">
+        <h3>Premium model upgrades</h3>
+        <p>When users need stronger quality and speed, paid plans unlock more advanced generation.</p>
+      </article>
+    </div>
+  </section>
+
+</main>
+{% endblock %}

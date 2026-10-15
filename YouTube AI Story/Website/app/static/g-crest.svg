@@ -1,0 +1,25 @@
+<svg width="640" height="640" viewBox="0 0 640 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="640" rx="72" fill="#141006"/>
+  <circle cx="320" cy="310" r="220" fill="url(#halo)" fill-opacity="0.28"/>
+  <!-- Crest: shield-ish rounded container with a bold serif-cut C inside -->
+  <path d="M320 104C420 104 492 132 528 168V360C528 452 446 524 320 548C194 524 112 452 112 360V168C148 132 220 104 320 104Z" fill="url(#shield)" fill-opacity="0.10" stroke="url(#rim)" stroke-width="3"/>
+  <!-- inner C with serif-like terminals -->
+  <path d="M436 208C404 178 364 162 320 162C236 162 168 230 168 314C168 398 236 466 320 466C364 466 404 450 436 420L436 372L396 372L396 402C374 420 348 430 320 430C256 430 204 378 204 314C204 250 256 198 320 198C348 198 374 208 396 226L396 256L436 256L436 208Z" fill="url(#cgold)"/>
+  <!-- serif foot accents -->
+  <path d="M396 256L436 256L436 236L396 236Z" fill="#FFE9B8" fill-opacity="0.9"/>
+  <path d="M396 392L436 392L436 372L396 372Z" fill="#FFE9B8" fill-opacity="0.9"/>
+  <defs>
+    <radialGradient id="halo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(320 310) rotate(90) scale(250)">
+      <stop stop-color="#F5C04E"/><stop offset="1" stop-color="#F5C04E" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rim" x1="112" y1="104" x2="528" y2="548" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE08A"/><stop offset="1" stop-color="#D98A2B"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="112" y1="104" x2="528" y2="548" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5C04E"/><stop offset="1" stop-color="#D98A2B"/>
+    </linearGradient>
+    <linearGradient id="cgold" x1="168" y1="162" x2="436" y2="466" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE08A"/><stop offset="0.5" stop-color="#F5C04E"/><stop offset="1" stop-color="#D98A2B"/>
+    </linearGradient>
+  </defs>
+</svg>
