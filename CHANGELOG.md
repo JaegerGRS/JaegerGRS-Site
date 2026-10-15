@@ -6,6 +6,7 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 - Added a contact form (`/api/contact`) with origin checks, honeypot, size limits and per-visitor rate limiting; mail via Cloudflare Email Service or Resend.
 - Added the live PC panel (`/api/rig`) and `agent/rig-agent.mjs`, a PC app that connects with a secret key (DPAPI-encrypted on the PC, `RIG_TOKEN` secret on Cloudflare).
 - Mobile, tablet, desktop and TV fixes: content visible without JavaScript, Escape/outside-click menu close, touch target sizes, larger scaling and focus rings for TV remotes.
+- Fonts are now self-hosted (`public/assets/fonts`, 62 KB, Latin subset). The CSP no longer allows Google Fonts, `img-src` is limited to this site, and a test fails if any third-party host is ever added back.
 - Removed `JaegerGRS-Site-main/`, an old duplicate copy of the whole project that was committed inside the repo (71 files).
 - Re-themed the site to neutral black, grey and white; green is kept only for "online" and success states, and the red/amber error and warning colours are unchanged. The `npm run dev` live preview rebuilds and reloads on every edit.
 - Optimisation pass: re-compressed the two large JPEGs (about 240 KB saved), added a proper 1200x630 social card plus Twitter card and Open Graph tags, JSON-LD for the Rig API product, cache headers for images (1 week) and scripts/styles (revalidated hourly), removed unused imports from every page file and the unused `share.svg`.

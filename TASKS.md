@@ -2,17 +2,17 @@
 
 Tick a box with `[x]` and update the percentages. **Owner**: **Me** = Copilot can do it now, **You** = needs your account, device or decision.
 
-**Overall: 14 of 26 done = 54%**
+**Overall: 17 of 26 done = 65%**
 
-## 1. Site and design: 6 of 9 = 67%
+## 1. Site and design: 8 of 9 = 89%
 - [x] Multi-page site with a generator, one source file per page
 - [x] Mobile, tablet, desktop and TV layouts
 - [x] Dynamic years of experience (since 2015)
 - [x] SEO: titles, canonical, sitemap, Open Graph, Twitter card, social image
 - [x] Black, grey and white theme
 - [x] Images compressed, cache headers added
-- [ ] **Me**: screenshot every page on the new theme (phone, tablet, desktop, TV) and fix anything off
-- [ ] **Me**: self-host the Manrope and DM Sans fonts (removes the Google Fonts request, faster and more private)
+- [x] Checked all 16 pages at phone, tablet, desktop and TV widths: no sideways overflow, one h1 each, no broken images
+- [x] Fonts self-hosted, Google removed from the CSP
 - [ ] **You**: decide the home-page hardware text. It says Ryzen 9 5950X / RTX 3070 Ti / 64 GB, but this PC is an i7-9700 / GTX 980 Ti / 16 GB
 
 ## 2. Security and contact form: 3 of 6 = 50%
@@ -32,11 +32,11 @@ Tick a box with `[x]` and update the percentages. **Owner**: **Me** = Copilot ca
 - [ ] **You**: choose a payment provider (Stripe, Gumroad or Lemon Squeezy) so I can add buy buttons
 - [ ] **You**: make the paid code private or add a licence (the repo is public, so the code is free to read)
 
-## 4. Going live: 1 of 4 = 25%
-- [x] GitHub repo, CI and local preview (`npm run dev`, `npm run selfhost`)
+## 4. Going live: 2 of 4 = 50%
+- [x] GitHub repo, CI (passing on the latest push) and local preview (`npm run dev`, `npm run selfhost`)
 - [ ] **You**: in GitHub, set the variable `CLOUDFLARE_DEPLOY_ENABLED=true` and the secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`
-- [ ] **Me**: check CI on the latest commit and confirm the live site and `/api/rig` respond after deploy
-- [ ] **Me**: tidy leftover test processes (self-host, notes server, test exe)
+- [ ] **Me**: confirm the live site and `/api/rig` respond after deploy
+- [x] Tidied the leftover test tray app and notes server
 
 ## Next step
 Section 4 unlocks most of the rest: once deploy is enabled, I can test the contact form and the live Rig API.

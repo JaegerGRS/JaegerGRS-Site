@@ -34,8 +34,8 @@ export function page({ file, title, desc, section, theme = '', body, crumbs = []
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@JaegerGRS"><meta name="twitter:title" content="${fullTitle}"><meta name="twitter:description" content="${desc}"><meta name="twitter:image" content="${SITE}/assets/img/social-card.jpg">
 <script src="${up}assets/boot.js"></script>
 <link rel="icon" href="${up}assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Manrope:wght@500;700;800&display=swap">
+<link rel="preload" href="${up}assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${up}assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${up}assets/styles.css">${schema}
 </head>
 <body class="${theme}">

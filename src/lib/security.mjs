@@ -1,9 +1,9 @@
 export const CSP = [
   "default-src 'self'",
-  "img-src 'self' data: https:",
+  "img-src 'self' data:",
   "script-src 'self'",
-  "style-src 'self' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com",
+  "style-src 'self'",
+  "font-src 'self'",
   "connect-src 'self'",
   "form-action 'self'",
   "object-src 'none'",
@@ -35,7 +35,7 @@ export function secure(res, { html = false, api = false } = {}) {
   } else if (res.ok) {
     // Assets are not fingerprinted, so keep CSS/JS fresh-ish and let images cache for a week.
     const type = headers.get('Content-Type') || '';
-    if (type.startsWith('image/')) headers.set('Cache-Control', 'public, max-age=604800');
+    if (type.startsWith('image/') || type.startsWith('font/')) headers.set('Cache-Control', 'public, max-age=604800');
     else if (/css|javascript/.test(type)) headers.set('Cache-Control', 'public, max-age=3600, must-revalidate');
   }
   return new Response(res.body, { status: res.status, statusText: res.statusText, headers });

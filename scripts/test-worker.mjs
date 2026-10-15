@@ -51,6 +51,8 @@ const pages = ['/', '/projects/', '/projects/svart-security/', '/projects/grey-s
 for (const p of pages) check((await req(p)).status === 200, `200 ${p}`);
 check((await req('/assets/img/social-card.jpg')).headers.get('cache-control') === 'public, max-age=604800', 'images are cached for a week');
 check(/must-revalidate/.test((await req('/assets/main.js')).headers.get('cache-control') || ''), 'scripts revalidate');
+check((await req('/assets/fonts/manrope.woff2')).status === 200, 'self-hosted font is served');
+check(!/https?:\/\//.test((await req('/')).headers.get('content-security-policy') || ''), 'CSP allows no third-party hosts');
 check((await (await req('/')).text()).includes('assets/img/social-card.jpg'), 'pages point at the social card');
 
 for (const img of ['grey-signal-logo.png', 'grey-signal-banner.jpg', 'grey-signal-welcome.jpg', 'grey-signal-subscribe.png']) {

@@ -1,3 +1,5 @@
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/dm-sans.woff2) format('woff2')}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:500 800;font-display:swap;src:url(fonts/manrope.woff2) format('woff2')}
 :root{color-scheme:dark;--bg:#0d0d0d;--bg2:#131313;--panel:#191919;--panel2:#1e1e1e;--text:#efefef;--sub:#adadad;--dim:#7e7e7e;--line:#2f2f2f;--ok:#5fd38d;--accent:#ececec;--accent2:#9b9b9b;--c:var(--accent);--r:12px;--head:'Manrope','Segoe UI',system-ui,sans-serif;--body:'DM Sans','Segoe UI',system-ui,sans-serif;--mono:ui-monospace,'Cascadia Code',Consolas,monospace}
 .t-svart{--c:#d4d4d4}.t-grey{--c:#b5b5b5}.t-jae{--c:#9b9b9b}.t-hw{--c:#c2c2c2}
 .pt0{padding-top:0}.mt-icon{margin-top:20px}.crumb-wrap{padding-top:34px}.lead-sm{font-size:16px;margin-top:20px}.spaced{margin-top:34px}.fine{color:var(--dim);font-size:12.5px;margin:14px 0 0}
