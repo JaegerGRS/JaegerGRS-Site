@@ -51,7 +51,7 @@ ${crumbHtml}${body.replace(/\{up\}/g, up)}
 </main>
 <footer class="footer"><div class="container">
 <div class="footer-grid">
-<div><a class="wordmark" href="${up}index.html"><span class="mark">J<span class="accent">.</span></span><span>JAEGER<span class="soft">GRS</span></span></a><p>Independent technical work: PCs, systems, web and privacy-focused software. Peterborough, UK.</p></div>
+<div><a class="wordmark" href="${up}index.html"><span class="mark">J<span class="accent">.</span></span><span>JAEGER<span class="soft">GRS</span></span></a><p>Independent technical work: PCs, systems, web and privacy-focused software. Based in the United Kingdom, open to international opportunities.</p></div>
 <div><h4>Explore</h4><a href="${up}projects/">Projects</a><a href="${up}expertise/">Expertise</a><a href="${up}about/">About</a><a href="${up}contact/">Contact</a></div>
 <div><h4>Live sites</h4><a href="${SVART}" target="_blank" rel="noopener noreferrer">Svart Security ↗</a><a href="${JTT}" target="_blank" rel="noopener noreferrer">JaeTheTech ↗</a><a href="${GREY}" target="_blank" rel="noopener noreferrer">Grey Signal ↗</a><a href="https://github.com/JaegerGRS/JAE" target="_blank" rel="noopener noreferrer">JAE on GitHub ↗</a></div>
 <div><h4>Elsewhere</h4><a href="${LI}" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="${XJ}" target="_blank" rel="noopener noreferrer">X</a><a href="${FB}" target="_blank" rel="noopener noreferrer">Facebook</a><a href="${up}changelog/">Changelog</a></div>

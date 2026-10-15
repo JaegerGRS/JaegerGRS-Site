@@ -4,16 +4,16 @@ import { ext, int, links, sectionHead, cta } from '../components.mjs';
 export default [
 {
   file: 'index.html', section: 'home',
-  title: 'Jaeger Stratton | PC Builder, Developer & Technician',
+  title: 'Jaeger Stratton | IT Technician, PC Builder & Developer',
   desc: 'Jaeger George Richard Stratton: 13 years of interest in IT, PC building since 2016, Windows support, and five independent projects: Grey Signal (gaming content) and JaeTheTech (tech content), Svart Security (privacy tools), JAE and YouTube AI Story (AI). Based in Peterborough, UK.',
   schema: `\n<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Jaeger George Richard Stratton","url":"${SITE}/","jobTitle":"IT Technician and Independent Developer","knowsAbout":["PC building","Hardware troubleshooting","Windows installation","Web development","Technical support"],"sameAs":["${FB}","${LI}","${XJ}","${SVART}","${JTT}"]}</script>`,
   body: `
 <section class="container hero">
-<div><p class="eyebrow"><span class="status-dot"></span>Open to opportunities · Peterborough, UK</p>
+<div><p class="eyebrow"><span class="status-dot"></span>Based in the United Kingdom · Open to remote, hybrid and international IT opportunities</p>
 <h1>Hi, I'm Jaeger.<br><span class="gradient">I build and fix things.</span></h1>
 <p class="lead">Self-taught PC builder, troubleshooter and developer, open to IT technician, PC assembly and support roles. I was introduced to tech at 13, built my first websites at 14 and my first PC at 16. IT has been an interest for half my life (self-taught, not paid employment), and today I build my own websites, privacy tools and local AI software alongside hands-on hardware and Windows support.</p>
 <div class="actions"><a class="btn primary" href="{up}contact/">Get in touch <span aria-hidden="true">↗</span></a><a class="btn secondary" href="{up}projects/">See my projects</a><a class="btn secondary" href="{up}about/">About me</a></div>
-<div class="hero-stats"><span><b data-years-since="2013">13</b><small>Years of interest in IT</small></span><span><b>5</b><small>Projects: 2 content, 1 privacy, 2 AI</small></span><span><b>UK / Global</b><small>Open to roles · remote / hybrid</small></span></div></div>
+<div class="hero-stats"><span><b data-years-since="2013">13</b><small>Years of interest in IT</small></span><span><b>7</b><small>Independent projects</small></span><span><b>UK-based</b><small>Remote, hybrid, international</small></span></div></div>
 <div class="terminal" aria-hidden="true"><div class="terminal-bar"><i></i><i></i><i></i><span>jaeger@jaegergrs ~</span></div>
 <div class="terminal-body"><div><span class="p">$</span> whoami</div><div class="d">jaeger — builder, tinkerer, troubleshooter</div><div><span class="p">$</span> cat skills</div><div class="o">hardware · windows · web · security</div><div><span class="p">$</span> ls projects/</div><div class="o">hardware rig-api svart-security jae grey-signal<br>jaethetech story-ai</div><div><span class="p">$</span> <span class="caret"></span></div></div></div>
 </section>
