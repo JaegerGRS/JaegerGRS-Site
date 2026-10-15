@@ -29,7 +29,7 @@ const projects = [
     chips: ['HTML/CSS/JS', 'Cloudflare Workers', 'KV'],
     links: `<a class="text-link" href="{up}projects/jaethetech/">Read the case study →</a><a class="text-link" href="${JTT}" target="_blank" rel="noopener noreferrer">jaethetech.com ↗</a>` },
   { cat: 'ai creative', theme: 't-story', status: 'In development', icon: '▶', title: 'YouTube AI Story',
-    text: 'An AI tool for story-style content, from short clips to long videos, running on my own PC.',
+    text: 'A local Python pipeline: Ollama scripts, local text-to-speech, GPU-assisted rendering, similarity checks and file manifests. Early stage, not released.',
     chips: ['Python', 'Tauri', 'GPU rendering'],
     links: '<a class="text-link" href="{up}projects/story-ai/">Read the case study →</a>' },
 ];

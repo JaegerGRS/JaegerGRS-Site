@@ -166,3 +166,4 @@ code{font-family:ui-monospace,Consolas,monospace;font-size:.92em}
 .cs{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:0}.cs dt{font:700 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--c);padding-top:3px}.cs dd{margin:0;color:var(--sub)}
 .specs-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.specs-cols>div{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:20px}.specs-cols h3{margin:0 0 10px;font:800 16px var(--head)}.specs-cols p{margin:0;color:var(--sub);font-size:14.5px}.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 main:focus{outline:none}
+.media+.grid{margin-top:24px}
