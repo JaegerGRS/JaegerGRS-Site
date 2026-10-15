@@ -12,8 +12,8 @@ let skew = 0;
 const realNow = Date.now.bind(Date);
 Date.now = () => realNow() + skew;
 
-const fakeState = () => { const m = new Map(); return { storage: { get: async (k) => m.get(k), put: async (k, v) => void m.set(k, v) }, blockConcurrencyWhile: (fn) => fn() }; };
-const namespace = (Cls) => { const objs = new Map(); return { idFromName: (n) => n, get: (id) => { if (!objs.has(id)) objs.set(id, new Cls(fakeState())); const o = objs.get(id); return { fetch: (req, init) => o.fetch(req instanceof Request ? req : new Request(req, init)) }; } }; };
+const fakeState = () => { const m = new Map(); const s = { ready: Promise.resolve(), storage: { get: async (k) => m.get(k), put: async (k, v) => void m.set(k, v) }, blockConcurrencyWhile: (fn) => (s.ready = s.ready.then(fn)) }; return s; };
+const namespace = (Cls) => { const objs = new Map(); return { idFromName: (n) => n, get: (id) => { if (!objs.has(id)) { const st = fakeState(); objs.set(id, [new Cls(st), st]); } const [o, st] = objs.get(id); return { fetch: async (req, init) => { await st.ready; return o.fetch(req instanceof Request ? req : new Request(req, init)); } }; } }; };
 
 const TOKEN = 'a'.repeat(16) + 'B'.repeat(16) + '0123456789abcdef';
 const sent = [];
