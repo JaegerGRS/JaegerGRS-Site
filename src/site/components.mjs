@@ -25,7 +25,7 @@ export function page({ file, title, desc, section, theme = '', body, crumbs = []
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0a0e13">
+<meta name="theme-color" content="#0d0d0d">
 <title>${fullTitle}</title>
 <meta name="description" content="${desc}">
 <meta name="author" content="Jaeger George Richard Stratton">

@@ -7,6 +7,7 @@
   "scripts": {
     "generate": "node src/site/build.mjs",
     "check": "node scripts/check-site.mjs",
+    "dev": "node scripts/dev.mjs",
     "selfhost": "powershell -ExecutionPolicy Bypass -File scripts/selfhost.ps1",
     "notes": "node scripts/notes-server.mjs",
     "test": "node scripts/test-worker.mjs",

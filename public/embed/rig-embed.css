@@ -1,11 +1,11 @@
-.jgrs-rig{--bg:#12151c;--fg:#e8ecf4;--mut:#9aa4b8;--line:#2a3140;box-sizing:border-box;width:min(320px,100%);padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--fg);font:14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
-.jgrs-rig.jgrs-light{--bg:#fff;--fg:#14171f;--mut:#5b6475;--line:#d8dde8}
+.jgrs-rig{--bg:#141414;--fg:#ececec;--mut:#a3a3a3;--line:#2e2e2e;box-sizing:border-box;width:min(320px,100%);padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--fg);font:14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
+.jgrs-rig.jgrs-light{--bg:#fff;--fg:#141414;--mut:#5f5f5f;--line:#d9d9d9}
 .jgrs-float{position:fixed;right:16px;bottom:16px;z-index:2147483000;box-shadow:0 8px 30px rgba(0,0,0,.35)}
 .jgrs-head{display:flex;align-items:center;gap:8px}
 .jgrs-head strong{flex:1}
 .jgrs-dot{width:9px;height:9px;border-radius:50%;background:#e5a13a}
 .jgrs-dot[data-state=online]{background:#3ecf6e}
-.jgrs-dot[data-state=offline]{background:#8a93a6}
+.jgrs-dot[data-state=offline]{background:#8a8a8a}
 .jgrs-status{color:var(--mut);font-size:12px}
 .jgrs-specs{margin:8px 0 10px;color:var(--mut);font-size:12.5px}
 .jgrs-meters label{display:grid;grid-template-columns:40px 40px 1fr;align-items:center;gap:8px;margin:4px 0;font-size:12px;color:var(--mut)}
