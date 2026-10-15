@@ -9,7 +9,7 @@ export default [
   body: `${hero('Project · Tech content', 'Jae<span class="c">The</span>Tech.', 'JaeTheTech is my tech content channel. It is where I share what I learn about writing code, building PCs and security, with a site written from scratch: no React, no Tailwind, no Bootstrap.', `<div class="actions"><a class="btn primary" href="${JTT}" target="_blank" rel="noopener noreferrer">Visit jaethetech.com <span aria-hidden="true">↗</span></a><a class="btn secondary" href="https://github.com/JaeTheTech" target="_blank" rel="noopener noreferrer">GitHub</a></div>`)}
 <section class="section container"><div class="grid g3">
 <div class="card reveal"><span class="icon">{ }</span><h3>Write code</h3><p>Full-stack, zero frameworks. HTML, CSS, JS, Node and Rust, built from scratch where possible.</p></div>
-<div class="card reveal"><span class="icon">⌘</span><h3>Build machines</h3><p>Building PCs from scratch since 2016. Currently a <span data-rig-live="fullLine">Ryzen 9 5950X / 64 GB / RTX 3070 Ti</span> workstation.</p></div>
+<div class="card reveal"><span class="icon">⌘</span><h3>Build machines</h3><p>Building PCs from scratch since 2016. My workstation is documented on the hardware page.</p></div>
 <div class="card reveal"><span class="icon">◈</span><h3>Break security</h3><p>Network hardening, privacy tools and poking holes in things that shouldn't have them, via Svart Security.</p></div>
 </div></section>
 ${more('Featured project.', int('projects/jaethetech/personal-ai/', 'Personal AI', 'Self-editing local AI assistant, built from scratch'), int('projects/jae/', 'JAE', 'The local-first desktop AI engine'))}

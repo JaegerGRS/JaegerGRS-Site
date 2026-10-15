@@ -5,11 +5,20 @@
   var statusEl=root&&root.querySelector('[data-rig-status]');
   var statusText=root&&root.querySelector('[data-rig-status-text]');
   var note=root&&root.querySelector('[data-rig-note]');
+  var stale=root&&root.querySelector('[data-rig-stale]');
+  var ageEl=root&&root.querySelector('[data-rig-age]');
   var timer=null,failures=0;
   var fallback=[];
   live.forEach(function(el){fallback.push(el.textContent);});
 
-  function text(el,v){if(el)el.textContent=v;}
+  function text(el,v){if(el&&el.textContent!==v)el.textContent=v;}
+  function ago(sec){
+    if(typeof sec!=='number')return 'at an unknown time';
+    if(sec<90)return 'moments ago';
+    if(sec<5400)return Math.round(sec/60)+' minutes ago';
+    if(sec<172800)return Math.round(sec/3600)+' hours ago';
+    return Math.round(sec/86400)+' days ago';
+  }
   function field(name,v){
     var el=root&&root.querySelector('[data-rig-field="'+name+'"]');
     if(el&&v)el.textContent=v;
@@ -51,8 +60,11 @@
   function render(s){
     var online=!!(s&&s.online);
     if(root){
-      statusEl.setAttribute('data-state',online?'online':'offline');
-      text(statusText,online?'Online now':(s&&s.specs?'Offline, showing last known specs':'Offline'));
+      var hasSpecs=!!(s&&s.specs);
+      var state=online?'online':(hasSpecs?'stale':'offline');
+      statusEl.setAttribute('data-state',state);
+      text(statusText,online?'Online now':(hasSpecs?'Offline: showing last known specs':'Offline'));
+      if(stale){stale.hidden=online||!hasSpecs;text(ageEl,ago(s&&s.ageSec));}
       if(s&&s.specs){
         field('cpu',cpuText(s.specs.cpu));
         field('gpu',gpuText(s.specs.gpus));
@@ -63,7 +75,7 @@
         var k=m.getAttribute('data-rig-meter');
         var v=online&&s.live&&typeof s.live[k]==='number'?s.live[k]:null;
         m.value=v===null?0:v;
-        text(root.querySelector('[data-rig-out="'+k+'"]'),v===null?'—':Math.round(v)+(k==='gpuTemp'?'°C':'%'));
+        text(root.querySelector('[data-rig-out="'+k+'"]'),v===null?'—':Math.round(v)+(/Temp$/.test(k)?'°C':'%'));
       });
       if(note)note.hidden=online;
     }
@@ -84,7 +96,7 @@
       .then(function(s){failures=0;render(s);schedule(root?3000:20000);})
       .catch(function(){
         failures++;
-        if(root&&failures>=2){statusEl.setAttribute('data-state','offline');text(statusText,'Live data unavailable');}
+        if(root&&failures>=2){statusEl.setAttribute('data-state','error');text(statusText,'Live data unavailable. Any values shown may be out of date.');if(stale)stale.hidden=true;}
         schedule(Math.min(30000,3000*Math.pow(2,failures)));
       })
       .then(function(){if(t)clearTimeout(t);});

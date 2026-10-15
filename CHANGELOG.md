@@ -4,6 +4,8 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.3.0 - 15 October 2026
 
+- **Hardware page:** labelled photo placeholders and repair case-study format (no invented jobs); workstation specs now listed separately from live data (main as listed / previous / planned) and no longer overwritten by telemetry. **Live panel:** loading, online, stale (with age), offline and error states, CPU and GPU temperature, metrics no longer announced to screen readers, short how-it-works note with a Rig API link.
+
 - **Homepage rewrite:** new hero (label, name, supporting headline, introduction, two actions, availability), dated facts instead of the years stat, featured projects with category, role, verified tech, status and case-study link, a real-evidence links section, short background and CTA. Peterborough removed from the description.
 
 - **Projects directory restructure:** new intro ('Selected technical work'), one data-driven card list with status tags and verified tech chips, a status key, a progressive category filter (all cards visible without JavaScript), real Grey Signal logo, no mock screenshots. Fixed horizontal overflow of the code block on the Rig API install page at 360px.

@@ -24,7 +24,8 @@ export function page({ file, title, desc, section, theme = '', body, crumbs = []
     : '';
   const siteLd = file === 'index.html'
     ? `\n<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jaeger Stratton', url: `${SITE}/`, inLanguage: 'en-GB' })}</script>`
-    : '';  const fullTitle = file === 'index.html' ? title : `${title} | Jaeger Stratton`;
+    : '';
+  const fullTitle = file === 'index.html' ? title : `${title} | Jaeger Stratton`;
   return `<!doctype html>
 <html lang="en-GB">
 <head>
@@ -64,9 +65,10 @@ ${crumbHtml}${body.replace(/\{up\}/g, up)}
 }
 
 // Live PC panel. Static text is the fallback; assets/rig.js fills it in when the PC app is online.
-export const rigPanel = () => `<div class="rig" data-rig>
-<div class="rig-head"><h3>Live from my PC</h3><p class="rig-status" data-rig-status><span class="dot" aria-hidden="true"></span><span data-rig-status-text>Checking…</span></p></div>
-<p class="rig-note" data-rig-note>My PC reports its specs and load here while it is switched on. When it is off you will see the last known specs.</p>
+export const rigPanel = () => `<section class="rig" data-rig aria-label="Live PC telemetry">
+<div class="rig-head"><h3>Live from my PC</h3><p class="rig-status" data-rig-status data-state="loading" role="status"><span class="dot" aria-hidden="true"></span><span data-rig-status-text>Checking…</span></p></div>
+<p class="rig-stale" data-rig-stale hidden>Not live. These are the last known specs, reported <span data-rig-age>earlier</span>. Load and temperature are not shown while the PC is off.</p>
+<p class="rig-note" data-rig-note>My PC reports its specs and load here while it is switched on. When it is off you will see the last known specs, clearly marked.</p>
 <dl class="rig-specs">
 <div><dt>CPU</dt><dd data-rig-field="cpu">—</dd></div>
 <div><dt>Graphics</dt><dd data-rig-field="gpu">—</dd></div>
@@ -74,13 +76,14 @@ export const rigPanel = () => `<div class="rig" data-rig>
 <div><dt>OS</dt><dd data-rig-field="os">—</dd></div>
 </dl>
 <div class="rig-meters">
-<label>CPU load <output data-rig-out="cpuLoad">—</output><meter min="0" max="100" value="0" data-rig-meter="cpuLoad"></meter></label>
-<label>GPU load <output data-rig-out="gpuLoad">—</output><meter min="0" max="100" value="0" data-rig-meter="gpuLoad"></meter></label>
-<label>Memory used <output data-rig-out="ramPct">—</output><meter min="0" max="100" value="0" data-rig-meter="ramPct"></meter></label>
-<label>GPU temp <output data-rig-out="gpuTemp">—</output><meter min="0" max="100" low="70" high="82" optimum="45" value="0" data-rig-meter="gpuTemp"></meter></label>
+<label>CPU load <output aria-live="off" data-rig-out="cpuLoad">—</output><meter min="0" max="100" value="0" data-rig-meter="cpuLoad"></meter></label>
+<label>CPU temperature <output aria-live="off" data-rig-out="cpuTemp">—</output><meter min="0" max="100" low="70" high="85" optimum="45" value="0" data-rig-meter="cpuTemp"></meter></label>
+<label>GPU load <output aria-live="off" data-rig-out="gpuLoad">—</output><meter min="0" max="100" value="0" data-rig-meter="gpuLoad"></meter></label>
+<label>GPU temperature <output aria-live="off" data-rig-out="gpuTemp">—</output><meter min="0" max="100" low="70" high="82" optimum="45" value="0" data-rig-meter="gpuTemp"></meter></label>
+<label>Memory used <output aria-live="off" data-rig-out="ramPct">—</output><meter min="0" max="100" value="0" data-rig-meter="ramPct"></meter></label>
 </div>
-</div>`;
-
+<p class="rig-how">How it works: a small Windows tray app on the PC sends hardware readings to a Cloudflare Worker, and this page polls the Worker every few seconds. Metrics are not announced to screen readers; only the status line is. <a class="text-link inline" href="{up}projects/rig-api/">Read the Rig API case study →</a></p>
+</section>`;
 export const hero = (eyebrow, h1, lead, extra = '', logo = '') =>
   `<section class="page-hero"><div class="container">${logo}<p class="eyebrow">${eyebrow}</p><h1>${h1}</h1><p class="lead">${lead}</p>${extra}</div></section>`;
 
