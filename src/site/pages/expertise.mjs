@@ -18,9 +18,9 @@ ${cta('Have a problem<br>that needs solving?', "I'm interested in practical IT w
 
 {
   file: 'expertise/hardware/index.html', section: 'expertise', theme: 't-hw',
-  title: 'Hardware & Systems', desc: 'Computer assembly, troubleshooting and practical Windows support since 2015.',
+  title: 'Hardware & Systems', desc: 'Computer assembly, troubleshooting and practical Windows support since 2016.',
   crumbs: [['Expertise', 'expertise/'], ['Hardware & systems']],
-  body: `${hero('Capability · Field notes', 'Hardware &amp; <span class="c">systems.</span>', 'Computer assembly, troubleshooting and practical Windows support. I have worked on my own machines and related systems since 2015, with an eye on compatibility, cooling, stability and a systematic repair process.', `<div class="actions"><a class="btn primary" href="{up}projects/hardware/">PC hardware project <span aria-hidden="true">↗</span></a></div>`)}
+  body: `${hero('Capability · Field notes', 'Hardware &amp; <span class="c">systems.</span>', 'Computer assembly, troubleshooting and practical Windows support. I have worked on my own machines and related systems since 2016, with an eye on compatibility, cooling, stability and a systematic repair process.', `<div class="actions"><a class="btn primary" href="{up}projects/hardware/">PC hardware project <span aria-hidden="true">↗</span></a></div>`)}
 ${fourCards('hw', [['▣', 'Builds', 'Component selection', 'Selecting CPUs, graphics cards, memory, cooling and storage that match actual requirements.'], ['▤', 'Windows', 'System preparation', 'Installing and configuring Windows, drivers, peripherals and common software.'], ['⌁', 'Diagnostics', 'Root-cause troubleshooting', 'Working through hardware, stability, temperatures and performance issues repeatably.'], ['✓', 'Testing', 'Verification', 'Checking that a repair or upgrade actually improves the situation.']])}
 ${cta('Need a hand with<br>a build or a fault?', "I'm interested in IT support, PC assembly and technician roles.")}`,
 },
