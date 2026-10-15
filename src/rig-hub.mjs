@@ -47,6 +47,21 @@ export class RigHub {
       return Response.json({ ok: true, watching: this.watching() });
     }
 
+    if (url.pathname === '/key' && request.method === 'GET') {
+      return Response.json({ key: (await this.state.storage.get('pairingKey')) || null });
+    }
+
+    if (url.pathname === '/claim' && request.method === 'POST') {
+      const existing = await this.state.storage.get('pairingKey');
+      if (existing && url.searchParams.get('rotate') !== '1') {
+        return Response.json({ ok: false, code: 'already_claimed' }, { status: 409 });
+      }
+      const key = btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(36))))
+        .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+      await this.state.storage.put('pairingKey', key);
+      return Response.json({ ok: true, key }, { headers: { 'Cache-Control': 'no-store' } });
+    }
+
     if (request.method === 'GET' && url.pathname === '/snapshot') {
       this.watchers.push(now);
       if (this.watchers.length > 200) this.watchers.splice(0, this.watchers.length - 200);

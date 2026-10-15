@@ -124,6 +124,27 @@ check((await rigPost({ live }, 'wrong'.repeat(8))).status === 401, 'rig POST wit
 check((await rigPost({ live }, TOKEN.slice(0, -1) + 'x')).status === 401, 'rig POST with a near-miss key is 401');
 env = makeEnv({ RIG_TOKEN: undefined });
 check((await rigPost({ live })).status === 503, 'no key configured means 503, never open');
+env = makeEnv();
+
+// ---- site-generated key (claim)
+const claim = () => req('/api/rig/claim', { method: 'POST' });
+env = makeEnv({ RIG_TOKEN: undefined });
+check((await claim()).status === 403, 'claim is refused while setup is closed');
+env = makeEnv({ RIG_TOKEN: undefined, RIG_SETUP: 'open' });
+r = await claim();
+const claimed = await r.json();
+check(r.status === 200 && /^[A-Za-z0-9_-]{48}$/.test(claimed.key), 'claim with setup open returns a key');
+check(r.headers.get('cache-control') === 'no-store', 'claimed key response is never cached');
+check((await claim()).status === 409, 'a second claim cannot replace the key');
+check((await rigPost({ live }, claimed.key)).status === 200, 'the site-generated key is accepted');
+check((await rigPost({ live }, TOKEN)).status === 401, 'other keys are still refused');
+env.RIG_SETUP = 'rotate';
+const rotated = await (await claim()).json();
+check(rotated.key && rotated.key !== claimed.key, 'rotate mode replaces the key');
+check((await rigPost({ live }, claimed.key)).status === 401, 'the old key stops working after rotation');
+env = makeEnv({ RIG_SETUP: 'open' });
+check((await claim()).status === 409, 'claim is refused when a Cloudflare secret key exists');
+check((await req('/api/rig/claim')).status === 405, 'claim only accepts POST');
 env = makeEnv({ RIG_TOKEN: 'short' });
 check((await rigPost({ live }, 'short')).status === 401, 'short keys are never accepted');
 env = makeEnv();

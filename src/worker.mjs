@@ -33,14 +33,27 @@ async function handleRig(request, env, ctx) {
   }
 
   if (request.method === 'POST') {
-    if (!env.RIG_TOKEN) return json({ ok: false, code: 'not_configured' }, 503);
-    if (!(await pairedPc(request, env))) return json({ ok: false, code: 'unauthorised' }, 401, { 'WWW-Authenticate': 'Bearer' });
+    const token = env.RIG_TOKEN || (await (await hub(env).fetch('https://hub/key')).json()).key;
+    if (!token) return json({ ok: false, code: 'not_configured' }, 503);
+    if (!(await pairedPc(request, { RIG_TOKEN: token }))) return json({ ok: false, code: 'unauthorised' }, 401, { 'WWW-Authenticate': 'Bearer' });
     const raw = await readLimited(request, 8 * 1024);
     if (raw === null) return json({ ok: false, code: 'too_large' }, 413);
     return hub(env).fetch(new Request('https://hub/ingest', { method: 'POST', body: raw, headers: { 'Content-Type': 'application/json' } }));
   }
 
   return json({ ok: false, code: 'method_not_allowed' }, 405, { Allow: 'GET, POST' });
+}
+
+// The site can create the pairing key itself, but only while the owner has switched on setup in
+// Cloudflare (variable RIG_SETUP = "open", or "rotate" to replace an existing key). The key is
+// returned once, straight to the app, and never shown on a page.
+async function handleClaim(request, env) {
+  if (request.method !== 'POST') return json({ ok: false, code: 'method_not_allowed' }, 405, { Allow: 'POST' });
+  if (!env.RIG_HUB) return json({ ok: false, code: 'not_configured' }, 503);
+  const mode = env.RIG_SETUP;
+  if (mode !== 'open' && mode !== 'rotate') return json({ ok: false, code: 'setup_closed' }, 403);
+  if (env.RIG_TOKEN) return json({ ok: false, code: 'key_set_in_cloudflare' }, 409);
+  return hub(env).fetch(new Request(`https://hub/claim?rotate=${mode === 'rotate' ? 1 : 0}`, { method: 'POST' }));
 }
 
 export default {
@@ -58,6 +71,10 @@ export default {
     if (url.pathname === '/api/contact') {
       if (request.method !== 'POST') return secure(json({ ok: false, code: 'method_not_allowed' }, 405, { Allow: 'POST' }), { api: true });
       return secure(await handleContact(request, env), { api: true });
+    }
+
+    if (url.pathname === '/api/rig/claim') {
+      return secure(await handleClaim(request, env), { api: true });
     }
 
     if (url.pathname === '/api/rig') {

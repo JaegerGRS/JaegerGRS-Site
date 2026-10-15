@@ -326,7 +326,44 @@ namespace JaegerGRS
                 if (err != null) { MessageBox.Show(this, err, Text, MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
                 Result = new Config { Url = u, Key = k }; DialogResult = DialogResult.OK;
             };
+            var fetchKey = new Button { Text = "Get key from site", Left = 16, Top = 196, Width = 116, Height = 28 };
+            fetchKey.Click += delegate
+            {
+                var u = url.Text.Trim().TrimEnd('/');
+                var uerr = Config.Validate(u, new string('a', 32));
+                if (uerr != null) { MessageBox.Show(this, uerr, Text, MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
+                string msg; var k = Claim(u, out msg);
+                if (k == null) { MessageBox.Show(this, msg, Text, MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
+                key.Text = k; key.UseSystemPasswordChar = true;
+                MessageBox.Show(this, "A new key was created by the site and filled in. Click Save and start.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            };
+            Controls.Add(fetchKey);
             Controls.Add(ok); Controls.Add(cancel); AcceptButton = ok; CancelButton = cancel;
+        }
+
+        // Asks the site to create the pairing key. This only works while setup is switched on in Cloudflare.
+        static string Claim(string baseUrl, out string message)
+        {
+            try
+            {
+                var req = (HttpWebRequest)WebRequest.Create(baseUrl + "/api/rig/claim");
+                req.Method = "POST"; req.ContentLength = 0; req.Timeout = 15000; req.UserAgent = "JaegerRigAgent/1";
+                using (var res = (HttpWebResponse)req.GetResponse())
+                using (var sr = new StreamReader(res.GetResponseStream()))
+                {
+                    var m = System.Text.RegularExpressions.Regex.Match(sr.ReadToEnd(), "\"key\"\\s*:\\s*\"([A-Za-z0-9_-]{32,200})\"");
+                    if (m.Success) { message = null; return m.Groups[1].Value; }
+                    message = "The site did not return a key."; return null;
+                }
+            }
+            catch (WebException ex)
+            {
+                var r = ex.Response as HttpWebResponse;
+                if (r != null && r.StatusCode == HttpStatusCode.Forbidden) message = "Setup is closed. In Cloudflare, set the variable RIG_SETUP to open, then try again.";
+                else if (r != null && r.StatusCode == HttpStatusCode.Conflict) message = "A key already exists. Set RIG_SETUP to rotate in Cloudflare to replace it (or paste the key you already have).";
+                else message = "Could not reach the site: " + ex.Message;
+                return null;
+            }
         }
     }
 

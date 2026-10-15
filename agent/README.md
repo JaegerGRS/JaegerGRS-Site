@@ -10,10 +10,14 @@ A tiny native Windows tray app. No Node, no installer, nothing else to install.
 - Build it yourself: `powershell -ExecutionPolicy Bypass -File agent\app\build.ps1` creates `agent\dist\JaegerRigAgent.exe` (about 24 KB, uses the .NET Framework compiler that ships with Windows), or
 - Download the `JaegerRigAgent` artifact from the latest GitHub Actions run.
 
-**Set up (once)**
-1. Make a key: `node agent\rig-agent.mjs --gen-token` (or any random 32 to 200 characters: letters, numbers, `-`, `_`).
-2. Give the same key to the site: `npx wrangler secret put RIG_TOKEN`.
-3. Run `JaegerRigAgent.exe`. A window asks for the site address and the key. Tick **Start with Windows** and press **Save and start**.
+**Set up (once), the key created by your Cloudflare site (no copying)**
+1. In Cloudflare: Workers & Pages, `jaegergrs-portfolio`, Settings, Variables, add a plain variable `RIG_SETUP` = `open`, and deploy.
+2. Run `JaegerRigAgent.exe`, press **Get key from site**, tick **Start with Windows**, press **Save and start**. The site makes the key, sends it straight to the app (encrypted on disk, never shown on a page), and the site remembers it.
+3. Delete the `RIG_SETUP` variable again. Setup is then closed and the key can't be fetched by anyone.
+
+To replace the key later, set `RIG_SETUP` = `rotate`, press **Get key from site** again, then delete the variable. The old key stops working immediately.
+
+**Alternative: your own key.** Make one with `node agent\rig-agent.mjs --gen-token` (or any 32 to 200 characters: letters, numbers, `-`, `_`), run `npx wrangler secret put RIG_TOKEN`, and paste the same key into the app. A `RIG_TOKEN` secret takes priority and turns site-generated keys off.
 
 After that it lives in the system tray (green dot = online, orange = retrying, red = key rejected, grey = starting). Right-click for status, change key, start-with-Windows toggle, open site and exit. It starts quietly at sign-in with no window.
 
