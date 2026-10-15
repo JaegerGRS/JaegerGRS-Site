@@ -19,7 +19,7 @@ jobs:
         run: git diff --exit-code
       - run: node scripts/check-site.mjs
       - run: node scripts/test-worker.mjs
-      - run: node --check src/worker.mjs && node --check public/assets/main.js && node --check public/assets/rig.js && node --check public/assets/contact.js && node --check agent/rig-agent.mjs
+      - run: node --check src/worker.mjs && node --check public/assets/main.js && node --check public/assets/rig.js && node --check public/assets/contact.js && node --check public/embed/rig-embed.js && node --check scripts/notes-server.mjs && node --check agent/rig-agent.mjs
   agent-app:
     runs-on: windows-latest
     steps:

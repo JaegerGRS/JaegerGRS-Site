@@ -1,0 +1,41 @@
+name = "jaegergrs-portfolio"
+main = "src/worker.mjs"
+compatibility_date = "2026-10-14"
+workers_dev = true
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = true
+not_found_handling = "404-page"
+html_handling = "auto-trailing-slash"
+
+# Live PC snapshot and per-visitor contact rate limiting
+[[durable_objects.bindings]]
+name = "RIG_HUB"
+class_name = "RigHub"
+
+[[durable_objects.bindings]]
+name = "GUARD"
+class_name = "Guard"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RigHub", "Guard"]
+
+# Outbound email for the contact form (Cloudflare Email Service)
+[[send_email]]
+name = "EMAIL"
+
+[vars]
+CONTACT_TO = "jaegergrstratton@gmail.com"
+CONTACT_FROM = "website@jaegergrs.com"
+ALLOWED_ORIGINS = "https://jaegergrs.com"
+
+# Secrets (never put these here). Set with: npx wrangler secret put <NAME>
+#   RIG_TOKEN        pairing key the PC app uses to send live stats (32+ chars)
+#   RESEND_API_KEY   optional: use Resend instead of Cloudflare Email Service
+#   GUARD_SALT       optional: random string that salts hashed visitor keys
+
+[observability]
+enabled = true

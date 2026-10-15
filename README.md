@@ -12,24 +12,32 @@ Independent IT and development portfolio by Jaeger G.R. Stratton.
 public/                  Everything that is deployed (what visitors get)
   index.html, 404.html, sitemap.xml, robots.txt
   about/ projects/ expertise/ contact/ changelog/   generated pages
-  assets/                styles.css, main.js, favicon, share image, img/
+  assets/                styles.css, main.js, boot.js, rig.js, contact.js, favicon, img/
+  embed/                 rig-embed.js + rig-embed.css: the one-tag Rig API panel
 
 src/
-  worker.mjs             Cloudflare Worker: www redirect, security headers, CSP
+  worker.mjs             Cloudflare Worker: routing, /api/rig, /api/rig/claim, /api/contact
+  rig-hub.mjs            Durable Object: latest PC snapshot and the site-made pairing key
+  guard.mjs              Durable Object: contact-form rate limits
+  lib/                   contact.mjs, rig.mjs (field whitelists), security.mjs (headers), util.mjs
   site/                  Page generator (edit content here)
     config.mjs           Version, date and every external URL (Svart, Grey Signal, JaeTheTech, socials)
     components.mjs       Shared HTML: header, footer, SEO tags, helpers
     build.mjs            Writes public/ pages and sitemap.xml
     pages/               One file per page group: home, projects, svart-security,
-                         grey-signal, jaethetech, jae, hardware, expertise,
+                         grey-signal, jaethetech, jae, rig-api, hardware, expertise,
                          about, contact, changelog, not-found
 
-scripts/                 check-site.mjs (links/CSP checks), test-worker.mjs
-.github/workflows/       CI checks and optional Cloudflare deploy
-wrangler.toml            Worker + static assets config
+agent/                   The PC side of the Rig API
+  app/                   RigAgent.cs + build.ps1: the Windows tray app (JaegerRigAgent.exe)
+  rig-agent.mjs          Optional Node version of the agent
+
+scripts/                 check-site.mjs, test-worker.mjs, selfhost.ps1, notes-server.mjs
+.github/workflows/       CI checks, tray app build, optional Cloudflare deploy
+wrangler.toml            Worker, Durable Objects and static assets config
 ```
 
-Site map: `/`, `/projects/` (`svart-security/`, `grey-signal/`, `jaethetech/`, `jae/`, `hardware/`), `/expertise/` (`hardware/`, `development/`), `/about/` (`journey/`), `/contact/`, `/changelog/`.
+Site map: `/`, `/projects/` (`svart-security/`, `grey-signal/`, `jaethetech/`, `jae/`, `rig-api/`, `hardware/`), `/expertise/` (`hardware/`, `development/`), `/about/` (`journey/`), `/contact/`, `/changelog/`.
 
 Each project page links out to the standalone site it describes. Grey Signal is self-hosted at an open IP over HTTP for now; change `GREY` in `src/site/config.mjs` when it has a domain.
 
@@ -63,7 +71,8 @@ Until step 3 is done, pushing to GitHub does not change the live site.
 
 Both are Worker routes (`src/worker.mjs`) backed by Durable Objects.
 
-- **Live PC panel** (`GET/POST /api/rig`): the PC app in [agent/](agent/README.md) posts with a secret key. Set it once with `npx wrangler secret put RIG_TOKEN` (32+ characters; make one with `node agent/rig-agent.mjs --gen-token`).
+- **Live PC panel** (`GET/POST /api/rig`): the PC app in [agent/](agent/README.md) posts with a secret pairing key. Easiest: set the Cloudflare variable `RIG_SETUP=open`, press **Get key from site** in `JaegerRigAgent.exe`, then delete the variable (the site makes and remembers the key; `rotate` replaces it). Or set your own with `npx wrangler secret put RIG_TOKEN` (32+ characters; `node agent/rig-agent.mjs --gen-token`), which takes priority.
+- **Rig API embed** (`public/embed/rig-embed.js`): add `<script src="/embed/rig-embed.js" defer></script>` to any page for a self-building live panel. The product page is `/projects/rig-api/` (made for small sites and servers only).
 - **Contact form** (`POST /api/contact`): sends mail to `CONTACT_TO` (in `wrangler.toml`) via Cloudflare Email Service. Onboard `jaegergrs.com` for sending in the Cloudflare dashboard (Email Service) so `CONTACT_FROM` is allowed, or instead set `npx wrangler secret put RESEND_API_KEY`. Until one is set the form answers 503 and tells visitors to use email.
 - Optional: `npx wrangler secret put GUARD_SALT` (any random string) to salt the hashed visitor keys used for rate limiting.
 
