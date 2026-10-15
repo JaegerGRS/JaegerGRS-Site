@@ -6,11 +6,19 @@ const GS_LOGO = img('grey-signal-logo.webp', 'Grey Signal logo', 160, 160, 'logo
 export default [
 {
   file: 'projects/grey-signal/index.html', section: 'projects', theme: 't-grey',
-  title: 'Grey Signal', desc: 'Grey Signal: a tactical-shooter and FPS channel with its own multi-page website and live PC telemetry, built by Jaeger Stratton.',
+  title: 'Grey Signal', desc: 'Grey Signal is my gaming content creation channel (tactical shooters and FPS), plus everything I have built for it: a website, a Windows app, a Node engine and live PC telemetry.',
   crumbs: [['Projects', 'projects/'], ['Grey Signal']],
-  body: `${hero('Project · Web & gaming · 2026', 'Grey <span class="c">Signal.</span>', 'A tactical-shooter and FPS channel with its own self-hosted website: a Windows control app, a Node site engine, live rig telemetry, and a Cloudflare version prepared for a future domain.', `<div class="actions"><a class="btn primary" href="${GREY}" target="_blank" rel="noopener noreferrer">Open the self-hosted site <span aria-hidden="true">↗</span></a><a class="btn secondary" href="${GREY}/rig.html" target="_blank" rel="noopener noreferrer">Live rig telemetry</a><a class="btn secondary" href="${YT}" target="_blank" rel="noopener noreferrer">YouTube</a></div>`, GS_LOGO)}
+  body: `${hero('Project · Content creation · 2026', 'Grey <span class="c">Signal.</span>', 'Grey Signal is a content creation account: a tactical-shooter and FPS channel on YouTube and Twitch. Around it, I have built the branding, a website, a Windows app and live PC telemetry.', `<div class="actions"><a class="btn primary" href="${GREY}" target="_blank" rel="noopener noreferrer">Open the self-hosted site <span aria-hidden="true">↗</span></a><a class="btn secondary" href="${GREY}/rig.html" target="_blank" rel="noopener noreferrer">Live rig telemetry</a><a class="btn secondary" href="${YT}" target="_blank" rel="noopener noreferrer">YouTube</a></div>`, GS_LOGO)}
 <section class="section container"><figure class="media reveal">${img('grey-signal-banner.webp', 'Grey Signal channel banner: tactical operator, helicopter and mountains with the GS logo', 1920, 520)}</figure></section>
-${facts(['Type', 'Self-hosted site + channel'], ['Stack', 'C# · Node · Cloudflare'], ['Feature', 'Live telemetry'], ['Role', 'Design &amp; build'])}
+${facts(['Type', 'Content creation channel'], ['Platforms', 'YouTube · Twitch'], ['Content', 'Tactical shooters · FPS'], ['Role', 'Creator, design &amp; build'])}
+<section class="section container pt0">${sectionHead('What I have made for it', 'More than a channel.')}<div class="grid g3">
+<div class="card reveal"><span class="icon">◐</span><h3>Branding</h3><p>The logo, banner, welcome art and channel panels (About, Rules, Support, Socials).</p></div>
+<div class="card reveal"><span class="icon">⌘</span><h3>Website</h3><p>A multi-page site with videos, ops, a live rig page, an about page and a contact page.</p></div>
+<div class="card reveal"><span class="icon">▣</span><h3>Windows app and installer</h3><p>A C# control app that runs and manages the site, packaged as an .msi installer.</p></div>
+<div class="card reveal"><span class="icon">{ }</span><h3>Site engine</h3><p>A Node.js engine for a PC or a server, plus a Cloudflare Worker version with a database and email.</p></div>
+<div class="card reveal"><span class="icon">◔</span><h3>Live rig telemetry</h3><p>A page that shows the PC's specs, load and temperatures, which grew into the <a class="text-link inline" href="{up}projects/rig-api/">Rig API</a>.</p></div>
+<div class="card reveal"><span class="icon">✎</span><h3>Guides and security</h3><p>Written setup guides, and a locked-down setup for hosting from home.</p></div>
+</div></section>
 <section class="section container pt0"><div class="note">Grey Signal does not have a full public site yet: it is self-hosted on my own server at an open IP address over plain HTTP, so your browser may show a "not secure" notice. A proper domain is planned.</div></section>
 ${more('More on Grey Signal.', int('projects/grey-signal/build/', 'How the site is built', 'C# app, Node engine, Cloudflare version'), int('projects/grey-signal/channel/', 'The channel', 'Tactical shooters and FPS games'))}
 <section class="section container">${sectionHead('Explore the site', 'Every page, one click.')}

@@ -5,7 +5,7 @@ export default [
   file: 'projects/jae/index.html', section: 'projects', theme: 't-ae',
   title: 'JAE: Jaeger Adaptive Engine', desc: 'JAE (Jaeger Adaptive Engine): a private, local-first AI desktop app built with Tauri, with MSI builds and GitHub-based updates.',
   crumbs: [['Projects', 'projects/'], ['JAE']],
-  body: `${hero('Project · Local-first AI · 2026', 'J<span class="c">A</span>E.', 'The Jaeger Adaptive Engine: a private, local-first AI desktop app built with Tauri. Local inference and local data by default.', `<div class="actions"><a class="btn primary" href="https://github.com/JaegerGRS/JAE" target="_blank" rel="noopener noreferrer">View JAE on GitHub <span aria-hidden="true">↗</span></a></div>`)}
+  body: `${hero('Project · Local-first AI · 2026', 'J<span class="c">A</span>E.', 'JAE is a little AI I am building: a private, local-first desktop app made with Tauri. Local inference and local data by default.', `<div class="actions"><a class="btn primary" href="https://github.com/JaegerGRS/JAE" target="_blank" rel="noopener noreferrer">View JAE on GitHub <span aria-hidden="true">↗</span></a></div>`)}
 ${facts(['Platform', 'Windows 10 / 11'], ['Shell', 'Tauri'], ['Backend', 'Python 3.12+'], ['Data', 'Local by default'])}
 <section class="section container pt0"><div class="two">
 <div><p class="kicker">Focus</p><h2 class="title">What it's built around.</h2></div>

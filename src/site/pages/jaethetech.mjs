@@ -4,9 +4,9 @@ import { ext, int, links, sectionHead, hero, back, backTo, more, faq } from '../
 export default [
 {
   file: 'projects/jaethetech/index.html', section: 'projects', theme: 't-jae',
-  title: 'JaeTheTech', desc: 'JaeTheTech: my personal tech site on writing code, building machines and breaking security, including the local-first Personal AI project.',
+  title: 'JaeTheTech', desc: 'JaeTheTech is my tech content creation account: videos and a site on writing code, building machines and breaking security, plus the local-first Personal AI project.',
   crumbs: [['Projects', 'projects/'], ['JaeTheTech']],
-  body: `${hero('Project · Personal tech site', 'Jae<span class="c">The</span>Tech.', 'My personal tech home: full-stack code written from scratch, PC builds, and security work through Svart Security. No React, no Tailwind, no Bootstrap.', `<div class="actions"><a class="btn primary" href="${JTT}" target="_blank" rel="noopener noreferrer">Visit jaethetech.com <span aria-hidden="true">↗</span></a><a class="btn secondary" href="https://github.com/JaeTheTech" target="_blank" rel="noopener noreferrer">GitHub</a></div>`)}
+  body: `${hero('Project · Tech content creation', 'Jae<span class="c">The</span>Tech.', 'JaeTheTech is my tech content creation account. It is where I share what I learn about writing code, building PCs and security, with a site written from scratch: no React, no Tailwind, no Bootstrap.', `<div class="actions"><a class="btn primary" href="${JTT}" target="_blank" rel="noopener noreferrer">Visit jaethetech.com <span aria-hidden="true">↗</span></a><a class="btn secondary" href="https://github.com/JaeTheTech" target="_blank" rel="noopener noreferrer">GitHub</a></div>`)}
 <section class="section container"><div class="grid g3">
 <div class="card reveal"><span class="icon">{ }</span><h3>Write code</h3><p>Full-stack, zero frameworks. HTML, CSS, JS, Node and Rust, built from scratch where possible.</p></div>
 <div class="card reveal"><span class="icon">⌘</span><h3>Build machines</h3><p>Building PCs from scratch since 2016. Currently a <span data-rig-live="fullLine">Ryzen 9 5950X / 64 GB / RTX 3070 Ti</span> workstation.</p></div>
