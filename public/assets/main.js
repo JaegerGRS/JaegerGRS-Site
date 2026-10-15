@@ -13,6 +13,10 @@
   }
   const year=document.getElementById('year');
   if(year)year.textContent=new Date().getFullYear();
+  document.querySelectorAll('[data-years-since]').forEach(el=>{
+    const n=new Date().getFullYear()-Number(el.getAttribute('data-years-since'));
+    if(n>0)el.textContent=n;
+  });
   const items=document.querySelectorAll('.reveal');
   const showAll=()=>items.forEach(i=>i.classList.add('in'));
   if('IntersectionObserver' in window){

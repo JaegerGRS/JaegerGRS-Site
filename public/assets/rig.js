@@ -1,14 +1,17 @@
 (function(){
   var root=document.querySelector('[data-rig]');
-  if(!root||!window.fetch)return;
-  var statusEl=root.querySelector('[data-rig-status]');
-  var statusText=root.querySelector('[data-rig-status-text]');
-  var note=root.querySelector('[data-rig-note]');
+  var live=document.querySelectorAll('[data-rig-live]');
+  if((!root&&!live.length)||!window.fetch)return;
+  var statusEl=root&&root.querySelector('[data-rig-status]');
+  var statusText=root&&root.querySelector('[data-rig-status-text]');
+  var note=root&&root.querySelector('[data-rig-note]');
   var timer=null,failures=0;
+  var fallback=[];
+  live.forEach(function(el){fallback.push(el.textContent);});
 
   function text(el,v){if(el)el.textContent=v;}
   function field(name,v){
-    var el=root.querySelector('[data-rig-field="'+name+'"]');
+    var el=root&&root.querySelector('[data-rig-field="'+name+'"]');
     if(el&&v)el.textContent=v;
   }
   function cpuText(c){
@@ -27,30 +30,47 @@
     return r.totalGb+' GB'+(r.type?' '+r.type:'')+(r.speedMhz?' @ '+r.speedMhz+' MHz':'');
   }
   function osText(o){return o&&o.name?o.name+(o.build?' ('+o.build+')':''):'';}
+  function shortCpu(n){
+    return (n||'').replace(/\((R|TM)\)/g,'').replace(/\bCPU\b.*$/,'').replace(/\d+-Core Processor/i,'').replace(/\bProcessor\b/i,'').replace(/^(Intel|AMD)\s+/i,'').replace(/\s+/g,' ').trim();
+  }
+  function shortGpu(n){
+    return (n||'').replace(/\((R|TM)\)/g,'').replace(/^(NVIDIA|AMD|Intel)\s+/i,'').replace(/^(GeForce|Radeon)\s+/i,'').replace(/\s+/g,' ').trim();
+  }
+
+  function liveValues(spec){
+    if(!spec)return {};
+    var g=spec.gpus&&spec.gpus[0];
+    var cpu=spec.cpu&&shortCpu(spec.cpu.name);
+    var gpu=g&&shortGpu(g.name);
+    var ram=spec.ram&&spec.ram.totalGb?spec.ram.totalGb+' GB':'';
+    return {cpu:cpu,gpu:gpu,ram:ram,cpuUpper:(cpu||'').toUpperCase(),gpuUpper:(gpu||'').toUpperCase(),
+      line:[cpu,gpu].filter(Boolean).join(' · '),
+      fullLine:[cpu,ram,gpu].filter(Boolean).join(' · ')};
+  }
 
   function render(s){
     var online=!!(s&&s.online);
-    statusEl.setAttribute('data-state',online?'online':'offline');
-    text(statusText,online?'Online now':(s&&s.specs?'Offline, showing last known specs':'Offline'));
-    if(s&&s.specs){
-      field('cpu',cpuText(s.specs.cpu));
-      field('gpu',gpuText(s.specs.gpus));
-      field('ram',ramText(s.specs.ram));
-      field('os',osText(s.specs.os));
+    if(root){
+      statusEl.setAttribute('data-state',online?'online':'offline');
+      text(statusText,online?'Online now':(s&&s.specs?'Offline, showing last known specs':'Offline'));
+      if(s&&s.specs){
+        field('cpu',cpuText(s.specs.cpu));
+        field('gpu',gpuText(s.specs.gpus));
+        field('ram',ramText(s.specs.ram));
+        field('os',osText(s.specs.os));
+      }
+      root.querySelectorAll('[data-rig-meter]').forEach(function(m){
+        var k=m.getAttribute('data-rig-meter');
+        var v=online&&s.live&&typeof s.live[k]==='number'?s.live[k]:null;
+        m.value=v===null?0:v;
+        text(root.querySelector('[data-rig-out="'+k+'"]'),v===null?'—':Math.round(v)+(k==='gpuTemp'?'°C':'%'));
+      });
+      if(note)note.hidden=online;
     }
-    root.querySelectorAll('[data-rig-meter]').forEach(function(m){
-      var k=m.getAttribute('data-rig-meter');
-      var v=online&&s.live&&typeof s.live[k]==='number'?s.live[k]:null;
-      m.value=v===null?0:v;
-      var out=root.querySelector('[data-rig-out="'+k+'"]');
-      text(out,v===null?'—':Math.round(v)+(k==='gpuTemp'?'°C':'%'));
-    });
-    if(note)note.hidden=online;
-    document.querySelectorAll('[data-rig-live]').forEach(function(el){
-      var spec=s&&s.specs;
-      var map={cpu:spec&&cpuText(spec.cpu&&{name:spec.cpu.name}),gpu:spec&&spec.gpus&&spec.gpus[0]&&spec.gpus[0].name,ram:spec&&spec.ram&&spec.ram.totalGb&&(spec.ram.totalGb+' GB')};
-      var v=map[el.getAttribute('data-rig-live')];
-      if(v)el.textContent=v;
+    var vals=liveValues(s&&s.specs);
+    live.forEach(function(el,i){
+      var v=vals[el.getAttribute('data-rig-live')];
+      el.textContent=v||fallback[i];
     });
   }
 
@@ -61,10 +81,10 @@
     var t=ctl?setTimeout(function(){ctl.abort();},8000):null;
     fetch('/api/rig',{headers:{Accept:'application/json'},cache:'no-store',signal:ctl?ctl.signal:undefined})
       .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
-      .then(function(s){failures=0;render(s);schedule(3000);})
+      .then(function(s){failures=0;render(s);schedule(root?3000:20000);})
       .catch(function(){
         failures++;
-        if(failures>=2){statusEl.setAttribute('data-state','offline');text(statusText,'Live data unavailable');}
+        if(root&&failures>=2){statusEl.setAttribute('data-state','offline');text(statusText,'Live data unavailable');}
         schedule(Math.min(30000,3000*Math.pow(2,failures)));
       })
       .then(function(){if(t)clearTimeout(t);});

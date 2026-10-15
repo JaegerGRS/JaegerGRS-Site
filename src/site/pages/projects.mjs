@@ -16,7 +16,7 @@ export default [
 <section class="section muted"><div class="container">${sectionHead('More work', 'Code and hardware.')}
 <div class="grid g2">
 <a class="card t-hw reveal" href="{up}projects/jae/"><div class="card-top"><span class="num">04</span><span class="tag">Source on GitHub</span></div><span class="icon mt-icon">AE</span><h3>JAE: Jaeger Adaptive Engine</h3><p>A private, local-first AI desktop app built with Tauri, with MSI builds and a validated GitHub update pipeline.</p><span class="go">Read more →</span></a>
-<a class="card t-hw reveal" href="{up}projects/hardware/"><div class="card-top"><span class="num">05</span><span class="tag">2015 — present</span></div><span class="icon mt-icon">▣</span><h3>PC hardware</h3><p>Assembly, Windows setup and methodical troubleshooting, plus the Ryzen 9 / RTX 3070 Ti workstation.</p><span class="go">Read more →</span></a>
+<a class="card t-hw reveal" href="{up}projects/hardware/"><div class="card-top"><span class="num">05</span><span class="tag">2015 — present</span></div><span class="icon mt-icon">▣</span><h3>PC hardware</h3><p>Assembly, Windows setup and methodical troubleshooting, plus the <span data-rig-live="line">Ryzen 9 / RTX 3070 Ti</span> workstation.</p><span class="go">Read more →</span></a>
 </div></div></section>
 ${cta('Want to talk about<br>any of these?', 'Happy to go deeper on how anything here was built.')}`,
 },
