@@ -36,7 +36,8 @@ export const REPOS = {
   jaethetech: 'https://github.com/JaeTheTech/JaeTheTech.com',
 };
 
-// No CV is published until verified source information is supplied.
+// No CV is published until the owner approves a document. To publish one, copy it into
+// public/assets/ and set, for example: { file: 'assets/Jaeger_Stratton_CV.pdf', updated: 'October 2026' }
 export const CV = null;
 
 export const CONTACT_EMAIL = 'jaegergrstratton@gmail.com';

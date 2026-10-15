@@ -1,5 +1,5 @@
 import { SVART, JTT, LI, XJ, FB } from '../config.mjs';
-import { PROFILE as P } from '../facts.mjs';
+import { PROFILE as P, CV } from '../facts.mjs';
 import { ext, int, links, sectionHead, hero, cta } from '../components.mjs';
 
 export default [
@@ -28,7 +28,7 @@ export default [
 <p class="fine">I've been diagnosed with both. I share this because I'd rather be upfront than have it be a surprise. It hasn't stopped me building real things: everything on this site is evidence of that.</p></div></section>
 
 <section class="section container">${sectionHead('CV and education', 'Qualifications and CV.', 'Only verified information will be published here.')}
-<div class="note"><strong>CV:</strong> a downloadable CV will be added here when I supply it. <strong>Qualifications and education:</strong> none are listed yet. I will add them from verified documents and will not list anything I cannot evidence. In the meantime, the <a class="text-link inline" href="{up}expertise/">expertise pages</a> link to the work itself.</div></section>
+<div class="note">${CV ? `<strong>CV:</strong> <a class="btn secondary" href="{up}${CV.file}" download>Download my CV (PDF)</a> <span class="fine">Updated ${CV.updated}.</span>` : '<strong>CV:</strong> a downloadable CV will be added here when I supply it.'} <strong>Qualifications and education:</strong> none are listed yet. I will add them from verified documents and will not list anything I cannot evidence. In the meantime, the <a class="text-link inline" href="{up}expertise/">expertise pages</a> link to the work itself.</div></section>
 
 <section class="section muted"><div class="container">${sectionHead('Skills', 'What I can do for you.')}
 <div class="grid g3">

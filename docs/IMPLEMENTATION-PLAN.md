@@ -26,6 +26,27 @@ The work was done as small, separately verified, committed and deployed changes,
 - Final checks on 15 October 2026: all 26 pages and the sitemap and robots.txt return 200; internal links pass (709); every external link resolves (LinkedIn blocks automated requests, so check it by hand); the live panel reports online with the allowlisted fields only.
 - HTTP link: the only plain-HTTP link is the Grey Signal site at `http://94.0.68.77`. The migration plan is in `docs/GREY-SIGNAL-HTTPS-MIGRATION.md` and needs your approval.
 
+## Acceptance check (15 October 2026)
+
+| Criterion | Result |
+|---|---|
+| Clearly a personal IT portfolio; capabilities clear on the homepage | Met. Title, H1, hero and expertise cards say so. |
+| Technical work within one or two clicks | Met. The homepage links straight to five case studies, and the Projects directory links to all seven. |
+| Case studies give engineering evidence | Met as far as real evidence exists. Gaps are listed at `/projects/#evidence`. |
+| Experience without exaggeration; planned work not shown as finished | Met. Status labels are checked in CI, and unverified items are listed in `docs/CONTENT-AUDIT.md`. |
+| UK location does not restrict international opportunities | Met. Wording is "based in the United Kingdom, open to remote, hybrid and international". |
+| Consistent and professional on desktop and mobile | Tested at 320 to 2560 px and landscape. No horizontal overflow found. |
+| Existing functionality intact; contact methods work | Contact form tested with mocks only; email, LinkedIn and links work. Sending real mail still depends on sender verification for `website@jaegergrs.com`, which is not done. |
+| CV feature works once an approved document is provided | Met. Set `CV` in `src/site/facts.mjs` and add the file; tested with a throwaway file, and the build fails if the file is missing. No CV is published yet. |
+| Navigation logical; SEO valid | Four main nav items; titles, descriptions, canonicals, JSON-LD and sitemap checked in CI. |
+| Accessibility problems found by testing resolved | Resolved for the issues found. WCAG 2.2 AA compliance is not claimed; manual screen-reader and zoom testing is outstanding. |
+| Performance measured | Met in Chromium lab tests. Lighthouse not recorded (Chrome missing); no field data. |
+| Sensitive infrastructure not exposed; security claims match code | Public telemetry is an allowlist; private paths return 404; see `docs/SECURITY-REVIEW.md` for the remaining gaps. |
+| No invented images, achievements, credentials or testimonials | Met. Missing evidence is marked as content tasks. |
+| All 25 routes remain; project links and integrations preserved | Met. Compared with the pre-brief build, no page was removed (25 routes plus the 404 page); existing project and social links remain. |
+| Changes documented and maintainable | Changelog, audit documents, a single facts file and CI checks. |
+
+Not fully met, because it needs you: a real CV, verified qualifications, photographs and application screenshots, working contact email delivery, and an HTTPS address for Grey Signal.
 ## Owner decisions still open
 1. Set the `GUARD_SALT` secret; fix sender verification for `website@jaegergrs.com`; decide on Turnstile and `contact@jaegergrs.com`.
 2. Decide whether to turn off `workers_dev`; confirm `RIG_SETUP` is closed; confirm log retention.
