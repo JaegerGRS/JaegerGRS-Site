@@ -3,6 +3,7 @@
 All dates reflect work that actually shipped or was prepared as a release. No fabricated earlier commits.
 
 ## v0.3.0 - 15 October 2026
+- Code tidy-up: scanned for unused exports, imports, variables and CSS (none found), added .editorconfig, and documented the conventions and the new-page checklist in the README.
 - Each project now has its own colour theme across its pages: Svart violet, Grey Signal cyan, JaeTheTech blue, JAE rose, PC hardware ember and Rig API gold. The rest of the site stays grey, black and white.
 - Expanded the sub pages with set-up steps, FAQs, a pricing table, a security section and a hosting guide (new aq and steps components).
 - Paired the tray app with the live site (key made by the Worker, setup closed afterwards).
@@ -49,6 +50,7 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## v0.1.0 — 14 October 2026
 - Initial dark portfolio foundation, first technical project overviews, metadata and changelog.
+
 
 
 

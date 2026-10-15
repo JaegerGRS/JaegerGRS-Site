@@ -32,9 +32,11 @@ agent/                   The PC side of the Rig API
   app/                   RigAgent.cs + build.ps1: the Windows tray app (JaegerRigAgent.exe)
   rig-agent.mjs          Optional Node version of the agent
 
-scripts/                 check-site.mjs, test-worker.mjs, selfhost.ps1, notes-server.mjs
+scripts/                 check-site.mjs, test-worker.mjs, dev.mjs, selfhost.ps1, notes-server.mjs
 .github/workflows/       CI checks, tray app build, optional Cloudflare deploy
 wrangler.toml            Worker, Durable Objects and static assets config
+TASKS.md, CHANGELOG.md   What is done and what is left; release notes
+LICENSE                  All rights reserved
 ```
 
 Site map: `/`, `/projects/` (`svart-security/` + `tools/`, `grey-signal/` + `build/`, `channel/`, `jaethetech/` + `personal-ai/`, `jae/` + `engineering/`, `rig-api/` + `install/`, `pricing/`, `what-you-get/`, `hardware/`), `/expertise/` (`hardware/`, `development/`), `/about/` (`journey/`), `/contact/`, `/changelog/`. A project's sub pages live in the same `src/site/pages/<project>.mjs` file as its main page.
@@ -56,6 +58,14 @@ npm run notes      # private page to jot change requests for Copilot Chat (passw
 ```
 
 Do not hand-edit the generated `.html` files; commit them together with the source change (CI fails if they are out of date). Styles and scripts live directly in `public/assets/`.
+
+### Conventions
+
+- **Colour themes:** the site is grey, black and white. Each project page sets a `theme` (`t-svart`, `t-grey`, `t-jae`, `t-ae`, `t-hw`, `t-rig`) which only changes the accent colour variables at the top of `public/assets/styles.css`.
+- **Shared blocks:** use the helpers in `src/site/components.mjs` (`hero`, `facts`, `steps`, `faq`, `more`, `backTo`, `cta`, `img`) instead of writing the HTML by hand.
+- **New page:** add it to a file in `src/site/pages/`, import that file in `src/site/build.mjs` if it is new, add the URL to the list in `scripts/test-worker.mjs`, then run `npm run verify`.
+- **Security:** no inline styles or scripts and no third-party hosts; the Content Security Policy in `src/lib/security.mjs` blocks them and a test fails if one is added.
+- Formatting rules are in `.editorconfig` (UTF-8, LF, two-space indent).
 
 ## Deploy to Cloudflare
 
