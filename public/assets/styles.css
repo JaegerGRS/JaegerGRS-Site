@@ -134,3 +134,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 @media(pointer:coarse){.btn,.nav a,.menu-toggle,.footer a{min-height:44px}.nav nav a{display:flex;align-items:center}.btn:hover{transform:none}}
 @media(min-width:1600px){html{font-size:112.5%}.container{width:min(100% - 80px,1400px)}}
 @media(min-width:2400px){html{font-size:150%}.container{width:min(100% - 160px,1800px)}a:focus-visible,button:focus-visible{outline-width:5px}}
+
+.code{margin:0 0 16px;padding:14px 16px;overflow-x:auto;border:1px solid var(--line,#2a3140);border-radius:12px;background:rgba(0,0,0,.35);font:13px/1.5 ui-monospace,Consolas,monospace}
+code{font-family:ui-monospace,Consolas,monospace;font-size:.92em}
