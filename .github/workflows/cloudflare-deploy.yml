@@ -6,6 +6,10 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+# One deploy at a time. A queued run is replaced by a newer push, so an older build cannot deploy after a newer one.
+concurrency:
+  group: cloudflare-deploy
+  cancel-in-progress: false
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -14,6 +18,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - run: npm ci
       - run: node src/site/build.mjs
       - name: Generated pages must be committed
         run: git diff --exit-code
@@ -40,8 +45,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - run: npm ci
       - uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # Must match the wrangler devDependency in package.json
+          wranglerVersion: '4.151.1'
           command: deploy --config wrangler.toml
