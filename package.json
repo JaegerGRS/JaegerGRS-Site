@@ -9,6 +9,7 @@
     "check": "node scripts/check-site.mjs",
     "dev": "node scripts/dev.mjs",
     "selfhost": "powershell -ExecutionPolicy Bypass -File scripts/selfhost.ps1",
+    "msi": "powershell -ExecutionPolicy Bypass -File agent/installer/build-msi.ps1",
     "notes": "node scripts/notes-server.mjs",
     "test": "node scripts/test-worker.mjs",
     "verify": "npm run generate && npm run check && npm test",

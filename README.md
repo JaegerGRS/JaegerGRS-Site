@@ -30,14 +30,15 @@ src/
                          about, contact, changelog, not-found
 
 agent/                   The PC side of the Rig API
-  app/                   RigAgent.cs + build.ps1: the Windows tray app (JaegerRigAgent.exe)
-  rig-agent.mjs          Optional Node version of the agent
+  app/                   RigAgent.cs, build.ps1, icon manifest and version info: the tray app (JaegerRigAgent.exe)
+  installer/             WXS source and build-msi.ps1: the per-user Windows installer (JaegerRigAgent-1.0.0.msi)
+  rig-agent.mjs          Optional Node version of the agent, also syntax-checked in CI
 
 scripts/                 check-site.mjs, test-worker.mjs, dev.mjs, selfhost.ps1, notes-server.mjs
 .github/workflows/       CI checks, tray app build, optional Cloudflare deploy
 wrangler.toml            Worker, Durable Objects, D1 inbox, email and static assets config
 migrations/              D1 schema for contact inbox and inbound email
-TASKS.md, CHANGELOG.md   What is done and what is left; release notes
+CHANGELOG.md             Release notes
 LICENSE                  All rights reserved
 ```
 

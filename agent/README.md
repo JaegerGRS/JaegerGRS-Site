@@ -4,10 +4,17 @@ Sends this PC's specs and live load to jaegergrs.com so the **Live from my PC** 
 
 ## The app (recommended): `JaegerRigAgent.exe`
 
-A tiny native Windows tray app. No Node, no installer, nothing else to install.
+A tiny native Windows tray app. No Node and nothing else to install; it uses the .NET Framework that ships with Windows 10 and 11.
 
-**Get it**
-- Build it yourself: `powershell -ExecutionPolicy Bypass -File agent\app\build.ps1` creates `agent\dist\JaegerRigAgent.exe` (about 24 KB, uses the .NET Framework compiler that ships with Windows), or
+**Install (Windows installer)**
+1. Build the installer: `powershell -ExecutionPolicy Bypass -File agent\installer\build-msi.ps1` (or `npm run msi`). This creates `agent\dist\JaegerRigAgent-1.0.0.msi`. It needs WiX Toolset 3.14 binaries; point `JGRS_WIX` at the folder that contains `candle.exe`, or unzip them to `%LOCALAPPDATA%\Tools\WiX314`.
+2. Double-click the MSI. It installs for your Windows account only, so no administrator prompt appears. It goes to `%LOCALAPPDATA%\Programs\JaegerGRS\Rig Agent` and adds **JaegerGRS Rig Agent** to the Start menu.
+3. Uninstall from Settings, Apps, Installed apps. This stops the app, removes the files and shortcut, and removes the Start with Windows entry. Your key in `%APPDATA%\JaegerGRS` is kept, so a reinstall doesn't need a new one.
+
+The installer is not code-signed yet, so Windows SmartScreen may warn on first run. Signing needs a code-signing certificate.
+
+**Or just the EXE**
+- `powershell -ExecutionPolicy Bypass -File agent\app\build.ps1` creates `agent\dist\JaegerRigAgent.exe` (about 34 KB, with icon and version details), or
 - Download the `JaegerRigAgent` artifact from the latest GitHub Actions run.
 
 **Set up (once), the key created by your Cloudflare site (no copying)**
@@ -38,4 +45,4 @@ After that it lives in the system tray (green dot = online, orange = retrying, r
 
 ## The Node version (optional)
 
-`node agent\rig-agent.mjs` does the same job from a terminal (Node 18+). Commands: `setup`, `--once`, `--dry-run`, `--gen-token`. `agent\install-startup.ps1` registers it to start at sign-in; the tray app does not need this because it has its own Start with Windows option.
+`node agent\rig-agent.mjs` does the same job from a terminal (Node 18+). Commands: `setup`, `--once`, `--dry-run`, `--gen-token`. It is used for CI syntax checks and for people who prefer Node. Start with Windows is only offered by the tray app.

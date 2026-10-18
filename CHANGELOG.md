@@ -2,6 +2,11 @@
 
 All dates reflect work that actually shipped or was prepared as a release. No fabricated earlier commits.
 
+## Unreleased
+
+- Windows app: `JaegerRigAgent.exe` now has an icon, version details and a manifest that requests no administrator rights. A per-user Windows installer, `agent\dist\JaegerRigAgent-1.0.0.msi` (built by `npm run msi`), installs to `%LOCALAPPDATA%\Programs\JaegerGRS\Rig Agent` with a Start menu shortcut. The installer was tested on this PC: install, live status on production, uninstall (stops the app, removes files, shortcut and the Start with Windows entry) and reinstall. The installer is not code-signed, so SmartScreen may warn.
+- Organisation: removed `agent/install-startup.ps1` (replaced by the app's own Start with Windows option) and the stale `TASKS.md` tracker (it remains in git history). The README file map and agent README now match the folder contents.
+
 ## v0.3.0 - 15 October 2026
 
 - Email workflow prepared, not deployed: built a private D1 inbox for contact-form and inbound email, verified Cloudflare Access JWT authorization, owner replies, archive/restore/delete, and Email Routing MIME parsing. Created the empty D1 database and applied both migrations. Access, sender verification and inbound Email Routing/MX still need setup; see `docs/EMAIL-INBOX-SETUP.md`. No mail was sent and no DNS or production Worker settings were changed.

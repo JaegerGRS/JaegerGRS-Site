@@ -6,7 +6,7 @@ The work was done as small, separately verified, committed and deployed changes,
 - Architecture documented (generator in `src/site`, Worker in `src/`, tray app in `agent/`, Durable Objects for rig state and rate limiting).
 - Content accuracy audit: `docs/CONTENT-AUDIT.md`.
 - Security-sensitive areas: `docs/SECURITY-REVIEW.md`. Do not change casually: `src/worker.mjs`, `src/lib/security.mjs` (CSP and headers), `src/lib/rig.mjs` and `src/rig-hub.mjs` (authentication and the public allowlist), `src/lib/contact.mjs`, `src/guard.mjs`, `wrangler.toml`, and the CI workflow.
-- Lighthouse production lab baseline recorded with Playwright Chromium on 15 October 2026: performance 99 on `/`, `/about/` and `/contact/`; LCP 1.9 s, CLS 0 and TBT 0 ms in clean runs. Accessibility and SEO scored 100 on `/`, `/projects/`, `/projects/rig-api/` and `/contact/`. Results were variable across runs; see `TASKS.md` and the changelog. These are lab measurements, not field Core Web Vitals.
+- Lighthouse production lab baseline recorded with Playwright Chromium on 15 October 2026: performance 99 on `/`, `/about/` and `/contact/`; LCP 1.9 s, CLS 0 and TBT 0 ms in clean runs. Accessibility and SEO scored 100 on `/`, `/projects/`, `/projects/rig-api/` and `/contact/`. Results were variable across runs; see the changelog. These are lab measurements, not field Core Web Vitals.
 
 ## Phase 2: Content and structure: done, except items needing your input
 - Homepage positioning, international availability, project directory, expertise, About and Journey are done. Rig API sales content is secondary.

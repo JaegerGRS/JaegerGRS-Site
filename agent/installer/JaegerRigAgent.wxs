@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  JaegerGRS Rig Agent installer.
+  Per-user install (no administrator rights): %LOCALAPPDATA%\Programs\JaegerGRS\Rig Agent.
+  The pairing key is never packaged; the app stores it encrypted in %APPDATA% on first run.
+  Built by agent\installer\build-msi.ps1 with WiX Toolset 3.14.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Product Id="*" Name="JaegerGRS Rig Agent" Language="1033" Version="$(var.Version)"
+           Manufacturer="JaegerGRS" UpgradeCode="68D347C0-2417-4A37-844F-FEB726837466">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perUser" InstallPrivileges="limited"
+             Description="JaegerGRS Rig Agent installer" Manufacturer="JaegerGRS" />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of JaegerGRS Rig Agent is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Icon Id="RigAgent.ico" SourceFile="$(var.IconFile)" />
+    <Property Id="ARPPRODUCTICON" Value="RigAgent.ico" />
+    <Property Id="ARPURLINFOABOUT" Value="https://jaegergrs.com" />
+
+    <util:CloseApplication Id="CloseRigAgent" Target="JaegerRigAgent.exe" CloseMessage="no" TerminateProcess="1"
+                           RebootPrompt="no" Description="Closing the JaegerGRS Rig Agent so it can be updated or removed." />
+
+    <UIRef Id="WixUI_Minimal" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="LocalAppDataFolder">
+        <Directory Id="ProgramsRoot" Name="Programs">
+          <Directory Id="VendorFolder" Name="JaegerGRS">
+            <Directory Id="INSTALLFOLDER" Name="Rig Agent" />
+          </Directory>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="AppProgramMenuDir" Name="JaegerGRS" />
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="INSTALLFOLDER">
+      <!-- Per-user installs key the component on an HKCU value (not a file), as the Windows Installer rules require. -->
+      <Component Id="RigAgentApp" Guid="182017C2-5CD6-4169-A405-80B718CA2DE2">
+        <RegistryValue Root="HKCU" Key="Software\JaegerGRS\Rig Agent" Name="Installed" Type="integer" Value="1" KeyPath="yes" />
+        <File Id="JaegerRigAgentExe" Name="JaegerRigAgent.exe" Source="$(var.ExeFile)">
+          <Shortcut Id="RigAgentStartMenu" Directory="AppProgramMenuDir" Name="JaegerGRS Rig Agent"
+                    Description="Live PC status for jaegergrs.com" WorkingDirectory="INSTALLFOLDER"
+                    Icon="RigAgent.ico" IconIndex="0" Advertise="no" />
+        </File>
+        <RemoveFile Id="RemoveRigAgentFiles" Directory="INSTALLFOLDER" Name="*" On="uninstall" />
+        <RemoveFolder Id="RemoveInstallFolder" Directory="INSTALLFOLDER" On="uninstall" />
+        <RemoveFolder Id="RemoveVendorFolder" Directory="VendorFolder" On="uninstall" />
+        <RemoveFolder Id="RemoveProgramsRoot" Directory="ProgramsRoot" On="uninstall" />
+        <RemoveFolder Id="RemoveAppProgramMenuDir" Directory="AppProgramMenuDir" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="Complete" Title="JaegerGRS Rig Agent" Level="1" Description="The tray app and its Start menu shortcut.">
+      <ComponentRef Id="RigAgentApp" />
+    </Feature>
+
+    <!-- "Start with Windows" is written by the app to HKCU Run. Remove it on uninstall only, so upgrades keep the user's choice. -->
+    <Property Id="REGEXE" Value="reg.exe" />
+    <CustomAction Id="RemoveAutostart" Property="REGEXE" Execute="deferred" Impersonate="yes" Return="ignore"
+                  ExeCommand="delete &quot;HKCU\Software\Microsoft\Windows\CurrentVersion\Run&quot; /v &quot;JaegerGRS Rig Agent&quot; /f" />
+    <InstallExecuteSequence>
+      <Custom Action="RemoveAutostart" After="InstallInitialize">REMOVE="ALL" AND NOT UPGRADINGPRODUCTCODE</Custom>
+    </InstallExecuteSequence>
+  </Product>
+</Wix>
