@@ -28,7 +28,8 @@ export function secure(res, { html = false, api = false } = {}) {
   headers.set('Cross-Origin-Opener-Policy', 'same-origin');
   if (html) {
     headers.set('Content-Security-Policy', CSP);
-    headers.set('Cache-Control', 'public, max-age=180');
+    // no-transform stops Cloudflare Bot Fight Mode injecting its JavaScript Detections script into HTML, which the strict CSP blocks.
+    headers.set('Cache-Control', 'public, max-age=180, no-transform');
   } else if (api) {
     headers.set('Content-Security-Policy', "default-src 'none'; frame-ancestors 'none'");
     headers.set('Cache-Control', 'no-store');

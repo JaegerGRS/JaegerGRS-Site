@@ -105,7 +105,7 @@ async function handle(request, env, ctx) {
       const page = await env.ASSETS.fetch(new Request(new URL('/inbox/index.html', request.url), request));
       const protectedPage = secure(page, { html: true });
       const headers = new Headers(protectedPage.headers);
-      headers.set('Cache-Control', 'no-store');
+      headers.set('Cache-Control', 'no-store, no-transform');
       return new Response(protectedPage.body, { status: protectedPage.status, statusText: protectedPage.statusText, headers });
     }
 

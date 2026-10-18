@@ -4,6 +4,8 @@ All dates reflect work that actually shipped or was prepared as a release. No fa
 
 ## Unreleased
 
+- Security/Cloudflare: HTML responses now send `Cache-Control: public, max-age=180, no-transform` (the private inbox page sends `no-store, no-transform`). Cloudflare Bot Fight Mode on the Free plan injects a JavaScript Detections script into HTML, which the strict `script-src 'self'` CSP blocked. `no-transform` stops that injection. The CSP is unchanged, `unsafe-inline` is not added, and assets and API responses are unchanged. Tests cover this in `scripts/test-worker.mjs`. Deploy with `npm run deploy` after approval. Rollback: revert the commit that added `no-transform` in `src/lib/security.mjs` and `src/worker.mjs`, then run `npm run deploy`. No dashboard setting needs changing either way. Verify after deploy: the CSP console error is gone, and HTML responses carry `no-transform`.
+
 - Windows app: `JaegerRigAgent.exe` now has an icon, version details and a manifest that requests no administrator rights. A per-user Windows installer, `agent\dist\JaegerRigAgent-1.0.0.msi` (built by `npm run msi`), installs to `%LOCALAPPDATA%\Programs\JaegerGRS\Rig Agent` with a Start menu shortcut. The installer was tested on this PC: install, live status on production, uninstall (stops the app, removes files, shortcut and the Start with Windows entry) and reinstall. The installer is not code-signed, so SmartScreen may warn.
 - Organisation: removed `agent/install-startup.ps1` (replaced by the app's own Start with Windows option) and the stale `TASKS.md` tracker (it remains in git history). The README file map and agent README now match the folder contents.
 

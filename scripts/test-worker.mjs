@@ -135,6 +135,9 @@ for (const img of ['grey-signal-logo.webp', 'grey-signal-banner.webp', 'grey-sig
 const home = await req('/');
 const csp = home.headers.get('content-security-policy') || '';
 check(csp.includes("script-src 'self'") && !csp.includes('unsafe-inline') && csp.includes("form-action 'self'") && csp.includes("frame-ancestors 'none'"), 'strict CSP on html');
+check(/\bno-transform\b/.test(home.headers.get('cache-control') || '') && /max-age=180/.test(home.headers.get('cache-control') || ''), 'html is marked no-transform and keeps its 3-minute cache');
+check(!/no-transform/.test((await req('/assets/main.js')).headers.get('cache-control') || '') && !/no-transform/.test((await req('/assets/img/social-card.jpg')).headers.get('cache-control') || ''), 'assets are not marked no-transform');
+check(!/no-transform/.test((await req('/api/rig')).headers.get('cache-control') || '') && !/no-transform/.test((await req('/api/contact', { method: 'POST' })).headers.get('cache-control') || ''), 'API responses are not marked no-transform');
 check(home.headers.get('x-frame-options') === 'DENY' && home.headers.get('x-content-type-options') === 'nosniff', 'frame + sniff headers');
 check(!!home.headers.get('strict-transport-security') && home.headers.get('cross-origin-opener-policy') === 'same-origin', 'HSTS + COOP');
 check((await req('/nope/')).status === 404, '404 for unknown path');
@@ -264,7 +267,7 @@ check(r.status === 401, 'private inbox only allows its configured owner identity
 r = await req(`/api/inbox/messages/${inboxMessage.id}/reply`, { method: 'POST', body: JSON.stringify({ body: 'Thanks for getting in touch. I will reply soon.' }), headers: { 'CF-Access-Jwt-Assertion': accessToken, 'Content-Type': 'application/json' } });
 check(r.status === 403, 'private inbox rejects state changes without a same-origin header');
 r = await req('/inbox/', { headers: { 'CF-Access-Jwt-Assertion': accessToken } });
-check(r.status === 200 && r.headers.get('cache-control') === 'no-store' && (await r.text()).includes('Contact inbox'), 'authenticated private inbox page is not publicly cached');
+check(r.status === 200 && /\bno-store\b/.test(r.headers.get('cache-control') || '') && /\bno-transform\b/.test(r.headers.get('cache-control') || '') && (await r.text()).includes('Contact inbox'), 'authenticated private inbox page is not publicly cached and not transformed');
 r = await req(`/api/inbox/messages/${inboxMessage.id}/reply`, { method: 'POST', body: JSON.stringify({ body: 'Thanks for getting in touch. I will reply soon.' }), headers: { 'CF-Access-Jwt-Assertion': accessToken, 'Content-Type': 'application/json', Origin: 'https://jaegergrs.com' } });
 check(r.status === 200 && inboxDb.replies.size === 1 && sent.at(-1)?.to === good.email, 'owner can send and retain a reply from the private inbox');
 r = await req(`/api/inbox/messages/${inboxMessage.id}`, { headers: { 'CF-Access-Jwt-Assertion': accessToken } });
