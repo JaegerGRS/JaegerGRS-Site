@@ -102,7 +102,7 @@ async function handle(request, env, ctx) {
       if (identity === 'unavailable') return secure(new Response('Inbox authentication is temporarily unavailable.', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }));
       if (identity === 'unauthorized') return secure(new Response('Sign in through the authorised Cloudflare Access account to continue.', { status: 401, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }));
       if (!env.INBOX_DB) return secure(new Response('Inbox storage is not configured.', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }));
-      const page = await env.ASSETS.fetch(new Request(new URL('/inbox/index.html', request.url), request));
+      const page = await env.ASSETS.fetch(new Request(new URL('/inbox/', request.url), request));
       const protectedPage = secure(page, { html: true });
       const headers = new Headers(protectedPage.headers);
       headers.set('Cache-Control', 'no-store, no-transform');
